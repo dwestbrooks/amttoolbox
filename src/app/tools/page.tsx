@@ -35,12 +35,43 @@ const tools = [
     href: '/tools/an-hardware-decoder',
     category: 'Hardware',
   },
+  {
+    name: 'Rivet Size Calculator',
+    description: 'Calculate recommended rivet diameter, edge distance, pitch, and grip length for aircraft sheet metal repairs.',
+    href: '/tools/rivet-size-calculator',
+    category: 'Calculations',
+  },
+  {
+    name: 'Hydraulic Pressure / Force / Area Calculator',
+    description: "Calculate hydraulic pressure, force, or area using Pascal's Law. Essential for aircraft hydraulic system troubleshooting.",
+    href: '/tools/hydraulic-calculator',
+    category: 'Calculations',
+  },
+  {
+    name: 'Aircraft Wire Gauge Calculator',
+    description: 'Calculate minimum recommended AWG wire size for aircraft electrical circuits based on current, voltage, wire length, and voltage drop.',
+    href: '/tools/wire-gauge-calculator',
+    category: 'Calculations',
+  },
+  {
+    name: 'Engine Compression Check Reference',
+    description: 'Differential compression check interpretation guide for Continental and Lycoming aircraft engines.',
+    href: '/tools/compression-check-reference',
+    category: 'Reference',
+  },
+  {
+    name: 'Weight & Balance Moment Calculator',
+    description: 'Calculate weight, moment, and CG location for aircraft weight and balance calculations.',
+    href: '/tools/weight-balance-calculator',
+    category: 'Calculations',
+  },
 ]
 
 const categoryColors: Record<string, string> = {
   Calculations: 'bg-blue-900/40 text-blue-300 border border-blue-700/30',
   Converters: 'bg-purple-900/40 text-purple-300 border border-purple-700/30',
   Hardware: 'bg-green-900/40 text-green-300 border border-green-700/30',
+  Reference: 'bg-sky-900/40 text-sky-300 border border-sky-700/30',
 }
 
 export default function ToolsPage() {

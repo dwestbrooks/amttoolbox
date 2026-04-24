@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Calculator, GraduationCap, ArrowRight, Wrench, Ruler, Settings } from 'lucide-react'
+import { Calculator, GraduationCap, ArrowRight, Wrench, Ruler, Settings, BookOpen } from 'lucide-react'
 
 const featuredTools = [
   {
@@ -26,13 +26,26 @@ const featuredTools = [
     href: '/tools/an-hardware-decoder',
     category: 'Hardware',
   },
+  {
+    name: 'Rivet Size Calculator',
+    description: 'Calculate rivet diameter, edge distance, pitch, and grip length for sheet metal repairs.',
+    href: '/tools/rivet-size-calculator',
+    category: 'Calculations',
+  },
+  {
+    name: 'Weight & Balance Calculator',
+    description: 'Calculate weight, moment, and CG location for aircraft weight and balance.',
+    href: '/tools/weight-balance-calculator',
+    category: 'Calculations',
+  },
 ]
 
 const categories = [
-  { name: 'Calculations', description: 'Torque, bend allowance, and engineering calculations', icon: Calculator, count: 2 },
-  { name: 'Hardware Reference', description: 'AN/MS part number decoders and specifications', icon: Settings, count: 1 },
-  { name: 'Study Tools', description: 'A&P exam prep and knowledge checks', icon: GraduationCap, count: 0, soon: true },
-  { name: 'Converters', description: 'Unit conversions: torque, dimensions, and more', icon: Ruler, count: 2 },
+  { name: 'Calculations', description: 'Torque, bend allowance, and engineering calculations', icon: Calculator, count: 6, href: '/tools' },
+  { name: 'Hardware Reference', description: 'AN/MS part number decoders and specifications', icon: Settings, count: 1, href: '/tools' },
+  { name: 'Study Tools', description: 'A&P exam prep and knowledge checks', icon: GraduationCap, count: 0, soon: true, href: '/study' },
+  { name: 'Converters', description: 'Unit conversions: torque, dimensions, and more', icon: Ruler, count: 2, href: '/tools' },
+  { name: 'Reference Tables', description: 'Abbreviations, bend radius tables, and quick-reference charts', icon: BookOpen, count: 2, href: '/reference' },
 ]
 
 export default function Home() {
@@ -74,20 +87,25 @@ export default function Home() {
       <section className="py-16 px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-8 text-center">Tool Categories</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((cat) => {
               const Icon = cat.icon
-              return (
-                <div key={cat.name} className="bg-[#1e293b] border border-slate-700 rounded-lg p-6 hover:border-[#38bdf8]/40 transition-colors">
+              const inner = (
+                <>
                   <Icon className="w-8 h-8 text-[#38bdf8] mb-3" />
                   <h3 className="font-semibold text-white mb-1">{cat.name}</h3>
                   <p className="text-sm text-slate-400 mb-3">{cat.description}</p>
-                  {cat.soon ? (
+                  {'soon' in cat && cat.soon ? (
                     <span className="text-xs bg-amber-900/40 text-amber-400 px-2 py-1 rounded-full border border-amber-700/30">Coming Soon</span>
                   ) : (
                     <span className="text-xs text-slate-500">{cat.count} tool{cat.count !== 1 ? 's' : ''}</span>
                   )}
-                </div>
+                </>
+              )
+              return (
+                <Link key={cat.name} href={cat.href} className="bg-[#1e293b] border border-slate-700 rounded-lg p-6 hover:border-[#38bdf8]/40 transition-colors block group">
+                  {inner}
+                </Link>
               )
             })}
           </div>
@@ -99,7 +117,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-2 text-center">Featured Tools</h2>
           <p className="text-slate-400 text-center mb-8">The most-used tools on the site</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {featuredTools.map((tool) => (
               <Link
                 key={tool.href}

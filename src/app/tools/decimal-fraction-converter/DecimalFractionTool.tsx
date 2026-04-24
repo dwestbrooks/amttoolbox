@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import ToolLayout from '@/components/ToolLayout'
 import { Search } from 'lucide-react'
 
@@ -196,6 +196,34 @@ export default function DecimalFractionTool() {
   const [mm, setMm] = useState('')
   const [search, setSearch] = useState('')
 
+  const currentDecimal: number | null = (() => {
+    const v = parseFloat(decimalIn)
+    return !isNaN(v) && decimalIn !== '' ? v : null
+  })()
+
+  // Nearest drill by absolute difference
+  const nearestDrill = useMemo(() => {
+    if (currentDecimal === null) return null
+    let best = ALL_DRILL_SIZES[0]
+    let bestDiff = Math.abs(ALL_DRILL_SIZES[0].decimal - currentDecimal)
+    for (const entry of ALL_DRILL_SIZES) {
+      const diff = Math.abs(entry.decimal - currentDecimal)
+      if (diff < bestDiff) {
+        bestDiff = diff
+        best = entry
+      }
+    }
+    return { ...best, diff: currentDecimal - best.decimal }
+  }, [currentDecimal])
+
+  // Nearest drill at-or-smaller (for snug fit note)
+  const nearestAtOrSmaller = useMemo(() => {
+    if (currentDecimal === null) return null
+    const candidates = ALL_DRILL_SIZES.filter(d => d.decimal <= currentDecimal)
+    if (candidates.length === 0) return null
+    return candidates[candidates.length - 1]
+  }, [currentDecimal])
+
   const syncFromDecimal = (val: number) => {
     setDecimalIn(val.toFixed(6).replace(/0+$/, '').replace(/\.$/, ''))
     setMm((val * 25.4).toFixed(4))
@@ -281,6 +309,14 @@ export default function DecimalFractionTool() {
               className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
             <p className="text-xs text-slate-500 mt-1">Decimal inches</p>
+            {/* Nearest at-or-smaller drill note */}
+            {nearestAtOrSmaller && currentDecimal !== null && (
+              <p className="text-xs text-slate-400 mt-1.5">
+                <span className="text-slate-500">Snug fit drill:</span>{' '}
+                <span className="text-[#38bdf8] font-mono">{nearestAtOrSmaller.name}</span>{' '}
+                <span className="text-slate-500">({nearestAtOrSmaller.decimal.toFixed(4)}&quot;)</span>
+              </p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-400 mb-1">Millimeters</label>
@@ -313,6 +349,19 @@ export default function DecimalFractionTool() {
             />
           </div>
         </div>
+
+        {/* Nearest drill callout */}
+        {nearestDrill && currentDecimal !== null && (
+          <div className="mb-4 bg-[#38bdf8]/10 border border-[#38bdf8]/30 rounded-lg px-4 py-3 text-sm">
+            <span className="text-[#38bdf8] font-semibold">
+              Nearest drill size: {nearestDrill.name} ({nearestDrill.decimal.toFixed(4)}&quot;)
+            </span>
+            <span className="text-slate-400 ml-2">
+              — {Math.abs(nearestDrill.diff).toFixed(4)}&quot; {nearestDrill.diff >= 0 ? 'smaller than' : 'larger than'} entered value
+            </span>
+          </div>
+        )}
+
         <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-[#1e293b]">
@@ -323,13 +372,19 @@ export default function DecimalFractionTool() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60">
-              {filtered.map(row => (
-                <tr key={row.name} className="hover:bg-slate-800/50 transition-colors">
-                  <td className="py-1.5 pr-6 font-mono font-medium text-white">{row.name}</td>
-                  <td className="py-1.5 pr-6 font-mono text-slate-300">{row.decimal.toFixed(4)}</td>
-                  <td className="py-1.5 font-mono text-slate-400">{(row.decimal * 25.4).toFixed(3)}</td>
-                </tr>
-              ))}
+              {filtered.map(row => {
+                const isNearest = nearestDrill !== null && row.name === nearestDrill.name
+                return (
+                  <tr
+                    key={row.name}
+                    className={`transition-colors ${isNearest ? 'bg-[#38bdf8]/10 ring-1 ring-[#38bdf8]/50' : 'hover:bg-slate-800/50'}`}
+                  >
+                    <td className={`py-1.5 pr-6 font-mono font-medium ${isNearest ? 'text-[#38bdf8]' : 'text-white'}`}>{row.name}</td>
+                    <td className="py-1.5 pr-6 font-mono text-slate-300">{row.decimal.toFixed(4)}</td>
+                    <td className="py-1.5 font-mono text-slate-400">{(row.decimal * 25.4).toFixed(3)}</td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
           {filtered.length === 0 && (

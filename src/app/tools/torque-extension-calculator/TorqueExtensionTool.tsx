@@ -4,6 +4,7 @@ import { useState } from 'react'
 import ToolLayout from '@/components/ToolLayout'
 
 type Unit = 'in-lb' | 'ft-lb' | 'N·m'
+type CalcMode = 'normal' | 'reverse'
 
 function toInLb(value: number, unit: Unit): number {
   switch (unit) {
@@ -26,27 +27,46 @@ const relatedTools = [
   { name: 'AN Hardware Decoder', href: '/tools/an-hardware-decoder', description: 'Decode AN bolt and hardware part numbers' },
 ]
 
+const WRENCH_PRESETS = [8, 10, 12, 15, 18]
+
 export default function TorqueExtensionTool() {
   const [unit, setUnit] = useState<Unit>('in-lb')
-  const [T, setT] = useState('')
+  const [mode, setMode] = useState<CalcMode>('normal')
+  const [inputA, setInputA] = useState('') // T (normal) or TW (reverse)
   const [L, setL] = useState('')
   const [E, setE] = useState('')
 
-  const tNum = parseFloat(T)
+  const aNum = parseFloat(inputA)
   const lNum = parseFloat(L)
   const eNum = parseFloat(E)
 
-  const valid = !isNaN(tNum) && !isNaN(lNum) && !isNaN(eNum) && lNum > 0 && eNum >= 0 && tNum > 0
+  const valid = !isNaN(aNum) && !isNaN(lNum) && !isNaN(eNum) && lNum > 0 && eNum >= 0 && aNum > 0
   const lPlusE = lNum + eNum
 
-  let TW: number | null = null
-  let TWDisplay = ''
+  let result: number | null = null
+  let resultDisplay = ''
+
   if (valid && lPlusE > 0) {
-    const tInLb = toInLb(tNum, unit)
-    const twInLb = (tInLb * lNum) / lPlusE
-    TW = fromInLb(twInLb, unit)
-    TWDisplay = TW.toFixed(2)
+    if (mode === 'normal') {
+      const tInLb = toInLb(aNum, unit)
+      const twInLb = (tInLb * lNum) / lPlusE
+      result = fromInLb(twInLb, unit)
+    } else {
+      const twInLb = toInLb(aNum, unit)
+      const tInLb = (twInLb * lPlusE) / lNum
+      result = fromInLb(tInLb, unit)
+    }
+    resultDisplay = result.toFixed(2)
   }
+
+  const percentReduction = (mode === 'normal' && valid && result !== null && aNum > 0)
+    ? ((aNum - result) / aNum) * 100
+    : null
+
+  const crowfootWarning = valid && eNum > 0 && eNum > lNum * 0.5
+
+  const labelA = mode === 'normal' ? 'Desired Torque (T)' : 'Wrench Setting (TW)'
+  const labelResult = mode === 'normal' ? 'Set your torque wrench to:' : 'Actual fastener torque (T):'
 
   return (
     <ToolLayout
@@ -55,66 +75,169 @@ export default function TorqueExtensionTool() {
       relatedTools={relatedTools}
     >
       <div className="bg-[#1e293b] border border-slate-700 rounded-xl p-6 mb-6">
-        {/* Unit selector */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-slate-400 mb-2">Unit System</label>
-          <div className="flex gap-2">
-            {(['in-lb', 'ft-lb', 'N·m'] as Unit[]).map(u => (
+        {/* Unit selector + Mode toggle */}
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-end gap-4 flex-wrap">
+          <div>
+            <label className="block text-sm font-medium text-slate-400 mb-2">Unit System</label>
+            <div className="flex gap-2">
+              {(['in-lb', 'ft-lb', 'N·m'] as Unit[]).map(u => (
+                <button
+                  key={u}
+                  onClick={() => setUnit(u)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
+                    unit === u
+                      ? 'bg-[#38bdf8] text-[#0f172a] border-[#38bdf8]'
+                      : 'bg-slate-800 text-slate-300 border-slate-600 hover:border-slate-400'
+                  }`}
+                >
+                  {u}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-400 mb-2">Mode</label>
+            <div className="flex gap-2">
               <button
-                key={u}
-                onClick={() => setUnit(u)}
+                onClick={() => { setMode('normal'); setInputA('') }}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
-                  unit === u
+                  mode === 'normal'
                     ? 'bg-[#38bdf8] text-[#0f172a] border-[#38bdf8]'
                     : 'bg-slate-800 text-slate-300 border-slate-600 hover:border-slate-400'
                 }`}
               >
-                {u}
+                Find TW
               </button>
-            ))}
+              <button
+                onClick={() => { setMode('reverse'); setInputA('') }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
+                  mode === 'reverse'
+                    ? 'bg-[#38bdf8] text-[#0f172a] border-[#38bdf8]'
+                    : 'bg-slate-800 text-slate-300 border-slate-600 hover:border-slate-400'
+                }`}
+              >
+                Reverse: Find T from TW
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Inputs */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          {[
-            { label: 'Desired Torque (T)', value: T, setter: setT, hint: 'At the fastener' },
-            { label: 'Wrench Length (L)', value: L, setter: setL, hint: 'Handle center to drive center' },
-            { label: 'Extension Length (E)', value: E, setter: setE, hint: 'Drive center to fastener center' },
-          ].map(({ label, value, setter, hint }) => (
-            <div key={label}>
-              <label className="block text-sm font-medium text-slate-300 mb-1">{label}</label>
-              <div className="relative">
-                <input
-                  type="number"
-                  min="0"
-                  step="any"
-                  value={value}
-                  onChange={e => setter(e.target.value)}
-                  placeholder="0.00"
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-16"
-                />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
-                  {unit}
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1">{hint}</p>
+          {/* Input A */}
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">{labelA}</label>
+            <div className="relative">
+              <input
+                type="number"
+                min="0"
+                step="any"
+                value={inputA}
+                onChange={e => setInputA(e.target.value)}
+                placeholder="0.00"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-16"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
+                {unit}
+              </span>
             </div>
-          ))}
+            <p className="text-xs text-slate-500 mt-1">
+              {mode === 'normal' ? 'At the fastener' : 'What wrench is set to'}
+            </p>
+          </div>
+
+          {/* L */}
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">Wrench Length (L)</label>
+            <div className="relative">
+              <input
+                type="number"
+                min="0"
+                step="any"
+                value={L}
+                onChange={e => setL(e.target.value)}
+                placeholder="0.00"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-10"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
+                in
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">Handle center to drive center</p>
+            {/* Wrench length presets */}
+            <div className="flex gap-1 mt-2 flex-wrap">
+              {WRENCH_PRESETS.map(p => (
+                <button
+                  key={p}
+                  onClick={() => setL(String(p))}
+                  className={`px-2 py-0.5 rounded text-xs font-medium transition-colors border ${
+                    L === String(p)
+                      ? 'bg-[#38bdf8]/20 text-[#38bdf8] border-[#38bdf8]/50'
+                      : 'bg-slate-800 text-slate-400 border-slate-600 hover:border-slate-400'
+                  }`}
+                >
+                  {p}&quot;
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* E */}
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">Extension Length (E)</label>
+            <div className="relative">
+              <input
+                type="number"
+                min="0"
+                step="any"
+                value={E}
+                onChange={e => setE(e.target.value)}
+                placeholder="0.00"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-10"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
+                in
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">Drive center to fastener center</p>
+          </div>
         </div>
 
+        {/* Crowfoot warning */}
+        {crowfootWarning && (
+          <div className="mb-4 bg-amber-900/30 border border-amber-700/40 rounded-lg px-4 py-3 text-amber-300 text-sm">
+            ⚠ Large extension relative to wrench length — verify extension is aligned in-line with the wrench centerline. Angle offsets require different calculations.
+          </div>
+        )}
+
         {/* Result */}
-        {valid && TW !== null ? (
+        {valid && result !== null ? (
           <div className="bg-[#0f172a] border border-[#38bdf8]/30 rounded-lg p-6 mb-6">
-            <p className="text-slate-400 text-sm mb-1">Set your torque wrench to:</p>
+            <p className="text-slate-400 text-sm mb-1">{labelResult}</p>
             <p className="text-4xl font-bold text-[#38bdf8]">
-              {TWDisplay} <span className="text-2xl">{unit}</span>
+              {resultDisplay} <span className="text-2xl">{unit}</span>
             </p>
+            {mode === 'normal' && percentReduction !== null && (
+              <p className="text-sm text-slate-400 mt-2">
+                This is <span className="text-amber-300 font-semibold">{percentReduction.toFixed(1)}%</span> less than the desired torque
+              </p>
+            )}
             <div className="mt-4 pt-4 border-t border-slate-700 text-sm text-slate-400 space-y-1 font-mono">
-              <p>TW = (T × L) / (L + E)</p>
-              <p>TW = ({tNum} × {lNum}) / ({lNum} + {eNum})</p>
-              <p>TW = {(tNum * lNum).toFixed(4)} / {lPlusE.toFixed(4)}</p>
-              <p className="text-[#38bdf8]">TW = {TWDisplay} {unit}</p>
+              {mode === 'normal' ? (
+                <>
+                  <p>TW = (T × L) / (L + E)</p>
+                  <p>TW = ({aNum} × {lNum}) / ({lNum} + {eNum})</p>
+                  <p>TW = {(aNum * lNum).toFixed(4)} / {lPlusE.toFixed(4)}</p>
+                  <p className="text-[#38bdf8]">TW = {resultDisplay} {unit}</p>
+                </>
+              ) : (
+                <>
+                  <p>T = TW × (L + E) / L</p>
+                  <p>T = {aNum} × ({lNum} + {eNum}) / {lNum}</p>
+                  <p>T = {aNum} × {lPlusE.toFixed(4)} / {lNum}</p>
+                  <p className="text-[#38bdf8]">T = {resultDisplay} {unit}</p>
+                </>
+              )}
             </div>
           </div>
         ) : (
@@ -150,6 +273,7 @@ export default function TorqueExtensionTool() {
         <div className="space-y-3 text-sm text-slate-400">
           <p>When a rigid extension or crowfoot wrench is added to a torque wrench, the effective lever arm changes. Without adjusting the wrench setting, you will over-torque the fastener.</p>
           <p className="font-mono bg-slate-800 px-3 py-2 rounded text-slate-300">TW = (T × L) / (L + E)</p>
+          <p className="font-mono bg-slate-800 px-3 py-2 rounded text-slate-300">T = TW × (L + E) / L &nbsp;&nbsp;← reverse mode</p>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong className="text-slate-300">TW</strong> — Torque wrench setting (what you set the wrench to)</li>
             <li><strong className="text-slate-300">T</strong> — Desired torque at the fastener</li>

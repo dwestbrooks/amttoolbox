@@ -42,8 +42,8 @@ const featuredTools = [
 
 const categories = [
   { name: 'Calculations', description: 'Torque, bend allowance, and engineering calculations', icon: Calculator, count: 6, href: '/tools' },
-  { name: 'Hardware Reference', description: 'AN/MS part number decoders and specifications', icon: Settings, count: 1, href: '/tools' },
-  { name: 'Study Tools', description: 'A&P exam prep and knowledge checks', icon: GraduationCap, count: 0, soon: true, href: '/study' },
+  { name: 'Hardware Reference', description: 'AN/MS part number decoders and specifications', icon: Settings, count: 1, href: '/tools/an-hardware-decoder' },
+  { name: 'Study Tools', description: 'A&P exam prep and knowledge checks', icon: GraduationCap, count: 3, href: '/study' },
   { name: 'Converters', description: 'Unit conversions: torque, dimensions, and more', icon: Ruler, count: 2, href: '/tools' },
   { name: 'Reference Tables', description: 'Abbreviations, bend radius tables, and quick-reference charts', icon: BookOpen, count: 2, href: '/reference' },
 ]

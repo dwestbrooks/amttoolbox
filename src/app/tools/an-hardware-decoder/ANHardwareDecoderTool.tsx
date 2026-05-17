@@ -38,8 +38,9 @@ const AN_NUT_TYPES: Record<number, { type: string; description: string; tip: str
   316: { type: 'Plain Hex Nut (Left Hand)', description: 'Standard plain hex nut with left-hand thread. Used on rotating shafts to prevent loosening.', tip: 'Left-hand thread nuts tighten in the direction of shaft rotation.' },
   320: { type: 'Wing Nut', description: 'Wing nut for hand-tightening applications. Not for structural or critical applications.', tip: 'Wing nuts should never be used on critical flight hardware.' },
   362: { type: 'Self-Locking Hex Nut (Thin)', description: 'Thin self-locking nut with all-metal prevailing torque feature. For temperatures up to 250°F.', tip: 'AN362 is the thin version of the self-locking nut. Do not reuse after torque removal.' },
+  363: { type: 'Self-Locking Hex Nut (All-Metal, High-Temp)', description: 'All-metal prevailing torque self-locking nut rated for high-temperature applications up to 450°F. No fiber or nylon insert.', tip: 'Use AN363 when temperatures exceed 250°F. All-metal construction maintains locking torque at elevated temperatures.' },
   364: { type: 'Self-Locking Hex Nut', description: 'Standard self-locking hex nut with fiber insert. Not for use above 250°F or at high RPM.', tip: 'Fiber insert is destroyed at high temperatures. Use AN363 or MS21042 for high-temp applications.' },
-  365: { type: 'Self-Locking Hex Nut (Standard)', description: 'All-metal prevailing torque self-locking nut. Preferred for elevated temperature applications.', tip: 'AN365 is the standard all-metal self-locking nut used throughout aviation maintenance.' },
+  365: { type: 'Self-Locking Hex Nut (Standard, Nylon Insert)', description: 'Standard self-locking hex nut with nylon/fiber insert. Rated to 250°F maximum — NOT for high-temperature applications.', tip: 'AN365 uses a nylon insert and is limited to 250°F. For elevated temperatures, use AN363 (all-metal) instead.' },
   366: { type: 'Self-Locking Hex Nut (Light)', description: 'Light self-locking nut. Designed for lighter duty applications where weight is a concern.', tip: 'Verify load requirements before substituting AN366 for AN365.' },
 }
 
@@ -229,8 +230,9 @@ const AN_REFERENCE = [
   { code: 'AN316', type: 'Plain Hex Nut (LH)', notes: 'Left-hand thread. Used on rotating shafts.' },
   { code: 'AN320', type: 'Wing Nut', notes: 'Hand-tightening only. Non-structural.' },
   { code: 'AN362', type: 'Self-Locking Nut (Thin)', notes: 'Thin all-metal prevailing torque nut.' },
+  { code: 'AN363', type: 'Self-Locking Nut (All-Metal)', notes: 'All-metal. High-temp up to 450°F.' },
   { code: 'AN364', type: 'Self-Locking Nut', notes: 'Fiber insert. Max 250°F. Do not reuse.' },
-  { code: 'AN365', type: 'Self-Locking Nut', notes: 'Standard all-metal. Preferred for elevated temps.' },
+  { code: 'AN365', type: 'Self-Locking Nut (Nylon Insert)', notes: 'Nylon/fiber insert. Max 250°F. NOT for high-temp.' },
   { code: 'AN366', type: 'Self-Locking Nut (Light)', notes: 'Lightweight variant. Verify load capacity.' },
   { code: 'AN380', type: 'Cotter Pin', notes: 'Diameter in 1/32", length in 1/4". Always use new.' },
   { code: 'AN960', type: 'Flat Washer', notes: 'Standard flat washer for bolt/nut applications.' },

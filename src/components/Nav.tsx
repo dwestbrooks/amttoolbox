@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Wrench, ChevronDown, GraduationCap } from 'lucide-react'
+import { Menu, X, ChevronDown, GraduationCap } from 'lucide-react'
 
 type StudyLink = { href: string; label: string; divider?: never } | { divider: true; href?: never; label?: never }
 
@@ -50,10 +51,9 @@ export default function Nav() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-white font-bold text-xl hover:text-[#38bdf8] transition-colors"
+            className="flex items-center hover:opacity-90 transition-opacity"
           >
-            <Wrench className="w-6 h-6 text-[#38bdf8]" />
-            AMT Toolbox
+            <Image src="/logo.svg" alt="AMT Toolbox" width={160} height={36} priority />
           </Link>
 
           {/* Desktop nav */}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -28,6 +29,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark" style={{ background: '#0f172a' }}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-96B8NQ63BP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-96B8NQ63BP');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.className} bg-[#0f172a] text-white min-h-screen flex flex-col`}>
         <Nav />
         <main className="flex-1">

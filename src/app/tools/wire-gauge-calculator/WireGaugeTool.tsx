@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
 import ToolLayout from '@/components/ToolLayout'
 
 const AWG_TABLE = [
@@ -43,6 +44,7 @@ export default function WireGaugeTool() {
   const [length, setLength] = useState('')
   const [dropPct, setDropPct] = useState('2')
   const [installation, setInstallation] = useState<'single' | 'bundled'>('single')
+  const [copied, setCopied] = useState(false)
 
   const V = parseFloat(voltage)
   const I = parseFloat(current)
@@ -106,6 +108,17 @@ export default function WireGaugeTool() {
     const R = (K * L * 2) / row.cm
     return I * R
   })()
+
+  function copyResult() {
+    if (!calcResult?.recommended) return
+    const lines = [`Recommended Wire Gauge: AWG ${calcResult.recommended.awg}`]
+    if (actualVoltsDrop !== null && hasInputs) {
+      lines.push(`Voltage Drop: ${actualVoltsDrop.toFixed(3)}V (${((actualVoltsDrop / V) * 100).toFixed(2)}%)`)
+    }
+    navigator.clipboard.writeText(lines.join('\n'))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <ToolLayout
@@ -234,6 +247,10 @@ export default function WireGaugeTool() {
                 ⚠️ Ampacity requirement is larger than voltage drop requirement — using ampacity-driven size.
               </div>
             )}
+            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? 'Copied!' : 'Copy result'}
+            </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

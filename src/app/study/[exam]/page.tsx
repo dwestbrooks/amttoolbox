@@ -6,17 +6,17 @@ type ExamSlug = 'general' | 'airframe' | 'powerplant'
 
 const examMeta: Record<ExamSlug, { title: string; description: string }> = {
   general: {
-    title: 'General A&P Practice Questions | AMT Toolbox',
+    title: 'General A&P Practice Questions',
     description:
       'Free FAA General written exam practice questions covering mathematics, physics, regulations, publications, weight & balance, and fluid lines.',
   },
   airframe: {
-    title: 'Airframe A&P Practice Questions | AMT Toolbox',
+    title: 'Airframe A&P Practice Questions',
     description:
       'Free FAA Airframe written exam practice questions covering sheet metal, welding, structures, hydraulics, landing gear, electrical systems, and flight controls.',
   },
   powerplant: {
-    title: 'Powerplant A&P Practice Questions | AMT Toolbox',
+    title: 'Powerplant A&P Practice Questions',
     description:
       'Free FAA Powerplant written exam practice questions covering reciprocating and turbine engines, fuel metering, ignition systems, propellers, and lubrication.',
   },

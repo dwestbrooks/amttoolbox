@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
 import ToolLayout from '@/components/ToolLayout'
 
 type Unit = 'in-lb' | 'ft-lb' | 'N·m'
@@ -35,6 +36,7 @@ export default function TorqueExtensionTool() {
   const [inputA, setInputA] = useState('') // T (normal) or TW (reverse)
   const [L, setL] = useState('')
   const [E, setE] = useState('')
+  const [copied, setCopied] = useState(false)
 
   const aNum = parseFloat(inputA)
   const lNum = parseFloat(L)
@@ -67,6 +69,13 @@ export default function TorqueExtensionTool() {
 
   const labelA = mode === 'normal' ? 'Desired Torque (T)' : 'Wrench Setting (TW)'
   const labelResult = mode === 'normal' ? 'Set your torque wrench to:' : 'Actual fastener torque (T):'
+
+  function copyResult() {
+    if (result === null) return
+    navigator.clipboard.writeText(`${labelResult} ${resultDisplay} ${unit}`)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <ToolLayout
@@ -222,6 +231,10 @@ export default function TorqueExtensionTool() {
                 This is <span className="text-amber-300 font-semibold">{percentReduction.toFixed(1)}%</span> less than the desired torque
               </p>
             )}
+            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? 'Copied!' : 'Copy result'}
+            </button>
             <div className="mt-4 pt-4 border-t border-slate-700 text-sm text-slate-400 space-y-1 font-mono">
               {mode === 'normal' ? (
                 <>

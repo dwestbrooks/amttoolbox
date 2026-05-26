@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import ToolLayout from '@/components/ToolLayout'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, Copy, Check } from 'lucide-react'
 
 type Mode = 'pressure' | 'force' | 'area'
 type Units = 'imperial' | 'metric'
@@ -31,6 +31,7 @@ export default function HydraulicTool() {
   const [inputB, setInputB] = useState('')
   const [showExamples, setShowExamples] = useState(false)
   const [boreDiameter, setBoreDiameter] = useState('')
+  const [copied, setCopied] = useState(false)
 
   const pUnit = units === 'imperial' ? 'PSI' : 'kPa'
   const fUnit = units === 'imperial' ? 'lbf' : 'N'
@@ -99,6 +100,14 @@ export default function HydraulicTool() {
       `A = ${aNum} / ${bNum}`,
       `A = ${result!.toFixed(4)} ${aUnit}`,
     ]
+  }
+
+  function copyResult() {
+    if (result === null) return
+    const { labelResult } = getLabels()
+    navigator.clipboard.writeText(`${labelResult}: ${formatResult(result)}`)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   function loadExample(ex: typeof COMMON_EXAMPLES[0]) {
@@ -234,6 +243,12 @@ export default function HydraulicTool() {
                 <p key={i} className={i === getFormulaLines().length - 1 ? 'text-[#38bdf8]' : ''}>{line}</p>
               ))}
             </div>
+          )}
+          {result !== null && (
+            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? 'Copied!' : 'Copy result'}
+            </button>
           )}
         </div>
       </div>

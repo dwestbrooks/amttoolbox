@@ -60,6 +60,24 @@ const tools = [
     category: 'Reference',
   },
   {
+    name: 'Fuel Burn / Endurance / Range Calculator',
+    description: 'Calculate aircraft endurance, range, or fuel required. Supports wind correction, unit toggle, and FAA reserve rules.',
+    href: '/tools/fuel-burn-calculator',
+    category: 'Calculations',
+  },
+  {
+    name: "Ohm's Law / Circuit Calculator",
+    description: "Calculate voltage, current, resistance, or power for aircraft electrical circuits. Includes power wheel SVG and wire heating guidance.",
+    href: '/tools/ohms-law-calculator',
+    category: 'Calculations',
+  },
+  {
+    name: 'MS Hardware Decoder',
+    description: 'Decode MS (Military Standard) part numbers: solid rivets, self-locking nuts, cotter pins, machine screws, washers, and tinnerman nuts.',
+    href: '/tools/ms-hardware-decoder',
+    category: 'Hardware',
+  },
+  {
     name: 'Weight & Balance Moment Calculator',
     description: 'Calculate weight, moment, and CG location for aircraft weight and balance calculations.',
     href: '/tools/weight-balance-calculator',

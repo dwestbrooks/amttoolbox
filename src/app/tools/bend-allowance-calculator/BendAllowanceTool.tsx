@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
 import ToolLayout from '@/components/ToolLayout'
 import { HelpCircle } from 'lucide-react'
 
@@ -35,6 +36,7 @@ export default function BendAllowanceTool() {
   const [showKTooltip, setShowKTooltip] = useState(false)
   const [useOML, setUseOML] = useState(false)
   const [showMm, setShowMm] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const angleNum = parseFloat(angle)
   const radiusInputNum = parseFloat(radius)
@@ -81,6 +83,18 @@ export default function BendAllowanceTool() {
   }
 
   const unitLabel = showMm ? 'mm' : 'inches'
+
+  function copyResult() {
+    if (BA === null || SB === null) return
+    const lines = [
+      `Bend Allowance (BA): ${displayVal(BA)} ${unitLabel}`,
+      `Setback (SB): ${displayVal(SB)} ${unitLabel}`,
+    ]
+    if (FL !== null) lines.push(`Flat Blank Length: ${displayVal(FL)} ${unitLabel}`)
+    navigator.clipboard.writeText(lines.join('\n'))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <ToolLayout
@@ -228,6 +242,10 @@ export default function BendAllowanceTool() {
                 </div>
               ))}
             </div>
+            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? 'Copied!' : 'Copy result'}
+            </button>
 
             {/* Step-by-step */}
             <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-4 font-mono text-sm text-slate-400 space-y-1">

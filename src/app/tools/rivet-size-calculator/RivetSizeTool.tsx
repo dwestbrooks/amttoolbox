@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
 import ToolLayout from '@/components/ToolLayout'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -110,6 +111,7 @@ export default function RivetSizeTool() {
   const [headStyle, setHeadStyle]     = useState<'470' | '426'>('470')
   const [alloy, setAlloy]             = useState('AD')
   const [material, setMaterial]       = useState('2024-T3 Al')
+  const [copied, setCopied]           = useState(false)
 
   // ── Parse ──────────────────────────────────────────────────────────────────
 
@@ -215,6 +217,20 @@ export default function RivetSizeTool() {
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
+
+  function copyResult() {
+    if (!calc) return
+    const lines = [
+      `Part Number: ${calc.partNumber}`,
+      `Diameter: ${fmt4(calc.actualDiameter)}"`,
+      `Edge Distance (rec): ${fmt4(calc.edgeRec)}"`,
+      `Pitch (rec): ${fmt4(calc.pitchRec)}"`,
+    ]
+    if (calc.estimatedRivets > 0) lines.push(`Rivets/row: ${calc.estimatedRivets}`)
+    navigator.clipboard.writeText(lines.join('\n'))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <ToolLayout
@@ -375,6 +391,10 @@ export default function RivetSizeTool() {
                   <p className="text-4xl font-black text-[#38bdf8] font-mono tracking-tight mb-4">
                     {calc.partNumber}
                   </p>
+                  <button onClick={copyResult} className="mb-4 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+                    {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copied ? 'Copied!' : 'Copy result'}
+                  </button>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div className="bg-[#0f172a] rounded-lg p-3">
                       <p className="text-[10px] text-slate-500 mb-1">Diameter</p>

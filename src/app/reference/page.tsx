@@ -3,7 +3,7 @@ import { BookOpen } from 'lucide-react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Reference Tables — AMT Toolbox',
+  title: 'Reference Tables',
   description: 'Aviation maintenance reference tables: abbreviations, bend radius charts, and quick-reference guides for A&P mechanics.',
 }
 

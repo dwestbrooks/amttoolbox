@@ -4,7 +4,7 @@ import { BookOpen, Zap, Cpu, GraduationCap, ChevronRight, Info } from 'lucide-re
 import StudyResourceCard from '@/components/StudyResourceCard'
 
 export const metadata: Metadata = {
-  title: 'Free A&P Exam Practice Questions | AMT Toolbox',
+  title: 'Free A&P Exam Practice Questions',
   description:
     'Free practice questions for the FAA A&P written exams. General, Airframe, and Powerplant exam prep for aircraft maintenance technicians.',
 }

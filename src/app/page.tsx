@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Calculator, GraduationCap, ArrowRight, Wrench, Ruler, Settings, BookOpen } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Free A&P Mechanic Calculators & Tools',
+  description: 'Free calculators, reference tables, and FAA A&P exam practice questions for aircraft maintenance technicians. Bend allowance, torque, rivet size, weight & balance, and more.',
+}
 
 const featuredTools = [
   {

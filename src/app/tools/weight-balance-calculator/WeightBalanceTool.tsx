@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
 import ToolLayout from '@/components/ToolLayout'
 
 interface WBItem {
@@ -23,6 +24,7 @@ export default function WeightBalanceTool() {
   const [fwdLimit, setFwdLimit] = useState('')
   const [aftLimit, setAftLimit] = useState('')
   const [showKg, setShowKg] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   function updateItem(id: number, field: keyof WBItem, value: string) {
     setItems(prev => prev.map(item => item.id === id ? { ...item, [field]: value } : item))
@@ -128,6 +130,21 @@ export default function WeightBalanceTool() {
 
   function displayWeightBoth(lbs: number): string {
     return `${lbs.toFixed(1)} lbs (${(lbs * LBS_TO_KG).toFixed(1)} kg)`
+  }
+
+  function copyResult() {
+    if (cg === null) return
+    const lines = [
+      `Total Weight: ${totalWeight.toFixed(1)} lbs`,
+      `Total Moment: ${totalMoment.toFixed(1)} in-lbs`,
+      `CG Location: ${cg.toFixed(2)}" from datum`,
+    ]
+    if (hasCGLimits && cg !== null) {
+      lines.push(cgInLimits ? 'Status: Within CG limits' : 'Status: OUTSIDE CG limits')
+    }
+    navigator.clipboard.writeText(lines.join('\n'))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
@@ -293,6 +310,12 @@ export default function WeightBalanceTool() {
                 <p className={`text-xs font-semibold mt-1 ${cgInLimits ? 'text-green-400' : 'text-red-400'}`}>
                   {cgInLimits ? '✓ Within CG limits' : '✗ Outside CG limits'}
                 </p>
+              )}
+              {cg !== null && (
+                <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+                  {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? 'Copied!' : 'Copy result'}
+                </button>
               )}
             </div>
           </div>

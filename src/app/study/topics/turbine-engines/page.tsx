@@ -4,7 +4,7 @@ import { ArrowLeft, Cpu } from 'lucide-react'
 import StudyResourceCard from '@/components/StudyResourceCard'
 
 export const metadata: Metadata = {
-  title: 'Turbine Engine Study Guide for A&P Exam | AMT Toolbox',
+  title: 'Turbine Engine Study Guide for A&P Exam',
   description:
     'Turbine engine study guide for the FAA Powerplant written exam. Covers turbojet, turbofan, turboprop types, compressor and turbine sections, and performance parameters N1, N2, EGT, EPR.',
 }

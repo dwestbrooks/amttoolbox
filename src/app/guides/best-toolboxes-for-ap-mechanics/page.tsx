@@ -41,7 +41,7 @@ const products: Product[] = [
       'Not lockable as securely as a premium box',
       'Drawer slides are decent but not Snap-on grade',
     ],
-    url: 'https://www.harborfreight.com/30-in-5-drawer-mechanics-cart-blue-64031.html',
+    url: 'https://www.harborfreight.com/30-in-5-drawer-mechanics-cart-blue-70369.html',
   },
   {
     name: 'DeWalt TSTAK Mobile Storage Deep Box on Wheels',

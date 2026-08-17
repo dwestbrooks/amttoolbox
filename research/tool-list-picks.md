@@ -20,6 +20,8 @@
 - diagonal premium: Knipex 10" high leverage B000X4MPAQ ✓
 - needle-nose budget: Craftsman 8" long nose CMHT81645 B08PFK8YWQ ✓
 - needle-nose premium: Knipex 8" long nose w/cutter B000X4MOVG ✓
+- duck bill budget: Williams 8" duck bill B005VN3MD8 ✓
+- duck bill premium: SK Tools 8" duckbill serrated B000RN00NC ✓
 
 ## Torque
 - torque wrench budget: Craftsman 3/8" drive CMMT99433 B07VZZDFL9 ✓

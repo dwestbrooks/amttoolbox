@@ -129,6 +129,18 @@ const groups: ToolGroup[] = [
         },
       },
       {
+        name: 'Duck bill pliers',
+        note: 'A daily aviation tool for safety wire, cotter pins, and reaching into tight spots. Flat, tapered jaws grip without marring.',
+        budget: {
+          label: 'Williams 8" duck bill pliers',
+          url: 'https://www.amazon.com/Williams-PL-149C-8-Inch-Duck-Bill-Pliers/dp/B005VN3MD8',
+        },
+        premium: {
+          label: 'SK Tools 8" duckbill, serrated jaws',
+          url: 'https://www.amazon.com/SK-Tools-USA-Duckbill-Serrated/dp/B000RN00NC',
+        },
+      },
+      {
         name: 'Needle-nose pliers',
         note: 'Gripping, reaching, and general mechanical work.',
         budget: {

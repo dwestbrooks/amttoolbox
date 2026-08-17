@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X, ChevronDown, GraduationCap } from 'lucide-react'
 
@@ -52,9 +53,7 @@ export default function Nav() {
             href="/"
             className="flex items-center hover:opacity-90 transition-opacity"
           >
-            <span className="text-white font-bold text-lg tracking-tight hover:text-[#38bdf8] transition-colors">
-              AMT Toolbox
-            </span>
+            <Image src="/logo.svg" alt="AMT Toolbox" width={240} height={48} priority className="h-9 w-auto" />
           </Link>
 
           {/* Desktop nav */}

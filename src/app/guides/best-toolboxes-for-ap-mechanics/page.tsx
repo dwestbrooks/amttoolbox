@@ -94,7 +94,7 @@ const products: Product[] = [
       'Not a roll-around, it sits on a bench or cart',
       'Sells through industrial distributors, so price varies',
     ],
-    url: 'https://www.amazon.com/s?k=kennedy+526+tool+chest',
+    url: 'https://www.amazon.com/Kennedy-Manufacturing-526B-8-Drawer-Machinists/dp/B004RI4Q6K',
   },
   {
     name: 'US General 56 in. Double Bank Roller Cabinet',
@@ -111,7 +111,7 @@ const products: Product[] = [
       'Big and heavy, it stays in one spot',
       'Not truck-brand prestige if that matters to you',
     ],
-    url: 'https://www.harborfreight.com/tool-storage-organization/u-s-general-tool-storage.html',
+    url: 'https://www.harborfreight.com/56-in-x-22-in-roll-cab-series-3-red-58714.html',
   },
 ]
 

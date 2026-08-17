@@ -5,7 +5,7 @@ import { ArrowRight, ExternalLink, CheckCircle2 } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'A&P Mechanic Tool List: What You Actually Need',
   description:
-    'The complete hand-tool list A&P mechanics and AMTs actually carry: sockets, wrenches, safety wire pliers, torque wrenches, and more. Organized by job, with guidance for A&P school and your first job.',
+    'The complete hand-tool list A&P mechanics and AMTs actually carry: sockets, wrenches, safety wire pliers, torque wrenches, and more. Organized by job, with budget and premium picks for A&P school and your first job.',
   alternates: {
     canonical: '/guides/ap-mechanic-tool-list',
   },
@@ -20,10 +20,22 @@ function link(url: string) {
   return url
 }
 
+type ToolOption = {
+  label: string
+  url: string
+}
+
+type Tool = {
+  name: string
+  note: string
+  budget: ToolOption
+  premium: ToolOption
+}
+
 type ToolGroup = {
   category: string
   intro: string
-  tools: { name: string; note: string; url: string }[]
+  tools: Tool[]
 }
 
 const groups: ToolGroup[] = [
@@ -35,12 +47,26 @@ const groups: ToolGroup[] = [
       {
         name: '3/8-inch drive socket set, deep and shallow',
         note: 'Get both metric and SAE or an aviation-specific set that covers common hardware.',
-        url: 'https://www.amazon.com/s?k=3%2F8+inch+drive+socket+set',
+        budget: {
+          label: 'Craftsman 3/8" drive set',
+          url: 'https://www.amazon.com/Craftsman-Piece-Drive-Socket-Metric/dp/B09S2PFYVG',
+        },
+        premium: {
+          label: 'GEARWRENCH 57-pc 3/8" 6-pt SAE/Metric',
+          url: 'https://www.amazon.com/GEARWRENCH-Drive-Mechanics-Standard-Metric/dp/B000NICEVW',
+        },
       },
       {
         name: '1/4-inch drive socket set',
         note: 'For small hardware, fairings, and instrument panels.',
-        url: 'https://www.amazon.com/s?k=1%2F4+inch+drive+socket+set',
+        budget: {
+          label: 'Craftsman 44-pc 1/4" 6-pt SAE/Metric',
+          url: 'https://www.amazon.com/Craftsman-Piece-Drive-Socket-Metric/dp/B09S2PFYVG',
+        },
+        premium: {
+          label: 'Craftsman 24-pc Nano SAE 1/4"',
+          url: 'https://www.amazon.com/CRAFTSMAN-Socket-4-Inch-24-Piece-CMMT12009/dp/B07QL38G69',
+        },
       },
     ],
   },
@@ -51,12 +77,26 @@ const groups: ToolGroup[] = [
       {
         name: 'Combination wrench set, SAE and metric',
         note: 'A 3/8-inch to 3/4-inch range covers most general aviation fasteners.',
-        url: 'https://www.amazon.com/s?k=combination+wrench+set',
+        budget: {
+          label: 'Craftsman 52-pc combo SAE/Metric',
+          url: 'https://www.amazon.com/CRAFTSMAN-WRENCH-SET-COMBINATION-METRIC/dp/B078NDYCSK',
+        },
+        premium: {
+          label: 'GEARWRENCH 20-pc ratcheting combo',
+          url: 'https://www.amazon.com/GEARWRENCH-35720-Ratcheting-Wrench-Set/dp/B07GSCZCPM',
+        },
       },
       {
         name: 'Gear wrenches / ratcheting box-end wrenches',
         note: 'Speed up work in tight spots where a full swing is impossible.',
-        url: 'https://www.amazon.com/s?k=ratcheting+wrench+set',
+        budget: {
+          label: 'Craftsman 20-pc ratcheting',
+          url: 'https://www.amazon.com/CRAFTSMAN-Ratcheting-Combination-Wrench-CMMT87220/dp/B0DPGJVJZV',
+        },
+        premium: {
+          label: 'GEARWRENCH 20-pc ratcheting',
+          url: 'https://www.amazon.com/GEARWRENCH-35720-Ratcheting-Wrench-Set/dp/B07GSCZCPM',
+        },
       },
     ],
   },
@@ -67,17 +107,38 @@ const groups: ToolGroup[] = [
       {
         name: 'Safety wire pliers (lockwire twisters)',
         note: 'The single most aviation-specific tool. Learn the double-twist lockwire method.',
-        url: 'https://www.amazon.com/s?k=safety+wire+pliers',
+        budget: {
+          label: 'Milbar 25W reversible 6"',
+          url: 'https://www.amazon.com/Safety-Wire-Twisters-Automatic-Return/dp/B0CDN2W554',
+        },
+        premium: {
+          label: 'Milbar 25W reversible (cushion throat)',
+          url: 'https://www.amazon.com/Milbar-Safety-Wire-Twister-Pliers/dp/B0049C9EQ6',
+        },
       },
       {
         name: 'Diagonal cutters (dykes)',
         note: 'For safety wire and cotter pins. A good pair lasts a career.',
-        url: 'https://www.amazon.com/s?k=diagonal+cutters',
+        budget: {
+          label: 'Craftsman 8" compound action',
+          url: 'https://www.amazon.com/CRAFTSMAN-Diagonal-Cutting-Compound-CMHT81718/dp/B07RC8NGFX',
+        },
+        premium: {
+          label: 'Knipex 10" high leverage',
+          url: 'https://www.amazon.com/7401250SBA-10-Inch-Leverage-Diagonal-Cutters/dp/B000X4MPAQ',
+        },
       },
       {
-        name: 'Needle-nose pliers and linesman pliers',
+        name: 'Needle-nose pliers',
         note: 'Gripping, reaching, and general mechanical work.',
-        url: 'https://www.amazon.com/s?k=needle+nose+pliers',
+        budget: {
+          label: 'Craftsman 8" long nose',
+          url: 'https://www.amazon.com/CRAFTSMAN-CMHT81645-Long-Nose-Pliers/dp/B08PFK8YWQ',
+        },
+        premium: {
+          label: 'Knipex 8" long nose with cutter',
+          url: 'https://www.amazon.com/KNIPEX-Tools-Multi-Component-2612200-Multi-Colour/dp/B000X4MOVG',
+        },
       },
     ],
   },
@@ -88,12 +149,26 @@ const groups: ToolGroup[] = [
       {
         name: 'Torque wrench (inch-pounds and foot-pounds)',
         note: 'Many aircraft fasteners are specd in inch-pounds, so get both ranges or a quality digital one.',
-        url: 'https://www.amazon.com/s?k=torque+wrench',
+        budget: {
+          label: 'Craftsman 3/8" drive torque wrench',
+          url: 'https://www.amazon.com/CRAFTSMAN-Torque-Wrench-8-Inch-CMMT99433/dp/B07VZZDFL9',
+        },
+        premium: {
+          label: 'TEKTON 1/2" drive 40-300 ft-lb',
+          url: 'https://www.amazon.com/TEKTON-90-Tooth-Dual-Direction-Micrometer-TRQ52403/dp/B0FYHC3J73',
+        },
       },
       {
         name: 'Torque screwdriver',
         note: 'For screws and small fasteners where over-torqueing is a real risk.',
-        url: 'https://www.amazon.com/s?k=torque+screwdriver',
+        budget: {
+          label: 'Craftsman 29-pc torque screwdriver set',
+          url: 'https://www.amazon.com/CRAFTSMAN-Screwdriver-Phillips-Screwdriving-CMHT68130/dp/B0CH3Z16GW',
+        },
+        premium: {
+          label: 'Wera Kraftform 7442 adjustable',
+          url: 'https://www.amazon.com/Wera-Adjustable-Torque-Screwdriver-3-0-6-0/dp/B000ZEHO3C',
+        },
       },
     ],
   },
@@ -104,12 +179,26 @@ const groups: ToolGroup[] = [
       {
         name: 'Flat-head and Phillips screwdriver set',
         note: 'Precision-ground tips fit properly and avoid cam-out.',
-        url: 'https://www.amazon.com/s?k=screwdriver+set',
+        budget: {
+          label: 'Craftsman 8-pc bi-material',
+          url: 'https://www.amazon.com/CRAFTSMAN-SCREWDRIVER-BI-MATERIAL-8PC-CMHT65075N/dp/B0B39PHCVZ',
+        },
+        premium: {
+          label: 'Wera Kraftform 6-pc Lasertip',
+          url: 'https://www.amazon.com/Wera-Kraftform-Screwdriver-Lasertip-6-Pieces/dp/B0001NQQCM',
+        },
       },
       {
         name: 'Nut drivers / hex drivers',
         note: 'For fasteners a screwdriver just does not fit.',
-        url: 'https://www.amazon.com/s?k=nut+driver+set',
+        budget: {
+          label: 'Craftsman 7-pc SAE/MM nut driver',
+          url: 'https://www.amazon.com/CRAFTSMAN-Driver-Magnetic-Comfort-CMHT65146/dp/B0GQJX98SL',
+        },
+        premium: {
+          label: 'Klein 7-pc magnetic nut driver',
+          url: 'https://www.amazon.com/Klein-Tools-Driver-7-Piece-Chrome-Plate/dp/B0BM2ZZYVQ',
+        },
       },
     ],
   },
@@ -120,17 +209,38 @@ const groups: ToolGroup[] = [
       {
         name: 'Dial or digital caliper',
         note: 'For measuring wear, thickness, and clearances to spec.',
-        url: 'https://www.amazon.com/s?k=digital+caliper',
+        budget: {
+          label: 'Neiko 6" digital caliper',
+          url: 'https://www.amazon.com/NEIKO-Digital-Caliper-Electronic-Measuring/dp/B0CN3T1372',
+        },
+        premium: {
+          label: 'Starrett 6" digital caliper',
+          url: 'https://www.amazon.com/Starrett-Digital-Calipers-Metric-Stainless/dp/B009PSJ4W8',
+        },
       },
       {
         name: 'Feeler gauges',
         note: 'For setting and checking gaps and clearances.',
-        url: 'https://www.amazon.com/s?k=feeler+gauges',
+        budget: {
+          label: '16-blade stainless feeler gauge',
+          url: 'https://www.amazon.com/Feeler-Gauges-Stainless-Standard-Thickness/dp/B0CF9C1W4V',
+        },
+        premium: {
+          label: '16-blade stainless, dual-marked',
+          url: 'https://www.amazon.com/Feeler-Gauges-Stainless-Straight-Automotive/dp/B0GDR68D11',
+        },
       },
       {
         name: 'Flashlight / inspection light',
         note: 'Half of aircraft maintenance is looking carefully at what you cannot see well.',
-        url: 'https://www.amazon.com/s?k=inspection+light+flashlight',
+        budget: {
+          label: 'Energizer LED pen light',
+          url: 'https://www.amazon.com/Energizer-Flashlight-Inspection-Batteries-Included/dp/B0FM2YNN4G',
+        },
+        premium: {
+          label: 'Streamlight Knucklehead',
+          url: 'https://www.amazon.com/Streamlight-90761-Knucklehead-120-Volt-Charger/dp/B0089UZBBG',
+        },
       },
     ],
   },
@@ -149,8 +259,9 @@ export default function ToolListGuide() {
         </h1>
         <p className="text-lg text-slate-400 leading-relaxed max-w-3xl">
           Aircraft maintenance runs on good hand tools. This is the working list A&amp;P mechanics and
-          AMTs actually carry, organized by job. Whether you are building your first kit for A&amp;P
-          school or upgrading for a new job, this covers the essentials without the fluff.
+          AMTs actually carry, organized by job. Each tool comes with a budget pick and a premium
+          pick, so whether you are building your first kit for A&amp;P school or upgrading for a new
+          job, you can choose what fits.
         </p>
       </div>
 
@@ -173,22 +284,39 @@ export default function ToolListGuide() {
             <p className="text-slate-400 leading-relaxed mb-4 max-w-3xl">{group.intro}</p>
             <div className="space-y-3">
               {group.tools.map(tool => (
-                <div key={tool.name} className="bg-[#1e293b] border border-slate-700 rounded-lg p-4 flex flex-col sm:flex-row sm:items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-3">
+                <div key={tool.name} className="bg-[#1e293b] border border-slate-700 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
+                    <div className="flex-1">
                       <h3 className="text-white font-medium">{tool.name}</h3>
-                      <a
-                        href={link(tool.url)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-[#38bdf8] hover:text-sky-300 shrink-0"
-                      >
-                        View options
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                      <p className="text-sm text-slate-400 mt-1">{tool.note}</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                        <a
+                          href={link(tool.budget.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between gap-2 bg-[#0f172a] border border-slate-700 rounded-lg px-3 py-2.5 hover:border-[#38bdf8] transition-colors group"
+                        >
+                          <div>
+                            <div className="text-xs text-slate-500 uppercase tracking-wide">Budget</div>
+                            <div className="text-sm text-slate-200">{tool.budget.label}</div>
+                          </div>
+                          <ExternalLink className="w-4 h-4 text-[#38bdf8] shrink-0" />
+                        </a>
+                        <a
+                          href={link(tool.premium.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between gap-2 bg-[#0f172a] border border-slate-700 rounded-lg px-3 py-2.5 hover:border-[#38bdf8] transition-colors group"
+                        >
+                          <div>
+                            <div className="text-xs text-slate-500 uppercase tracking-wide">Premium</div>
+                            <div className="text-sm text-slate-200">{tool.premium.label}</div>
+                          </div>
+                          <ExternalLink className="w-4 h-4 text-[#38bdf8] shrink-0" />
+                        </a>
+                      </div>
                     </div>
-                    <p className="text-sm text-slate-400 mt-1">{tool.note}</p>
                   </div>
                 </div>
               ))}

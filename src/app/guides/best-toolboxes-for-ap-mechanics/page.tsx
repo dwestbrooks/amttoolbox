@@ -80,21 +80,21 @@ const products: Product[] = [
     url: 'https://www.amazon.com/48-22-8426-Packout-Rolling-Tool-Box/dp/B076QLC84N',
   },
   {
-    name: 'Kennedy Signature Machinists Chest',
-    model: 'Kennedy 526B',
+    name: 'Kennedy 3-Drawer Mechanics Chest',
+    model: 'Kennedy 263',
     tier: 'premium',
-    priceNote: 'Dealer-priced; the classic A&P bench box',
+    priceNote: 'Check current price on Amazon',
     bestFor: 'Best classic bench box for a home or office hangar',
     pros: [
       'The heritage brand A&P mechanics have used for generations',
-      'Solid steel with smooth drawers and a proper lock',
+      'Solid steel with smooth friction drawers and a proper lock',
       'Holds precision and inspection tools on the bench',
     ],
     cons: [
       'Not a roll-around, it sits on a bench or cart',
       'Sells through industrial distributors, so price varies',
     ],
-    url: 'https://www.amazon.com/Kennedy-Manufacturing-526B-8-Drawer-Machinists/dp/B004RI4Q6K',
+    url: 'https://www.amazon.com/Kennedy-Drawer-Tool-Chest-263/dp/B004H3S9FY',
   },
   {
     name: 'US General 56 in. Double Bank Roller Cabinet',

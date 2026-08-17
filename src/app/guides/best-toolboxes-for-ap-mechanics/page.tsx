@@ -27,7 +27,7 @@ type Product = {
 const products: Product[] = [
   {
     name: 'US General 30 in. 5-Drawer Mechanics Cart',
-    model: 'Harbor Freight Item 64031',
+    model: 'Harbor Freight Item 70369',
     tier: 'budget',
     priceNote: 'About $290 at Harbor Freight',
     bestFor: 'Best budget cart that holds a full A&P hand-tool set',

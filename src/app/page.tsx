@@ -62,7 +62,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-[#38bdf8]/10 text-[#38bdf8] text-sm font-medium px-3 py-1.5 rounded-full mb-6 border border-[#38bdf8]/20">
             <Wrench className="w-4 h-4" />
-            Free • No Login • No Ads
+            Free Tools for Aviation Professionals
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Free Tools for A&amp;P Students &amp;<br />
@@ -139,6 +139,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gear guides promo */}
+      <section className="py-16 px-4 border-b border-slate-800 bg-[#0b1220]">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-2 text-center">Gear Guides</h2>
+          <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+            Honest tool recommendations for A&amp;P mechanics and AMTs, based on how the job actually works.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/guides/best-toolboxes-for-ap-mechanics"
+              className="bg-[#1e293b] border border-slate-700 rounded-lg p-6 hover:border-[#38bdf8]/50 hover:bg-slate-800/80 transition-all group"
+            >
+              <span className="text-xs text-[#38bdf8] font-medium uppercase tracking-wider">Tool storage</span>
+              <h3 className="text-white font-semibold mt-2 mb-2 group-hover:text-[#38bdf8] transition-colors">
+                Best Toolboxes for A&amp;P Mechanics
+              </h3>
+              <p className="text-sm text-slate-400">
+                Mobile boxes, carts, and roll-aways that fit the way aircraft maintenance actually works.
+              </p>
+            </Link>
+            <Link
+              href="/guides/ap-mechanic-tool-list"
+              className="bg-[#1e293b] border border-slate-700 rounded-lg p-6 hover:border-[#38bdf8]/50 hover:bg-slate-800/80 transition-all group"
+            >
+              <span className="text-xs text-[#38bdf8] font-medium uppercase tracking-wider">Hand tools</span>
+              <h3 className="text-white font-semibold mt-2 mb-2 group-hover:text-[#38bdf8] transition-colors">
+                A&amp;P Mechanic Tool List
+              </h3>
+              <p className="text-sm text-slate-400">
+                The working list of what A&amp;P mechanics and AMTs actually carry, organized by job.
+              </p>
+            </Link>
+          </div>
+          <div className="text-center mt-6">
+            <Link href="/guides" className="text-[#38bdf8] hover:text-sky-300 text-sm font-medium">
+              View all gear guides →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Why section */}
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
@@ -146,8 +187,8 @@ export default function Home() {
           <p className="text-slate-400 leading-relaxed">
             AMT Toolbox was built because aviation maintenance technicians deserve better tools.
             Whether you&apos;re prepping for your A&amp;P written exam or need a quick torque calculation
-            on the hangar floor, these tools are here for you — free, accurate, and always available.
-            No subscriptions, no ads, no account required.
+            on the hangar floor, these tools are here for you: free, accurate, and always available.
+            No subscriptions, no login, no account required.
           </p>
         </div>
       </section>

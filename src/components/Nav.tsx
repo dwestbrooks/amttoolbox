@@ -126,6 +126,15 @@ export default function Nav() {
             </Link>
 
             <Link
+              href="/guides"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/guides') ? 'text-[#38bdf8]' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              Guides
+            </Link>
+
+            <Link
               href="/about"
               className={`text-sm font-medium transition-colors ${
                 isActive('/about') ? 'text-[#38bdf8]' : 'text-slate-300 hover:text-white'
@@ -227,6 +236,16 @@ export default function Nav() {
             }`}
           >
             Reference
+          </Link>
+
+          <Link
+            href="/guides"
+            onClick={() => setOpen(false)}
+            className={`block py-2 text-sm font-medium transition-colors ${
+              isActive('/guides') ? 'text-[#38bdf8]' : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            Guides
           </Link>
 
           <Link

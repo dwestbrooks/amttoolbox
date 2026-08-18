@@ -40,9 +40,9 @@ const kit: KitItem[] = [
     name: 'Safety wire pliers',
     note: 'The non-negotiable aviation tool. Learn the double-twist method.',
     priority: 1,
-    low: 30,
-    high: 60,
-    url: 'https://www.amazon.com/dp/B0CDN2W554',
+    low: 25,
+    high: 55,
+    url: 'https://www.amazon.com/dp/B089SVBN4V',
   },
   {
     id: 'sockets-38',

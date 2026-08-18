@@ -14,8 +14,8 @@
 - ratcheting premium: GEARWRENCH 20pc ratcheting B07GSCZCPM ✓
 
 ## Pliers
-- safety wire budget: (generic) - use Milbar 25W B0CDN2W554 as premium
-- safety wire premium: Milbar 25W reversible B0CDN2W554 ✓
+- safety wire budget: Mudder 2-pc twisting pliers B089SVBN4V ✓ ($24.99, In Stock)
+- safety wire premium: OTC 4795 8" twist pliers B00BVL80LI ✓ ($55.22, In Stock)
 - diagonal budget: Craftsman 8" compound CMHT81718 B07RC8NGFX ✓
 - diagonal premium: Knipex 10" high leverage B000X4MPAQ ✓
 - needle-nose budget: Craftsman 8" long nose CMHT81645 B08PFK8YWQ ✓

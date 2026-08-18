@@ -108,12 +108,12 @@ const groups: ToolGroup[] = [
         name: 'Safety wire pliers (lockwire twisters)',
         note: 'The single most aviation-specific tool. Learn the double-twist lockwire method.',
         budget: {
-          label: 'Milbar 25W reversible 6"',
-          url: 'https://www.amazon.com/Safety-Wire-Twisters-Automatic-Return/dp/B0CDN2W554',
+          label: 'Mudder 2-pc safety wire twisting pliers',
+          url: 'https://www.amazon.com/dp/B089SVBN4V',
         },
         premium: {
-          label: 'Milbar 25W reversible (cushion throat)',
-          url: 'https://www.amazon.com/Milbar-Safety-Wire-Twister-Pliers/dp/B0049C9EQ6',
+          label: 'OTC 4795 safety wire twist pliers, 8"',
+          url: 'https://www.amazon.com/dp/B00BVL80LI',
         },
       },
       {

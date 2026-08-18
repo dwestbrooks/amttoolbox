@@ -174,8 +174,8 @@ const groups: ToolGroup[] = [
         name: 'Torque screwdriver',
         note: 'For screws and small fasteners where over-torqueing is a real risk.',
         budget: {
-          label: 'Craftsman 29-pc torque screwdriver set',
-          url: 'https://www.amazon.com/CRAFTSMAN-Screwdriver-Phillips-Screwdriving-CMHT68130/dp/B0CH3Z16GW',
+          label: 'coobeast 13-pc preset 1/4" drive torque screwdriver',
+          url: 'https://www.amazon.com/dp/B0CSK2XV25',
         },
         premium: {
           label: 'Wera Kraftform 7442 adjustable',
@@ -312,8 +312,8 @@ const groups: ToolGroup[] = [
           url: 'https://www.amazon.com/NEIKO-Digital-Caliper-Electronic-Measuring/dp/B0CN3T1372',
         },
         premium: {
-          label: 'Starrett 6" digital caliper',
-          url: 'https://www.amazon.com/Starrett-Digital-Calipers-Metric-Stainless/dp/B009PSJ4W8',
+          label: 'Starrett 6" electronic slide caliper',
+          url: 'https://www.amazon.com/dp/B00WSOU772',
         },
       },
       {

@@ -26,8 +26,8 @@
 ## Torque
 - torque wrench budget: Craftsman 3/8" drive CMMT99433 B07VZZDFL9 ✓
 - torque wrench premium: TEKTON 1/2" drive 40-300 TRQ52403 B0FYHC3J73 ✓
-- torque screwdriver budget: Craftsman 29pc CMHT68130 B0CH3Z16GW ✓
-- torque screwdriver premium: Wera Kraftform 7442 B000ZEHO3C ✓
+- torque screwdriver budget: coobeast 13-pc preset 1/4" B0CSK2XV25 ✓ ($25.45, In Stock)
+- torque screwdriver premium: Wera Kraftform 7442 B000ZEHO3C ✓ ($159.58, In Stock)
 
 ## Screwdrivers
 - screwdriver budget: Craftsman 8pc bi-material CMHT65075N B0B39PHCVZ ✓
@@ -37,7 +37,7 @@
 
 ## Measuring
 - caliper budget: Neiko 6" digital B0CN3T1372 ✓
-- caliper premium: Starrett 6" digital B009PSJ4W8 ✓
+- caliper premium: Starrett 6" electronic slide B00WSOU772 ✓ ($139.99, In Stock)
 - feeler gauge budget: 16-blade stainless B0CF9C1W4V ✓
 - feeler gauge premium: Starrett 66 (use Starrett caliper brand) - TBD
 - light budget: Energizer LED pen light B0FM2YNN4G ✓

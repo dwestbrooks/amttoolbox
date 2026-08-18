@@ -94,7 +94,7 @@ const products: Product[] = [
       'Not a roll-around, it sits on a bench or cart',
       'Sells through industrial distributors, so price varies',
     ],
-    url: 'https://www.amazon.com/Kennedy-Drawer-Tool-Chest-263/dp/B004H3S9FY',
+    url: 'https://buykennedy.com/product/26-3-drawer-mechanics-chest/',
   },
   {
     name: 'US General 56 in. Double Bank Roller Cabinet',

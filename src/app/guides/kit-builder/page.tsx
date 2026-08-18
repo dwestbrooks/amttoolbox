@@ -139,9 +139,9 @@ const kit: KitItem[] = [
     name: 'Torque screwdriver',
     note: 'For small fasteners where over-torqueing is a real risk.',
     priority: 3,
-    low: 30,
-    high: 50,
-    url: 'https://www.amazon.com/CRAFTSMAN-Screwdriver-Phillips-Screwdriving-CMHT68130/dp/B0CH3Z16GW',
+    low: 25,
+    high: 160,
+    url: 'https://www.amazon.com/dp/B0CSK2XV25',
   },
   {
     id: 'nutdriver',

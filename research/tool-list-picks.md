@@ -42,3 +42,23 @@
 - feeler gauge premium: Starrett 66 (use Starrett caliper brand) - TBD
 - light budget: Energizer LED pen light B0FM2YNN4G ✓
 - light premium: Streamlight Knucklehead B0089UZBBG ✓
+
+## Aviation specialty / electrical additions (Gemma review, 2026-08-17)
+- in-lb torque budget: LEXIVON 1/4" 20-200 in-lb B07M68FY3X ✓
+- in-lb torque premium: VANPO 1/4" 20-240 in-lb click B0D3D41DM2 ✓
+- cleco budget: 50pc 1/4" Clecos+pliers bag B06VV91F43 ✓
+- cleco premium: 50pc C1/8&C3/32 Clecos+clamps+pouch B09B17J38M ✓
+- deburr budget: AFA Tooling 11 blade B01L2XR4P2 ✓
+- deburr premium: AFA Tooling 11 M2 HSS anodized B07RM1D6WD ✓
+- DMM budget: Fluke 101 B00HE6MIJY ✓
+- DMM premium: Fluke 117 B000O3LUEI ✓
+- stripper budget: Klein 11063W B00BC39YFQ ✓
+- stripper premium: KNIPEX 12 62 180 B000PAR60C ✓
+- crimper budget: haisstronica B0873Y19T7 ✓
+- crimper premium: Klein 3005CR B07WMB61J5 ✓
+- mic budget: Fowler 0-1" B00B5HES1O ✓
+- mic premium: Mitutoyo 0-1" ratchet B0006J429K ✓
+- dial indicator budget: Qnkaa + mag base B08DFKCWX4 ✓
+- dial indicator premium: Noga DG61003 B002K07CTK ✓
+- headlamp budget: LHKNL B08D66HCXW ✓
+- headlamp premium: Blukar 2000L B0BLVT2Y9N ✓

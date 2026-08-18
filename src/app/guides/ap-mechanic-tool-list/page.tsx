@@ -182,6 +182,92 @@ const groups: ToolGroup[] = [
           url: 'https://www.amazon.com/Wera-Adjustable-Torque-Screwdriver-3-0-6-0/dp/B000ZEHO3C',
         },
       },
+      {
+        name: 'Inch-pound torque wrench (dedicated low range)',
+        note: 'Many aircraft fasteners are specd in inch-pounds, not foot-pounds. Using a big foot-pound wrench on a small fastener will snap the bolt, so keep a dedicated low-range 1/4-inch drive wrench in the kit.',
+        budget: {
+          label: 'LEXIVON 1/4\" drive, 20-200 in-lb',
+          url: 'https://www.amazon.com/dp/B07M68FY3X',
+        },
+        premium: {
+          label: 'VANPO 1/4\" drive, 20-240 in-lb click type',
+          url: 'https://www.amazon.com/dp/B0D3D41DM2',
+        },
+      },
+    ],
+  },
+  {
+    category: 'Sheet metal and airframe',
+    intro:
+      'If you touch skins, fairings, or structure, these are the tools that separate airframe work from a general shop.',
+    tools: [
+      {
+        name: 'Cleco pliers and a set of Clecos',
+        note: 'Temporary fasteners that hold sheet metal in position while you drill and rivet. Indispensable for any airframe work.',
+        budget: {
+          label: '50 pc 1/4\" Clecos + pliers with carry bag',
+          url: 'https://www.amazon.com/dp/B06VV91F43',
+        },
+        premium: {
+          label: '50 pc C1/8 & C3/32 Clecos + clamps + pliers + pouch',
+          url: 'https://www.amazon.com/Cleco-Fasteners-Clamps-Pliers-Pouch/dp/B09B17J38M',
+        },
+      },
+      {
+        name: 'Deburring tool',
+        note: 'Cleans the burr off drilled holes in aluminum before they become stress cracks. A few bucks that saves a panel.',
+        budget: {
+          label: 'AFA Tooling deburring tool, 11 blades',
+          url: 'https://www.amazon.com/dp/B01L2XR4P2',
+        },
+        premium: {
+          label: 'AFA Tooling deburring tool, 11 M2 HSS blades, anodized',
+          url: 'https://www.amazon.com/dp/B07RM1D6WD',
+        },
+      },
+    ],
+  },
+  {
+    category: 'Electrical and avionics',
+    intro:
+      'Modern aircraft are wired and avionics-heavy. A few electrical tools round out the kit for troubleshooting and repair.',
+    tools: [
+      {
+        name: 'Digital multimeter',
+        note: 'The baseline troubleshooting tool for any electrical fault. Look for one that measures AC/DC voltage, resistance, and continuity.',
+        budget: {
+          label: 'Fluke 101 multimeter',
+          url: 'https://www.amazon.com/dp/B00HE6MIJY',
+        },
+        premium: {
+          label: 'Fluke 117 multimeter, non-contact voltage',
+          url: 'https://www.amazon.com/dp/B000O3LUEI',
+        },
+      },
+      {
+        name: 'Precision wire strippers',
+        note: 'Aircraft wire is thin and mil-spec. A precision stripper gets the insulation off without nicking the conductor.',
+        budget: {
+          label: 'Klein 11063W heavy-duty auto wire stripper',
+          url: 'https://www.amazon.com/dp/B00BC39YFQ',
+        },
+        premium: {
+          label: 'KNIPEX 12 62 180 automatic wire stripper',
+          url: 'https://www.amazon.com/dp/B000PAR60C',
+        },
+      },
+      {
+        name: 'Crimping tool',
+        note: 'For aviation-grade terminals and connectors. A ratcheting crimper gives consistent, repeatable crimps.',
+        budget: {
+          label: 'haisstronica ratcheting crimper',
+          url: 'https://www.amazon.com/dp/B0873Y19T7',
+        },
+        premium: {
+          label: 'Klein 3005CR ratcheting insulated terminal crimper',
+          url: 'https://www.amazon.com/dp/B07WMB61J5',
+        },
+      },
     ],
   },
   {
@@ -231,6 +317,30 @@ const groups: ToolGroup[] = [
         },
       },
       {
+        name: 'Micrometer (start with 0-1", add 1-2" later)',
+        note: 'For measuring wear limits and tolerances on engine and landing gear components to spec. Most students start with a 0-1" and add ranges as needed.',
+        budget: {
+          label: 'Fowler 0-1" outside micrometer',
+          url: 'https://www.amazon.com/dp/B00B5HES1O',
+        },
+        premium: {
+          label: 'Mitutoyo 0-1" ratchet micrometer',
+          url: 'https://www.amazon.com/dp/B0006J429K',
+        },
+      },
+      {
+        name: 'Dial indicator with magnetic base',
+        note: 'For checking run-out on shafts, gear play, and true position. A magnetic base lets you set it up hands-free.',
+        budget: {
+          label: 'Qnkaa dial indicator with magnetic base',
+          url: 'https://www.amazon.com/dp/B08DFKCWX4',
+        },
+        premium: {
+          label: 'Noga regular-duty dial gage holder with mag base',
+          url: 'https://www.amazon.com/dp/B002K07CTK',
+        },
+      },
+      {
         name: 'Feeler gauges',
         note: 'For setting and checking gaps and clearances.',
         budget: {
@@ -252,6 +362,18 @@ const groups: ToolGroup[] = [
         premium: {
           label: 'Streamlight Knucklehead',
           url: 'https://www.amazon.com/Streamlight-90761-Knucklehead-120-Volt-Charger/dp/B0089UZBBG',
+        },
+      },
+      {
+        name: 'LED headlamp',
+        note: 'For cowling and fuselage work where you need both hands free. A high-lumen, rechargeable headlamp beats a handheld in tight spaces.',
+        budget: {
+          label: 'LHKNL rechargeable headlamp',
+          url: 'https://www.amazon.com/dp/B08D66HCXW',
+        },
+        premium: {
+          label: 'Blukar 2000L rechargeable headlamp, 2-pack',
+          url: 'https://www.amazon.com/dp/B0BLVT2Y9N',
         },
       },
     ],
@@ -284,6 +406,8 @@ export default function ToolListGuide() {
           <li><a href="#wrenches" className="hover:text-[#38bdf8] transition-colors">Wrenches</a></li>
           <li><a href="#pliers" className="hover:text-[#38bdf8] transition-colors">Pliers and cutters</a></li>
           <li><a href="#torque" className="hover:text-[#38bdf8] transition-colors">Torque tools</a></li>
+          <li><a href="#sheetmetal" className="hover:text-[#38bdf8] transition-colors">Sheet metal and airframe</a></li>
+          <li><a href="#electrical" className="hover:text-[#38bdf8] transition-colors">Electrical and avionics</a></li>
           <li><a href="#screwdrivers" className="hover:text-[#38bdf8] transition-colors">Screwdrivers and small tools</a></li>
           <li><a href="#inspection" className="hover:text-[#38bdf8] transition-colors">Measuring and inspection</a></li>
         </ol>
@@ -291,7 +415,7 @@ export default function ToolListGuide() {
 
       <div className="space-y-12 mb-12">
         {groups.map((group, gi) => (
-          <section key={group.category} id={['sockets', 'wrenches', 'pliers', 'torque', 'screwdrivers', 'inspection'][gi]}>
+          <section key={group.category} id={['sockets', 'wrenches', 'pliers', 'torque', 'sheetmetal', 'electrical', 'screwdrivers', 'inspection'][gi]}>
             <h2 className="text-2xl font-semibold text-white mb-2">{group.category}</h2>
             <p className="text-slate-400 leading-relaxed mb-4 max-w-3xl">{group.intro}</p>
             <div className="space-y-3">

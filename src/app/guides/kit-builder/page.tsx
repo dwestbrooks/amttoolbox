@@ -271,10 +271,10 @@ const priorityLabel: Record<number, string> = {
 }
 
 const budgets = [
+  { label: '$250', value: 250 },
   { label: '$500', value: 500 },
+  { label: '$750', value: 750 },
   { label: '$1,000', value: 1000 },
-  { label: '$2,000', value: 2000 },
-  { label: '$5,000', value: 5000 },
 ]
 
 export default function KitBuilder() {
@@ -282,7 +282,7 @@ export default function KitBuilder() {
 
   // Build a priority-buy list: take highest-priority items first, using the low
   // (budget-tier) cost estimate, and stop when the next item would exceed budget.
-  const { list, total, remaining } = useMemo(() => {
+  const { list, total, remaining, fullKit } = useMemo(() => {
     const sorted = [...kit].sort((a, b) => a.priority - b.priority)
     const picked: KitItem[] = []
     let spent = 0
@@ -295,7 +295,7 @@ export default function KitBuilder() {
         break
       }
     }
-    return { list: picked, total: spent, remaining: budget - spent }
+    return { list: picked, total: spent, remaining: budget - spent, fullKit: picked.length === kit.length }
   }, [budget])
 
   // Items that fall just outside this budget, as a "stretch goal" suggestion.
@@ -395,6 +395,27 @@ export default function KitBuilder() {
           </div>
         ))}
       </div>
+
+      {fullKit && (
+        <div className="bg-[#38bdf8]/10 border border-[#38bdf8]/30 rounded-xl p-5 mb-8">
+          <div className="flex items-start gap-3">
+            <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
+            <div>
+              <div className="text-sm font-medium text-white mb-1">
+                Your budget covers the full starter kit
+              </div>
+              <p className="text-sm text-slate-400">
+                Every tool on the list fits within ${budget}. You can upgrade any pick to the
+                premium tier, or add the toolbox from our{' '}
+                <Link href="/guides/best-toolboxes-for-ap-mechanics" className="text-[#38bdf8] hover:text-sky-300">
+                  toolbox guide
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {stretch && (
         <div className="bg-[#1e293b]/50 border border-slate-800 rounded-xl p-5 mb-8">

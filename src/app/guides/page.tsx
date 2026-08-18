@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { Wrench, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Wrench, ArrowRight, CheckCircle2, Calculator } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Gear Guides for A&P Mechanics & AMTs',
@@ -47,6 +47,31 @@ export default function GuidesPage() {
           is tied to a real product and a current price.
         </p>
       </div>
+
+      <Link
+        href="/guides/kit-builder"
+        className="group flex flex-col sm:flex-row sm:items-center gap-4 bg-[#1e293b] border border-[#38bdf8]/30 rounded-xl p-6 mb-6 hover:border-[#38bdf8]/60 transition-colors"
+      >
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#38bdf8]/10 border border-[#38bdf8]/20 shrink-0">
+          <Calculator className="w-6 h-6 text-[#38bdf8]" />
+        </div>
+        <div className="flex-1">
+          <span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full mb-2 w-fit bg-[#38bdf8]/10 text-[#38bdf8] border border-[#38bdf8]/20">
+            Interactive tool
+          </span>
+          <h2 className="text-xl text-white font-semibold mb-1 group-hover:text-[#38bdf8] transition-colors">
+            A&amp;P Tool Kit Builder
+          </h2>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Enter your starting budget and get a priority-ordered buy list, built around the tools
+            you actually need first.
+          </p>
+        </div>
+        <span className="inline-flex items-center gap-1.5 text-[#38bdf8] text-sm font-medium shrink-0">
+          Try the builder
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </span>
+      </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {guides.map(g => (

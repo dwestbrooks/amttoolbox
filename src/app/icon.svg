@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="amtGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="10" fill="#0f172a" />
+  <path d="M24 8L38.66 16v16L24 40L9.34 32V16L24 8z" stroke="url(#amtGradient)" stroke-width="2.5" stroke-linejoin="round" />
+  <path d="M24 13l1 8l9 3.5v1.5l-9 0l1.5 6.5h-5l1.5 -6.5l-9 0v-1.5l9 -3.5z" fill="url(#amtGradient)" />
+</svg>

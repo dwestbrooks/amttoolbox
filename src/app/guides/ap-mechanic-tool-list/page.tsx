@@ -317,8 +317,8 @@ const groups: ToolGroup[] = [
         },
       },
       {
-        name: 'Micrometer (start with 0-1", add 1-2" later)',
-        note: 'For measuring wear limits and tolerances on engine and landing gear components to spec. Most students start with a 0-1" and add ranges as needed.',
+        name: 'Micrometer (0-1" and 1-2")',
+        note: 'For measuring wear limits and tolerances on engine and landing gear components to spec. Most students start with a 0-1" and add the 1-2" as they take on bigger components.',
         budget: {
           label: 'Fowler 0-1" outside micrometer',
           url: 'https://www.amazon.com/dp/B00B5HES1O',
@@ -326,6 +326,18 @@ const groups: ToolGroup[] = [
         premium: {
           label: 'Mitutoyo 0-1" ratchet micrometer',
           url: 'https://www.amazon.com/dp/B0006J429K',
+        },
+      },
+      {
+        name: 'Micrometer, 1-2" range',
+        note: 'The second range you will reach for once you are measuring larger engine and landing gear parts.',
+        budget: {
+          label: 'Fowler 1-2" outside micrometer',
+          url: 'https://www.amazon.com/dp/B00B5HESQ4',
+        },
+        premium: {
+          label: 'Mitutoyo 1-2" ratchet micrometer',
+          url: 'https://www.amazon.com/dp/B003UATB7K',
         },
       },
       {

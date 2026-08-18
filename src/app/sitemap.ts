@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/guides/kit-builder`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/guides/best-toolboxes-for-ap-mechanics`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/guides/ap-mechanic-tool-list`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/guides/snap-on-student-excellence-program`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/disclosure`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/about`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.4 },
   ]

@@ -28,6 +28,14 @@ const guides = [
     href: '/guides/ap-mechanic-tool-list',
     category: 'Hand tools',
   },
+  {
+    slug: 'snap-on-student-excellence-program',
+    title: 'Snap-on Student Excellence Program (SEP) for A&P Students',
+    tagline:
+      'How A&P and AMT students can buy Snap-on tools at a discount, including the aviation-specific sets.',
+    href: '/guides/snap-on-student-excellence-program',
+    category: 'Student program',
+  },
 ]
 
 export default function GuidesPage() {

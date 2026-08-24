@@ -275,38 +275,42 @@ export default function BendAllowanceTool() {
             <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-4">
               <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Bend Cross-Section</p>
               <div className="flex justify-center">
-                <svg viewBox="0 0 260 220" className="w-full max-w-xs" aria-label="Bend cross-section">
-                  {/* Scale: thickness and radius to fit ~110px drawing space */}
+                <svg viewBox="0 0 340 260" className="w-full max-w-md" aria-label="Bend cross-section">
                   {(() => {
-                    const tPx = Math.max(6, Math.min(30, thicknessNum * 220))
-                    const rPx = Math.max(10, Math.min(80, radiusNum * 120))
+                    // Inner bend center at (cx, cy). Inner radius R, material thickness T.
+                    const cx = 90
+                    const cy = 200
+                    const R = 58
+                    const T = Math.max(16, Math.min(30, thicknessNum * 300))
                     const mat = '#38bdf8'
                     const neutral = '#f59e0b'
-                    const cx = 60
-                    const cy = 140
-                    // Neutral axis sits k*T above the inner bend surface
-                    const naOffset = kNum * tPx
-                    const naRad = Math.max(1, rPx + naOffset)
-                    const naEnd = cx + naRad
-                    const naY = cy - rPx - naOffset
+                    // Neutral axis sits k*T outward from the inner radius (same angle span).
+                    const naRad = R + kNum * T
+                    const naY = cy - naRad
+                    const naEndX = cx + naRad
+                    // Neutral axis should stay within the material body: start at the
+                    // vertical leg's left face (cx - T), not float outside it.
+                    const naStartX = cx - T
                     return (
                       <>
-                        {/* Horizontal leg (material thickness band) */}
-                        <rect x={8} y={cy - rPx - tPx} width={cx + rPx} height={tPx} fill={mat} fillOpacity="0.35" stroke={mat} strokeWidth="1.5"/>
-                        {/* Vertical leg */}
-                        <rect x={cx} y={cy - rPx - tPx} width={tPx} height={rPx + tPx} fill={mat} fillOpacity="0.35" stroke={mat} strokeWidth="1.5"/>
-                        {/* Bend arc — inner surface */}
-                        <path d={`M ${cx} ${cy - rPx} A ${rPx} ${rPx} 0 0 0 ${cx + rPx} ${cy}`} fill="none" stroke={mat} strokeWidth="1.5"/>
-                        {/* Neutral axis */}
-                        <path d={`M ${8} ${naY} L ${cx} ${naY} A ${naRad} ${naRad} 0 0 0 ${naEnd} ${naY}`} fill="none" stroke={neutral} strokeWidth="1.5" strokeDasharray="4 3"/>
-                        {/* Radius dimension */}
-                        <line x1={cx} y1={cy} x2={cx + rPx * 0.707} y2={cy - rPx * 0.707} stroke="#64748b" strokeWidth="1"/>
-                        <text x={cx + rPx * 0.5} y={cy - rPx * 0.5 + 14} textAnchor="middle" fill="#94a3b8" fontSize="9">R {radiusNum.toFixed(2)}</text>
+                        {/* Vertical leg — material rising on the LEFT of the bend */}
+                        <rect x={cx - T} y={22} width={T} height={(cy - R) - 22} fill={mat} fillOpacity="0.35" stroke={mat} strokeWidth="2"/>
+                        {/* Horizontal leg — material running to the RIGHT below the bend */}
+                        <rect x={cx} y={cy} width={160} height={T} fill={mat} fillOpacity="0.35" stroke={mat} strokeWidth="2"/>
+                        {/* Inner bend arc (the empty notch) */}
+                        <path d={`M ${cx} ${cy - R} A ${R} ${R} 0 0 0 ${cx + R} ${cy}`} fill="none" stroke={mat} strokeWidth="2"/>
+                        {/* Neutral axis (dashed, curved, radius R + K*T) */}
+                        <path d={`M ${naStartX} ${naY} L ${cx} ${naY} A ${naRad} ${naRad} 0 0 0 ${naEndX} ${naY}`} fill="none" stroke={neutral} strokeWidth="2.5" strokeDasharray="5 4"/>
+                        {/* Inner radius dimension */}
+                        <line x1={cx} y1={cy} x2={cx + R * 0.707} y2={cy - R * 0.707} stroke="#64748b" strokeWidth="1"/>
+                        <text x={cx + R * 0.52} y={cy - R * 0.6} textAnchor="middle" fill="#94a3b8" fontSize="11">R {radiusNum.toFixed(3)}</text>
                         {/* Thickness dimension */}
-                        <line x1={cx + rPx + 12} y1={cy - rPx - tPx} x2={cx + rPx + 12} y2={cy - rPx} stroke="#64748b" strokeWidth="1"/>
-                        <text x={cx + rPx + 14} y={cy - rPx - tPx / 2} fill="#94a3b8" fontSize="9">T {thicknessNum.toFixed(3)}</text>
+                        <line x1={cx + R + 14} y1={cy} x2={cx + R + 14} y2={cy + T} stroke="#64748b" strokeWidth="1"/>
+                        <text x={cx + R + 16} y={cy + T / 2 + 4} fill="#94a3b8" fontSize="11">T {thicknessNum.toFixed(3)}</text>
+                        {/* Neutral axis label */}
+                        <text x={naEndX - 58} y={naY - 7} fill={neutral} fontSize="10">neutral axis (K×T)</text>
                         {/* Angle label */}
-                        <text x={cx + 40} y={cy + 22} fill="#94a3b8" fontSize="10" textAnchor="middle">θ = {angleNum}°</text>
+                        <text x={cx + R + 30} y={cy + 40} fill="#94a3b8" fontSize="12" textAnchor="middle">θ = {angleNum}°</text>
                       </>
                     )
                   })()}

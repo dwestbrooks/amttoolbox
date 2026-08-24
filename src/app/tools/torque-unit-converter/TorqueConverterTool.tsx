@@ -111,30 +111,31 @@ export default function TorqueConverterTool() {
             const logMin = 0 // 1 in-lb
             const logMax = 3.4 // ~2500 in-lb
             const frac = hasVal ? Math.max(0, Math.min(1, (logVal - logMin) / (logMax - logMin))) : 0
-            const angle = -90 + frac * 180 // -90° (left) to +90° (right)
-            const rad = (angle * Math.PI) / 180
+            // Gauge sweeps the TOP semicircle: 180° (left) -> 270° (top) -> 360° (right).
+            const angleDeg = 180 + frac * 180
+            const rad = (angleDeg * Math.PI) / 180
             const cx = 150, cy = 150, r = 128
             const tipX = cx + r * Math.cos(rad)
             const tipY = cy + r * Math.sin(rad)
             const dispUnit = ['in-lb', 'ft-lb', 'N·m', 'kgf·cm'].includes(activeUnit) ? activeUnit : 'in-lb'
             const dispText = (parseFloat(values[activeUnit] ?? '') || 0).toFixed(2)
-            const arc = (a: number) => {
-              const rr = (a * Math.PI) / 180
+            const arcPt = (aDeg: number) => {
+              const rr = (aDeg * Math.PI) / 180
               const x = cx + (r - 10) * Math.cos(rr)
               const y = cy + (r - 10) * Math.sin(rr)
               return `${x.toFixed(1)},${y.toFixed(1)}`
             }
             return (
               <svg viewBox="0 0 300 300" className="w-full max-w-xs mx-auto" aria-label="Torque gauge">
-                {/* Arc background */}
-                <path d={`M ${arc(-90)} A ${r - 10} ${r - 10} 0 0 1 ${arc(90)}`} fill="none" stroke="#334155" strokeWidth="16" strokeLinecap="round"/>
+                {/* Arc background (top semicircle: 180 -> 360) */}
+                <path d={`M ${arcPt(180)} A ${r - 10} ${r - 10} 0 0 1 ${arcPt(360)}`} fill="none" stroke="#334155" strokeWidth="16" strokeLinecap="round"/>
                 {/* Filled arc */}
                 {hasVal && (
-                  <path d={`M ${arc(-90)} A ${r - 10} ${r - 10} 0 0 1 ${arc(-90 + frac * 180)}`} fill="none" stroke="#38bdf8" strokeWidth="16" strokeLinecap="round"/>
+                  <path d={`M ${arcPt(180)} A ${r - 10} ${r - 10} 0 0 1 ${arcPt(180 + frac * 180)}`} fill="none" stroke="#38bdf8" strokeWidth="16" strokeLinecap="round"/>
                 )}
-                {/* Tick marks */}
+                {/* Tick marks across the top arc */}
                 {Array.from({ length: 9 }).map((_, i) => {
-                  const ta = -90 + i * 22.5
+                  const ta = 180 + i * 22.5
                   const tr = (ta * Math.PI) / 180
                   const x1 = cx + (r - 30) * Math.cos(tr)
                   const y1 = cy + (r - 30) * Math.sin(tr)
@@ -142,12 +143,12 @@ export default function TorqueConverterTool() {
                   const y2 = cy + (r - 42) * Math.sin(tr)
                   return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#64748b" strokeWidth="2"/>
                 })}
-                {/* Labels at arc ends */}
-                <text x={cx - (r - 46)} y={cy - 6} textAnchor="middle" fill="#64748b" fontSize="10">1</text>
-                <text x={cx + (r - 46)} y={cy - 6} textAnchor="middle" fill="#64748b" fontSize="10">2500</text>
-                <text x={cx} y={cy + 6} textAnchor="middle" fill="#64748b" fontSize="9">in-lb</text>
-                {/* Center value */}
-                <text x={cx} y={cy + 62} textAnchor="middle" fill="#94a3b8" fontSize="15" fontWeight="bold">{dispText} {dispUnit}</text>
+                {/* End labels at the flat diameter */}
+                <text x={cx - (r - 50)} y={cy + 4} textAnchor="middle" fill="#64748b" fontSize="10">1</text>
+                <text x={cx + (r - 50)} y={cy + 4} textAnchor="middle" fill="#64748b" fontSize="10">2500</text>
+                <text x={cx} y={cy + 22} textAnchor="middle" fill="#64748b" fontSize="9">in-lb</text>
+                {/* Center value below the needle */}
+                <text x={cx} y={cy + 52} textAnchor="middle" fill="#94a3b8" fontSize="15" fontWeight="bold">{dispText} {dispUnit}</text>
                 {/* Needle */}
                 {hasVal && (
                   <>

@@ -97,6 +97,72 @@ export default function TorqueConverterTool() {
           ))}
         </div>
 
+        {/* Live torque gauge */}
+        <div className="mt-6 bg-[#0f172a] border border-slate-700 rounded-xl p-4">
+          <p className="text-sm text-slate-400 mb-2 font-medium">Torque Gauge</p>
+          {(() => {
+            const inLb = parseFloat(values['in-lb'] ?? '')
+            const hasVal = !isNaN(inLb) && values['in-lb'] !== '' && inLb !== 0
+            const displayVal = hasVal
+              ? (inLb < 0 ? -inLb : inLb)
+              : 0
+            // Log scale from ~1 in-lb to ~2500 in-lb across the 180° arc
+            const logVal = hasVal ? Math.log10(displayVal) : 0
+            const logMin = 0 // 1 in-lb
+            const logMax = 3.4 // ~2500 in-lb
+            const frac = hasVal ? Math.max(0, Math.min(1, (logVal - logMin) / (logMax - logMin))) : 0
+            const angle = -90 + frac * 180 // -90° (left) to +90° (right)
+            const rad = (angle * Math.PI) / 180
+            const cx = 150, cy = 150, r = 128
+            const tipX = cx + r * Math.cos(rad)
+            const tipY = cy + r * Math.sin(rad)
+            const dispUnit = ['in-lb', 'ft-lb', 'N·m', 'kgf·cm'].includes(activeUnit) ? activeUnit : 'in-lb'
+            const dispText = (parseFloat(values[activeUnit] ?? '') || 0).toFixed(2)
+            const arc = (a: number) => {
+              const rr = (a * Math.PI) / 180
+              const x = cx + (r - 10) * Math.cos(rr)
+              const y = cy + (r - 10) * Math.sin(rr)
+              return `${x.toFixed(1)},${y.toFixed(1)}`
+            }
+            return (
+              <svg viewBox="0 0 300 300" className="w-full max-w-xs mx-auto" aria-label="Torque gauge">
+                {/* Arc background */}
+                <path d={`M ${arc(-90)} A ${r - 10} ${r - 10} 0 0 1 ${arc(90)}`} fill="none" stroke="#334155" strokeWidth="16" strokeLinecap="round"/>
+                {/* Filled arc */}
+                {hasVal && (
+                  <path d={`M ${arc(-90)} A ${r - 10} ${r - 10} 0 0 1 ${arc(-90 + frac * 180)}`} fill="none" stroke="#38bdf8" strokeWidth="16" strokeLinecap="round"/>
+                )}
+                {/* Tick marks */}
+                {Array.from({ length: 9 }).map((_, i) => {
+                  const ta = -90 + i * 22.5
+                  const tr = (ta * Math.PI) / 180
+                  const x1 = cx + (r - 30) * Math.cos(tr)
+                  const y1 = cy + (r - 30) * Math.sin(tr)
+                  const x2 = cx + (r - 42) * Math.cos(tr)
+                  const y2 = cy + (r - 42) * Math.sin(tr)
+                  return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#64748b" strokeWidth="2"/>
+                })}
+                {/* Labels at arc ends */}
+                <text x={cx - (r - 46)} y={cy - 6} textAnchor="middle" fill="#64748b" fontSize="10">1</text>
+                <text x={cx + (r - 46)} y={cy - 6} textAnchor="middle" fill="#64748b" fontSize="10">2500</text>
+                <text x={cx} y={cy + 6} textAnchor="middle" fill="#64748b" fontSize="9">in-lb</text>
+                {/* Center value */}
+                <text x={cx} y={cy + 62} textAnchor="middle" fill="#94a3b8" fontSize="15" fontWeight="bold">{dispText} {dispUnit}</text>
+                {/* Needle */}
+                {hasVal && (
+                  <>
+                    <circle cx={cx} cy={cy} r="7" fill="#38bdf8"/>
+                    <line x1={cx} y1={cy} x2={tipX} y2={tipY} stroke="#38bdf8" strokeWidth="3" strokeLinecap="round"/>
+                  </>
+                )}
+              </svg>
+            )
+          })()}
+          <p className="text-xs text-slate-500 mt-1 text-center">
+            Gauge scales logarithmically (1 to ~2500 in-lb). Edit any field above to move the needle.
+          </p>
+        </div>
+
         {/* Find My Bolt */}
         <div className="mt-6 pt-5 border-t border-slate-700">
           <p className="text-sm font-semibold text-white mb-2">Find My Bolt</p>

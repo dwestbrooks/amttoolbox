@@ -43,6 +43,7 @@ export default function FuelBurnTool() {
 
   const gsKt = windType === 'headwind' ? tasKt - windKt : tasKt + windKt
   const gsDisplay = units === 'metric' ? (gsKt * KT_TO_KMH).toFixed(1) : gsKt.toFixed(1)
+  const windDisplay = units === 'metric' ? (windKt * KT_TO_KMH).toFixed(1) : windKt.toFixed(1)
   const speedUnit = units === 'imperial' ? 'kt' : 'km/h'
   const volUnit = units === 'imperial' ? 'gal' : 'L'
   const flowUnit = units === 'imperial' ? 'gal/hr' : 'L/hr'
@@ -236,7 +237,7 @@ export default function FuelBurnTool() {
             </div>
             {!isNaN(tasKt) && tasKt > 0 && (
               <p className="text-xs text-[#38bdf8] mt-1.5">
-                TAS {tasDisplay(tasKt)} {speedUnit} {windType === 'headwind' ? '−' : '+'} {gsDisplay} → GS {gsDisplay} {speedUnit}
+                TAS {tasDisplay(tasKt)} {speedUnit} {windType === 'headwind' ? '−' : '+'} {windDisplay} {speedUnit} → GS {gsDisplay} {speedUnit}
               </p>
             )}
           </div>

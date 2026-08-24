@@ -259,24 +259,54 @@ export default function TorqueExtensionTool() {
           </div>
         )}
 
-        {/* SVG Diagram */}
+        {/* SVG Diagram — dynamic with L and E */}
         <div className="mt-4">
           <p className="text-xs text-slate-500 uppercase tracking-wider mb-3">Geometry Diagram</p>
-          <svg viewBox="0 0 520 120" className="w-full max-w-lg" fill="none">
-            <rect x="20" y="45" width="200" height="30" rx="4" fill="#1e293b" stroke="#475569" strokeWidth="2"/>
-            <rect x="215" y="38" width="30" height="44" rx="3" fill="#334155" stroke="#64748b" strokeWidth="2"/>
-            <rect x="245" y="52" width="140" height="16" rx="3" fill="#164e63" stroke="#38bdf8" strokeWidth="1.5"/>
-            <circle cx="400" cy="60" r="12" fill="#0c4a6e" stroke="#38bdf8" strokeWidth="2"/>
-            <text x="400" y="64" textAnchor="middle" fill="#38bdf8" fontSize="10" fontWeight="bold">T</text>
-            <line x1="20" y1="95" x2="245" y2="95" stroke="#94a3b8" strokeWidth="1"/>
-            <line x1="20" y1="90" x2="20" y2="100" stroke="#94a3b8" strokeWidth="1"/>
-            <line x1="245" y1="90" x2="245" y2="100" stroke="#94a3b8" strokeWidth="1"/>
-            <text x="132" y="110" textAnchor="middle" fill="#94a3b8" fontSize="12" fontWeight="bold">L (wrench)</text>
-            <line x1="245" y1="20" x2="390" y2="20" stroke="#38bdf8" strokeWidth="1"/>
-            <line x1="245" y1="15" x2="245" y2="25" stroke="#38bdf8" strokeWidth="1"/>
-            <line x1="390" y1="15" x2="390" y2="25" stroke="#38bdf8" strokeWidth="1"/>
-            <text x="317" y="13" textAnchor="middle" fill="#38bdf8" fontSize="12" fontWeight="bold">E (extension)</text>
-          </svg>
+          {(() => {
+            // Map real-world lengths to pixels, scaling so the whole assembly fits.
+            const totalLen = (lNum > 0 ? lNum : 8) + (eNum >= 0 ? eNum : 4)
+            const pxPerInch = Math.min(46, Math.max(14, 440 / totalLen))
+            const lPx = (lNum > 0 ? lNum : 8) * pxPerInch
+            const ePx = (eNum >= 0 ? eNum : 4) * pxPerInch
+            const handleX = 26
+            const driveX = handleX + lPx
+            const extX = driveX + 30
+            const fastenerX = extX + ePx
+            const midY = 60
+            const rectH = 26
+            const w2 = 520
+            return (
+              <svg viewBox={`0 0 ${w2} 120`} className="w-full max-w-lg" fill="none">
+                {/* Wrench handle */}
+                <rect x={handleX} y={midY - rectH / 2} width={lPx} height={rectH} rx="4" fill="#1e293b" stroke="#475569" strokeWidth="2"/>
+                {/* Drive block */}
+                <rect x={driveX}
+                  y={midY - rectH / 2 - 5}
+                  width="26" height={rectH + 10} rx="3" fill="#334155" stroke="#64748b" strokeWidth="2"/>
+                {/* Extension */}
+                <rect x={extX} y={midY - 8} width={Math.max(0, ePx)} height="16" rx="3" fill="#164e63" stroke="#38bdf8" strokeWidth="1.5"/>
+                {/* Fastener */}
+                <circle cx={fastenerX} cy={midY} r="12" fill="#0c4a6e" stroke="#38bdf8" strokeWidth="2"/>
+                <text x={fastenerX} y={midY + 4} textAnchor="middle" fill="#38bdf8" fontSize="10" fontWeight="bold">T</text>
+
+                {/* L dimension */}
+                <line x1={handleX} y1={95} x2={driveX} y2={95} stroke="#94a3b8" strokeWidth="1"/>
+                <line x1={handleX} y1={90} x2={handleX} y2={100} stroke="#94a3b8" strokeWidth="1"/>
+                <line x1={driveX} y1={90} x2={driveX} y2={100} stroke="#94a3b8" strokeWidth="1"/>
+                <text x={(handleX + driveX) / 2} y={110} textAnchor="middle" fill="#94a3b8" fontSize="12" fontWeight="bold">
+                  L = {lNum > 0 ? lNum : '—'} in
+                </text>
+
+                {/* E dimension */}
+                <line x1={extX} y1={20} x2={fastenerX} y2={20} stroke="#38bdf8" strokeWidth="1"/>
+                <line x1={extX} y1={15} x2={extX} y2={25} stroke="#38bdf8" strokeWidth="1"/>
+                <line x1={fastenerX} y1={15} x2={fastenerX} y2={25} stroke="#38bdf8" strokeWidth="1"/>
+                <text x={(extX + fastenerX) / 2} y={13} textAnchor="middle" fill="#38bdf8" fontSize="12" fontWeight="bold">
+                  E = {eNum > 0 ? eNum : '—'} in
+                </text>
+              </svg>
+            )
+          })()}
         </div>
       </div>
 

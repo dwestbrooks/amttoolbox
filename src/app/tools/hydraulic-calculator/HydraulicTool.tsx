@@ -64,6 +64,14 @@ export default function HydraulicTool() {
   const boreNum = parseFloat(boreDiameter)
   const computedArea = !isNaN(boreNum) && boreNum > 0 ? Math.PI * Math.pow(boreNum / 2, 2) : null
 
+  // Map bore diameter (0.5" to 3.0") to a piston-width in pixels for the SVG.
+  // The housing is 76px wide; a 3" bore fills it, a 0.5" bore is ~20px.
+  function pistonWidthPx(area: number): number {
+    const dia = 2 * Math.sqrt(area / Math.PI)
+    const frac = Math.max(0, Math.min(1, (dia - 0.5) / 2.5))
+    return Math.max(14, 76 * frac)
+  }
+
   function applyBoreArea() {
     if (computedArea === null) return
     const areaStr = computedArea.toFixed(4)
@@ -253,14 +261,27 @@ export default function HydraulicTool() {
         </div>
       </div>
 
-      {/* SVG Diagram */}
+      {/* SVG Diagram — piston scales with bore diameter */}
       <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-6 mb-6">
         <h3 className="text-white font-semibold mb-4">Pascal&apos;s Law Diagram</h3>
         <div className="flex justify-center">
           <svg viewBox="0 0 320 160" className="w-full max-w-sm" aria-label="Hydraulic cylinder diagram">
+            {/* Cylinder housing */}
             <rect x="60" y="60" width="200" height="80" rx="4" fill="#0f172a" stroke="#475569" strokeWidth="1.5" />
+            {/* Piston rod */}
             <rect x="140" y="62" width="10" height="76" fill="#334155" stroke="#38bdf8" strokeWidth="1.5" />
+            {/* Piston head — width scales with bore diameter */}
             <rect x="62" y="62" width="76" height="76" fill="#1e40af" fillOpacity="0.3" />
+            {computedArea !== null && (
+              <rect
+                x={62 + (76 - pistonWidthPx(computedArea)) / 2}
+                y="62"
+                width={pistonWidthPx(computedArea)}
+                height="76"
+                fill="#38bdf8"
+                fillOpacity="0.5"
+              />
+            )}
             <line x1="145" y1="20" x2="145" y2="58" stroke="#38bdf8" strokeWidth="2" markerEnd="url(#arrowBlue)" />
             <text x="155" y="38" fill="#38bdf8" fontSize="13" fontWeight="bold">F</text>
             <text x="138" y="107" fill="#94a3b8" fontSize="11" textAnchor="middle">A</text>
@@ -283,7 +304,14 @@ export default function HydraulicTool() {
             </defs>
           </svg>
         </div>
-        <p className="text-center text-xs text-slate-500 mt-2">P = F / A &nbsp;·&nbsp; F = P × A &nbsp;·&nbsp; A = F / P</p>
+        <p className="text-center text-xs text-slate-500 mt-2">
+          P = F / A &nbsp;·&nbsp; F = P × A &nbsp;·&nbsp; A = F / P
+        </p>
+        {computedArea !== null && (
+          <p className="text-center text-xs text-[#38bdf8] mt-1.5">
+            Piston bore Ø {boreNum}&quot; → area {computedArea.toFixed(4)} in² (highlighted)
+          </p>
+        )}
 
         {/* Common Examples collapsible */}
         <div className="mt-4 border-t border-slate-700 pt-4">

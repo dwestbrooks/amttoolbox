@@ -270,6 +270,52 @@ export default function BendAllowanceTool() {
               <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Flat Blank Layout</p>
               <pre className="font-mono text-xs text-slate-400 leading-relaxed whitespace-pre">{`|← L1 →|← BA →|← L2 →|\n        Total Flat Blank`}</pre>
             </div>
+
+            {/* Live bend cross-section */}
+            <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-4">
+              <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Bend Cross-Section</p>
+              <div className="flex justify-center">
+                <svg viewBox="0 0 260 220" className="w-full max-w-xs" aria-label="Bend cross-section">
+                  {/* Scale: thickness and radius to fit ~110px drawing space */}
+                  {(() => {
+                    const tPx = Math.max(6, Math.min(30, thicknessNum * 220))
+                    const rPx = Math.max(10, Math.min(80, radiusNum * 120))
+                    const mat = '#38bdf8'
+                    const neutral = '#f59e0b'
+                    const cx = 60
+                    const cy = 140
+                    // Neutral axis sits k*T above the inner bend surface
+                    const naOffset = kNum * tPx
+                    const naRad = Math.max(1, rPx + naOffset)
+                    const naEnd = cx + naRad
+                    const naY = cy - rPx - naOffset
+                    return (
+                      <>
+                        {/* Horizontal leg (material thickness band) */}
+                        <rect x={8} y={cy - rPx - tPx} width={cx + rPx} height={tPx} fill={mat} fillOpacity="0.35" stroke={mat} strokeWidth="1.5"/>
+                        {/* Vertical leg */}
+                        <rect x={cx} y={cy - rPx - tPx} width={tPx} height={rPx + tPx} fill={mat} fillOpacity="0.35" stroke={mat} strokeWidth="1.5"/>
+                        {/* Bend arc — inner surface */}
+                        <path d={`M ${cx} ${cy - rPx} A ${rPx} ${rPx} 0 0 0 ${cx + rPx} ${cy}`} fill="none" stroke={mat} strokeWidth="1.5"/>
+                        {/* Neutral axis */}
+                        <path d={`M ${8} ${naY} L ${cx} ${naY} A ${naRad} ${naRad} 0 0 0 ${naEnd} ${naY}`} fill="none" stroke={neutral} strokeWidth="1.5" strokeDasharray="4 3"/>
+                        {/* Radius dimension */}
+                        <line x1={cx} y1={cy} x2={cx + rPx * 0.707} y2={cy - rPx * 0.707} stroke="#64748b" strokeWidth="1"/>
+                        <text x={cx + rPx * 0.5} y={cy - rPx * 0.5 + 14} textAnchor="middle" fill="#94a3b8" fontSize="9">R {radiusNum.toFixed(2)}</text>
+                        {/* Thickness dimension */}
+                        <line x1={cx + rPx + 12} y1={cy - rPx - tPx} x2={cx + rPx + 12} y2={cy - rPx} stroke="#64748b" strokeWidth="1"/>
+                        <text x={cx + rPx + 14} y={cy - rPx - tPx / 2} fill="#94a3b8" fontSize="9">T {thicknessNum.toFixed(3)}</text>
+                        {/* Angle label */}
+                        <text x={cx + 40} y={cy + 22} fill="#94a3b8" fontSize="10" textAnchor="middle">θ = {angleNum}°</text>
+                      </>
+                    )
+                  })()}
+                </svg>
+              </div>
+              <p className="text-xs text-slate-500 mt-1 text-center">
+                Dashed line = neutral axis. Bend Allowance follows this arc length.
+              </p>
+            </div>
           </div>
         ) : (
           <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-6 text-center text-slate-500">

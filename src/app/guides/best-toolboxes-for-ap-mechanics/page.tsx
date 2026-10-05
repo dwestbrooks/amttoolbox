@@ -98,9 +98,9 @@ const products: Product[] = [
   },
   {
     name: 'US General 56 in. Double Bank Roller Cabinet',
-    model: 'Harbor Freight Item 64864',
+    model: 'Harbor Freight Item 58714',
     tier: 'premium',
-    priceNote: 'About $850 at Harbor Freight',
+    priceNote: 'About $900 at Harbor Freight',
     bestFor: 'Best hangar roll-away for a serious tool load',
     pros: [
       'Over 21,500 cu in of storage, enough for a full career toolkit',

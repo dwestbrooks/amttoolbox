@@ -48,8 +48,8 @@ const groups: ToolGroup[] = [
         name: '3/8-inch drive socket set, deep and shallow',
         note: 'Get both metric and SAE or an aviation-specific set that covers common hardware.',
         budget: {
-          label: 'Craftsman 3/8" drive set',
-          url: 'https://www.amazon.com/Craftsman-Piece-Drive-Socket-Metric/dp/B09S2PFYVG',
+          label: 'Craftsman 61-pc 3/8" drive SAE/Metric set',
+          url: 'https://www.amazon.com/dp/B0CPYVKG7F',
         },
         premium: {
           label: 'GEARWRENCH 57-pc 3/8" 6-pt SAE/Metric',
@@ -61,11 +61,23 @@ const groups: ToolGroup[] = [
         note: 'For small hardware, fairings, and instrument panels.',
         budget: {
           label: 'Craftsman 44-pc 1/4" 6-pt SAE/Metric',
-          url: 'https://www.amazon.com/Craftsman-Piece-Drive-Socket-Metric/dp/B09S2PFYVG',
+          url: 'https://www.amazon.com/dp/B09S2PFYVG',
         },
         premium: {
           label: 'Craftsman 24-pc Nano SAE 1/4"',
           url: 'https://www.amazon.com/CRAFTSMAN-Socket-4-Inch-24-Piece-CMMT12009/dp/B07QL38G69',
+        },
+      },
+      {
+        name: 'Universal joint / swivel sockets',
+        note: 'Reach fasteners at odd angles in cowlings and tight bays that a straight socket cannot square up to.',
+        budget: {
+          label: 'DURATECH 10-pc 3/8" metric swivel set',
+          url: 'https://www.amazon.com/dp/B0BR9ZX5JD',
+        },
+        premium: {
+          label: 'TEKTON 17-pc 3/8" shallow 6-point set',
+          url: 'https://www.amazon.com/dp/B07RJTPBML',
         },
       },
     ],
@@ -82,8 +94,8 @@ const groups: ToolGroup[] = [
           url: 'https://www.amazon.com/CRAFTSMAN-WRENCH-SET-COMBINATION-METRIC/dp/B078NDYCSK',
         },
         premium: {
-          label: 'GEARWRENCH 20-pc ratcheting combo',
-          url: 'https://www.amazon.com/GEARWRENCH-35720-Ratcheting-Wrench-Set/dp/B07GSCZCPM',
+          label: 'GEARWRENCH 24-pc long-pattern 12-pt SAE/Metric',
+          url: 'https://www.amazon.com/dp/B000NICG9M',
         },
       },
       {
@@ -150,6 +162,18 @@ const groups: ToolGroup[] = [
         premium: {
           label: 'Knipex 8" long nose with cutter',
           url: 'https://www.amazon.com/KNIPEX-Tools-Multi-Component-2612200-Multi-Colour/dp/B000X4MOVG',
+        },
+      },
+      {
+        name: 'Pliers wrench',
+        note: 'Parallel jaws grip a fastener square without marring it. Replaces a full wrench set for soft or finished hardware.',
+        budget: {
+          label: 'WORKPRO 7" high-leverage pliers wrench',
+          url: 'https://www.amazon.com/dp/B0CZ3M4KX9',
+        },
+        premium: {
+          label: 'Knipex 10" chrome pliers wrench',
+          url: 'https://www.amazon.com/dp/B000X4OG94',
         },
       },
     ],
@@ -223,6 +247,66 @@ const groups: ToolGroup[] = [
         premium: {
           label: 'AFA Tooling deburring tool, 11 M2 HSS blades, anodized',
           url: 'https://www.amazon.com/dp/B07RM1D6WD',
+        },
+      },
+      {
+        name: 'Aviation snips (offset set)',
+        note: 'Left, right, and straight cut through aluminum skin and soft sheet without cracking rivet lines.',
+        budget: {
+          label: 'Craftsman offset long-cut aviation snips',
+          url: 'https://www.amazon.com/dp/B07RCNG2TJ',
+        },
+        premium: {
+          label: 'Midwest KUSH-N-POWER offset left/right set, USA',
+          url: 'https://www.amazon.com/dp/B07RC7ZBK9',
+        },
+      },
+      {
+        name: 'Punches and chisels set',
+        note: 'For driving pins, aligning holes, and cutting or splitting soft aluminum in panel work.',
+        budget: {
+          label: 'HORUSDY 16-pc punch and chisel set',
+          url: 'https://www.amazon.com/dp/B0BRPVRC77',
+        },
+        premium: {
+          label: 'OTC 4600 16-pc punch and chisel set',
+          url: 'https://www.amazon.com/dp/B000XSJK9Q',
+        },
+      },
+      {
+        name: 'Dead-blow and soft-face hammers',
+        note: 'Seat panels and buck sheet metal without marring or rebounding into the work.',
+        budget: {
+          label: 'NEIKO 3-pc neon dead-blow mallet set',
+          url: 'https://www.amazon.com/dp/B0CWCK4TLG',
+        },
+        premium: {
+          label: 'Estwing 45 oz no-mar dead-blow with cushion grip',
+          url: 'https://www.amazon.com/dp/B00433SBWE',
+        },
+      },
+      {
+        name: 'Soft-face mallet',
+        note: 'Non-marring struck tool for alignment work on finished aluminum where a steel face would leave a mark.',
+        budget: {
+          label: 'Mutt Tools 8 oz dead-blow soft-face mallet',
+          url: 'https://www.amazon.com/dp/B0GHSR4DJ2',
+        },
+        premium: {
+          label: 'Estwing 12 oz rubber mallet, made in USA',
+          url: 'https://www.amazon.com/dp/B00943ROPS',
+        },
+      },
+      {
+        name: 'File set (flat, round, half-round) with handle',
+        note: 'For cleaning up saw-cut edges and dressing aluminum and soft steel before deburring.',
+        budget: {
+          label: 'TARIST 3-pc 8" flat/half-round/round file set',
+          url: 'https://www.amazon.com/dp/B0BXPQGVZ5',
+        },
+        premium: {
+          label: 'Nicholson 9-pc maintenance file set',
+          url: 'https://www.amazon.com/dp/B07YD5ZTZY',
         },
       },
     ],
@@ -386,6 +470,30 @@ const groups: ToolGroup[] = [
         premium: {
           label: 'Blukar 2000L rechargeable headlamp, 2-pack',
           url: 'https://www.amazon.com/dp/B0BLVT2Y9N',
+        },
+      },
+      {
+        name: 'Magnetic pickup tool',
+        note: 'Rescue dropped screws, washers, and safety wire from cowlings and belly skins where you cannot reach. Always near the top of a mechanic kit.',
+        budget: {
+          label: 'Craftsman 3-pc magnetic pickup tool kit',
+          url: 'https://www.amazon.com/dp/B08L41ZNFJ',
+        },
+        premium: {
+          label: 'NEIKO 6-pc magnetic tool and telescoping mirror set',
+          url: 'https://www.amazon.com/dp/B09FVQD7WN',
+        },
+      },
+      {
+        name: 'Telescoping inspection mirror',
+        note: 'For blind-area checks on wiring, fasteners, and fittings you cannot put your head into.',
+        budget: {
+          label: 'Titan 11186 telescoping inspection mirror',
+          url: 'https://www.amazon.com/dp/B00TO7NHG4',
+        },
+        premium: {
+          label: 'NoCry heavy-duty telescoping inspection mirror',
+          url: 'https://www.amazon.com/dp/B0BGY5PNQH',
         },
       },
     ],

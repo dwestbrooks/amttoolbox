@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "amttoolbox.com"
+        }
+      ],
+      "destination": "https://www.amttoolbox.com/$1",
+      "permanent": true
+    }
+  ]
+}

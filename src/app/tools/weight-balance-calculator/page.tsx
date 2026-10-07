@@ -3,6 +3,9 @@ import WeightBalanceTool from './WeightBalanceTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/weight-balance-calculator',
+  },
   title: 'Weight & Balance Moment Calculator',
   description: 'Calculate weight, moment, and CG location for aircraft weight and balance calculations. Add multiple items with weight and arm station.',
 }

@@ -3,6 +3,9 @@ import ANHardwareDecoderTool from './ANHardwareDecoderTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/an-hardware-decoder',
+  },
   title: 'AN Hardware Decoder',
   description: 'Decode AN and MS aircraft hardware part numbers. Understand bolt sizes, nut types, and washer specifications instantly.',
 }

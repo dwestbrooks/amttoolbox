@@ -3,6 +3,9 @@ import TorqueConverterTool from './TorqueConverterTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/torque-unit-converter',
+  },
   title: 'Torque Unit Converter',
   description: 'Convert between in-lb, ft-lb, N·m, and kgf·cm. Includes AN bolt torque reference table for A&P mechanics.',
 }

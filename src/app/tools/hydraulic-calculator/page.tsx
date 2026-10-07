@@ -3,6 +3,9 @@ import HydraulicTool from './HydraulicTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/hydraulic-calculator',
+  },
   title: 'Hydraulic Pressure / Force / Area Calculator',
   description: "Calculate hydraulic pressure, force, or area using Pascal's Law. Essential reference for aircraft hydraulic system troubleshooting.",
 }

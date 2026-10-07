@@ -2,6 +2,9 @@ import { Metadata } from 'next'
 import OhmsLawTool from './OhmsLawTool'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/ohms-law-calculator',
+  },
   title: "Ohm's Law / Circuit Calculator",
   description: "Calculate voltage, current, resistance, or power using Ohm's Law. Includes power wheel SVG, aircraft circuit reference, and wire heating note.",
 }

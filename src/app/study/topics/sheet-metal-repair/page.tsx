@@ -4,6 +4,9 @@ import { ArrowLeft, Wrench } from 'lucide-react'
 import StudyResourceCard from '@/components/StudyResourceCard'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/study/topics/sheet-metal-repair',
+  },
   title: 'Sheet Metal Repair Study Guide for A&P Exam',
   description:
     'Complete study guide for aircraft sheet metal repair. Covers repair classifications, rivet selection, corrosion treatment, and bend allowance for the FAA Airframe written exam.',

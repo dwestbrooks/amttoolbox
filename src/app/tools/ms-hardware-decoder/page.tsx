@@ -2,6 +2,9 @@ import { Metadata } from 'next'
 import MSHardwareTool from './MSHardwareTool'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/ms-hardware-decoder',
+  },
   title: 'MS Hardware Decoder',
   description: 'Decode MS (Military Standard) aircraft hardware part numbers. Supports rivets, nuts, cotter pins, screws, washers, and tinnerman nuts.',
 }

@@ -3,6 +3,9 @@ import CompressionCheckTool from './CompressionCheckTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/compression-check-reference',
+  },
   title: 'Engine Compression Check Reference',
   description: 'Differential compression check interpretation guide for Continental and Lycoming aircraft engines. Understand what your readings mean.',
 }

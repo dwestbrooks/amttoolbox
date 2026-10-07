@@ -4,6 +4,9 @@ import { ArrowLeft, Zap } from 'lucide-react'
 import StudyResourceCard from '@/components/StudyResourceCard'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/study/topics/aircraft-electrical-systems',
+  },
   title: 'Aircraft Electrical Systems Study Guide for A&P Exam',
   description:
     'Aircraft electrical systems study guide for the FAA Airframe written exam. Covers AC vs DC, bus architecture, circuit protection, wire sizing, and common faults.',

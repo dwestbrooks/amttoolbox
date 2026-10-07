@@ -3,6 +3,9 @@ import DecimalFractionTool from './DecimalFractionTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/decimal-fraction-converter',
+  },
   title: 'Decimal Fraction Converter & Drill Size Chart',
   description: 'Convert between fractional inches, decimal inches, and millimeters. Complete drill size reference table with wire gauge, letter, and fractional sizes.',
 }

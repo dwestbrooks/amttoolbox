@@ -3,6 +3,9 @@ import TorqueExtensionTool from './TorqueExtensionTool'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/tools/torque-extension-calculator',
+  },
   title: 'Torque Wrench Extension Calculator',
   description: 'Calculate the correct torque wrench setting when using an extension. Essential tool for A&P mechanics and aviation maintenance technicians.',
 }

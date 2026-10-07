@@ -3,6 +3,9 @@ import { BookOpen } from 'lucide-react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/reference',
+  },
   title: 'Reference Tables',
   description: 'Aviation maintenance reference tables: abbreviations, bend radius charts, and quick-reference guides for A&P mechanics.',
 }

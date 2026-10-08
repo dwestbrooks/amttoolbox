@@ -23,7 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/study/airframe`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${base}/study/powerplant`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${base}/study/quiz`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/study/progress`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    // /study/progress is noindex (see its layout.tsx) — a noindex URL must never be
+    // submitted in the sitemap. Listing it is a contradictory signal: the sitemap asks
+    // for it to be indexed while the page's own meta tag forbids it.
     { url: `${base}/study/topics/sheet-metal-repair`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/study/topics/turbine-engines`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/study/topics/aircraft-electrical-systems`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },

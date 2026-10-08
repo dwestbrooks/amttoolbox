@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, ExternalLink, CheckCircle2, GraduationCap, DollarSign, CreditCard } from 'lucide-react'
+import GuideByline from '@/components/GuideByline'
 
 export const metadata: Metadata = {
   title: 'Snap-on Student Excellence Program (SEP) for A&P Students',
@@ -261,6 +262,13 @@ export default function SnapOnSepGuide() {
           details with your Education Account Manager before ordering.
         </p>
       </div>
+    
+      <GuideByline
+        title="Snap-on Student Excellence Program (SEP) for A&P Students"
+        description="How A&P and AMT students can buy Snap-on tools at a discount, including the aviation-specific sets, with program details verified against Snap-on's official SEP pages."
+        publishedDate="2026-09-20"
+        path="/guides/snap-on-student-excellence-program"
+      />
     </div>
   )
 }

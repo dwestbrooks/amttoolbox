@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, ExternalLink, CheckCircle2 } from 'lucide-react'
+import GuideByline from '@/components/GuideByline'
 
 export const metadata: Metadata = {
   title: 'A&P Mechanic Tool List: What You Actually Need',
@@ -610,6 +611,13 @@ export default function ToolListGuide() {
           at no extra cost to you. We recommend the tools the field actually uses.
         </p>
       </div>
+    
+      <GuideByline
+        title="A&P Mechanic Tool List: What You Actually Need"
+        description="The hand tools, pliers, and specialty gear A&P mechanics reach for daily, organized by what the job demands, with a budget pick and a premium pick for each."
+        publishedDate="2026-09-20"
+        path="/guides/ap-mechanic-tool-list"
+      />
     </div>
   )
 }

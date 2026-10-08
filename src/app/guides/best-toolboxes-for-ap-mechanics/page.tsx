@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight, ExternalLink } from 'lucide-react'
+import GuideByline from '@/components/GuideByline'
 
 export const metadata: Metadata = {
   title: 'Best Toolboxes for A&P Mechanics',
@@ -361,6 +362,13 @@ export default function ToolboxesGuide() {
           recommend the boxes we would use ourselves.
         </p>
       </div>
+    
+      <GuideByline
+        title="Best Toolboxes for A&P Mechanics"
+        description="The toolboxes aircraft maintenance technicians actually use, organized by job: portable boxes for walking the line, carts for the hangar, and roll-aways for the bench. Verified current prices, honest picks, no fluff."
+        publishedDate="2026-08-15"
+        path="/guides/best-toolboxes-for-ap-mechanics"
+      />
     </div>
   )
 }

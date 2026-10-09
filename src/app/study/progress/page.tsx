@@ -169,15 +169,15 @@ export default function ProgressPage() {
                       )}
                     </div>
                     {expanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-500 ml-3" />
+                      <ChevronUp className="w-4 h-4 text-slate-400 ml-3" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-500 ml-3" />
+                      <ChevronDown className="w-4 h-4 text-slate-400 ml-3" />
                     )}
                   </button>
 
                   {expanded && Object.keys(topicMap).length > 0 && (
                     <div className="px-6 pb-5 border-t border-slate-700/50">
-                      <p className="text-xs text-slate-500 uppercase tracking-widest mb-3 pt-4">
+                      <p className="text-xs text-slate-400 uppercase tracking-widest mb-3 pt-4">
                         Topics
                       </p>
                       <div className="space-y-2">
@@ -203,7 +203,7 @@ export default function ProgressPage() {
                               >
                                 {tPct}%
                               </span>
-                              <span className="text-xs text-slate-600 w-12 text-right">
+                              <span className="text-xs text-slate-400 w-12 text-right">
                                 {correct}/{total}
                               </span>
                             </div>

@@ -185,7 +185,7 @@ export default function HydraulicTool() {
               placeholder="Enter value"
               value={inputA}
               onChange={e => setInputA(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -196,7 +196,7 @@ export default function HydraulicTool() {
               placeholder="Enter value"
               value={inputB}
               onChange={e => setInputB(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
         </div>
@@ -206,14 +206,14 @@ export default function HydraulicTool() {
           <p className="text-xs text-slate-400 mb-2 font-medium">Calculate from diameter</p>
           <div className="flex gap-3 items-end flex-wrap">
             <div className="flex-1 min-w-[160px]">
-              <label className="block text-xs text-slate-500 mb-1">Piston/Cylinder Bore Diameter (in)</label>
+              <label className="block text-xs text-slate-400 mb-1">Piston/Cylinder Bore Diameter (in)</label>
               <input
                 type="number"
                 step="any"
                 placeholder="e.g. 3.0"
                 value={boreDiameter}
                 onChange={e => setBoreDiameter(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
               />
             </div>
             <button
@@ -236,13 +236,13 @@ export default function HydraulicTool() {
             {formatResult(result)} <span className="text-xl text-slate-400">{labelResult.match(/\(([^)]+)\)/)?.[1]}</span>
           </p>
           {result !== null && units === 'imperial' && mode === 'pressure' && (
-            <p className="text-xs text-slate-500 mt-2">= {(result * PSI_TO_KPA).toFixed(2)} kPa</p>
+            <p className="text-xs text-slate-400 mt-2">= {(result * PSI_TO_KPA).toFixed(2)} kPa</p>
           )}
           {result !== null && units === 'imperial' && mode === 'force' && (
-            <p className="text-xs text-slate-500 mt-2">= {(result * LBF_TO_N).toFixed(2)} N</p>
+            <p className="text-xs text-slate-400 mt-2">= {(result * LBF_TO_N).toFixed(2)} N</p>
           )}
           {result !== null && units === 'imperial' && mode === 'area' && (
-            <p className="text-xs text-slate-500 mt-2">= {(result * IN2_TO_CM2).toFixed(2)} cm²</p>
+            <p className="text-xs text-slate-400 mt-2">= {(result * IN2_TO_CM2).toFixed(2)} cm²</p>
           )}
           {/* Step-by-step formula */}
           {showFormula && (
@@ -304,7 +304,7 @@ export default function HydraulicTool() {
             </defs>
           </svg>
         </div>
-        <p className="text-center text-xs text-slate-500 mt-2">
+        <p className="text-center text-xs text-slate-400 mt-2">
           P = F / A &nbsp;·&nbsp; F = P × A &nbsp;·&nbsp; A = F / P
         </p>
         {computedArea !== null && (
@@ -331,12 +331,12 @@ export default function HydraulicTool() {
                   className="w-full text-left bg-[#0f172a] border border-slate-700 hover:border-[#38bdf8]/50 rounded-lg px-4 py-3 transition-colors group"
                 >
                   <p className="text-sm font-medium text-slate-300 group-hover:text-white">{ex.label}</p>
-                  <p className="text-xs text-slate-500 mt-0.5 font-mono">
+                  <p className="text-xs text-slate-400 mt-0.5 font-mono">
                     {ex.pressure.toLocaleString()} PSI × {ex.area} in² = {ex.force.toLocaleString()} lbf
                   </p>
                 </button>
               ))}
-              <p className="text-xs text-slate-500 mt-1">Click a row to fill calculator inputs</p>
+              <p className="text-xs text-slate-400 mt-1">Click a row to fill calculator inputs</p>
             </div>
           )}
         </div>

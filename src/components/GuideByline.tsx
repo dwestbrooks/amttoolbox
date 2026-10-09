@@ -48,7 +48,7 @@ export default function GuideByline({
           },
         }}
       />
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-slate-400">
         <span className="text-slate-400 font-medium">Written by David Westbrooks.</span>{' '}
         I research aircraft maintenance tooling and equipment, and I check every price and specification
         on this page against the manufacturer&apos;s or retailer&apos;s own listing at the time of writing.{' '}

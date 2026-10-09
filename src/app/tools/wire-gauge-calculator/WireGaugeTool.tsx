@@ -135,7 +135,7 @@ export default function WireGaugeTool() {
 
         {/* Quick Presets */}
         <div className="mb-5">
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Quick Presets</p>
+          <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">Quick Presets</p>
           <div className="flex gap-2 flex-wrap">
             {CIRCUIT_PRESETS.map(p => (
               <button
@@ -169,7 +169,7 @@ export default function WireGaugeTool() {
               placeholder="e.g. 28"
               value={voltage}
               onChange={e => setVoltage(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -180,7 +180,7 @@ export default function WireGaugeTool() {
               placeholder="e.g. 10"
               value={current}
               onChange={e => setCurrent(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -191,9 +191,9 @@ export default function WireGaugeTool() {
               placeholder="e.g. 20"
               value={length}
               onChange={e => setLength(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
-            <p className="text-xs text-slate-500 mt-1">Calculator doubles for round trip</p>
+            <p className="text-xs text-slate-400 mt-1">Calculator doubles for round trip</p>
           </div>
           <div>
             <label className="block text-sm text-slate-400 mb-1">Allowable Voltage Drop (%)</label>
@@ -207,7 +207,7 @@ export default function WireGaugeTool() {
               placeholder="e.g. 2"
               value={dropPct}
               onChange={e => setDropPct(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div className="sm:col-span-2">
@@ -256,12 +256,12 @@ export default function WireGaugeTool() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Voltage Drop Result */}
             <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-4">
-              <p className="text-xs text-slate-500 mb-1">Voltage Drop Method</p>
+              <p className="text-xs text-slate-400 mb-1">Voltage Drop Method</p>
               <p className="text-lg font-bold text-white">Min CM: {calcResult.minCM.toFixed(0)}</p>
               {calcResult.vdropAWG ? (
                 <>
                   <p className="text-sm text-slate-300 mt-1">→ AWG {calcResult.vdropAWG.awg}</p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-400">
                     Actual drop: <span className="text-slate-300 font-semibold">{calcResult.vdropAWG.actualDrop.toFixed(3)}V</span>{' '}
                     ({calcResult.vdropAWG.dropPct.toFixed(2)}%)
                   </p>
@@ -273,11 +273,11 @@ export default function WireGaugeTool() {
 
             {/* Ampacity Result */}
             <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-4">
-              <p className="text-xs text-slate-500 mb-1">Ampacity Check ({installation})</p>
+              <p className="text-xs text-slate-400 mb-1">Ampacity Check ({installation})</p>
               {calcResult.ampacityAWG ? (
                 <>
                   <p className="text-lg font-bold text-white">AWG {calcResult.ampacityAWG.awg}</p>
-                  <p className="text-xs text-slate-500">Rated for {I}A {installation === 'single' ? 'free air' : 'bundled'}</p>
+                  <p className="text-xs text-slate-400">Rated for {I}A {installation === 'single' ? 'free air' : 'bundled'}</p>
                 </>
               ) : (
                 <p className="text-sm text-red-400 mt-1">Current exceeds AWG 4 ampacity — consult engineer</p>
@@ -286,7 +286,7 @@ export default function WireGaugeTool() {
           </div>
         </div>
       ) : (
-        <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-12 text-center text-slate-500 mb-6">
+        <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-12 text-center text-slate-400 mb-6">
           Enter circuit parameters to calculate recommended wire gauge.
         </div>
       )}
@@ -322,7 +322,7 @@ export default function WireGaugeTool() {
             </tbody>
           </table>
         </div>
-        <p className="text-xs text-slate-500 mt-4">
+        <p className="text-xs text-slate-400 mt-4">
           Ampacity values based on MIL-W-22759/16 in accordance with FAA AC 43.13-1B. Bundled values assume 9+ wire bundle with no airflow. Always verify against applicable aircraft wiring diagrams and maintenance manual.
         </p>
       </div>

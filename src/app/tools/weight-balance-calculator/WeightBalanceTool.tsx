@@ -178,7 +178,7 @@ export default function WeightBalanceTool() {
                 placeholder="e.g. 35.0"
                 value={fwdLimit}
                 onChange={e => setFwdLimit(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
               />
             </div>
             <div>
@@ -189,7 +189,7 @@ export default function WeightBalanceTool() {
                 placeholder="e.g. 47.5"
                 value={aftLimit}
                 onChange={e => setAftLimit(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
               />
             </div>
           </div>
@@ -203,14 +203,14 @@ export default function WeightBalanceTool() {
             <div className="flex items-center gap-2 flex-wrap no-print">
               {/* Units toggle */}
               <div className="flex items-center gap-2 mr-2">
-                <span className={`text-xs font-medium ${!showKg ? 'text-white' : 'text-slate-500'}`}>lbs</span>
+                <span className={`text-xs font-medium ${!showKg ? 'text-white' : 'text-slate-400'}`}>lbs</span>
                 <button
                   onClick={() => setShowKg(!showKg)}
                   className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors ${showKg ? 'bg-[#38bdf8]' : 'bg-slate-600'}`}
                 >
                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${showKg ? 'translate-x-5' : 'translate-x-1'}`} />
                 </button>
-                <span className={`text-xs font-medium ${showKg ? 'text-white' : 'text-slate-500'}`}>kg</span>
+                <span className={`text-xs font-medium ${showKg ? 'text-white' : 'text-slate-400'}`}>kg</span>
               </div>
               <button
                 onClick={resetToDefaults}
@@ -234,7 +234,7 @@ export default function WeightBalanceTool() {
           </div>
 
           {/* Header */}
-          <div className="hidden sm:grid grid-cols-[1fr_130px_120px_120px_40px] gap-3 text-xs text-slate-500 uppercase tracking-wider mb-2 px-1">
+          <div className="hidden sm:grid grid-cols-[1fr_130px_120px_120px_40px] gap-3 text-xs text-slate-400 uppercase tracking-wider mb-2 px-1">
             <span>Item Name</span>
             <span>Weight ({showKg ? 'kg' : 'lbs'})</span>
             <span>Arm (in)</span>
@@ -250,7 +250,7 @@ export default function WeightBalanceTool() {
                   placeholder="Item name"
                   value={row.name}
                   onChange={e => updateItem(row.id, 'name', e.target.value)}
-                  className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                  className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
                 />
                 <input
                   type="number"
@@ -258,7 +258,7 @@ export default function WeightBalanceTool() {
                   placeholder={showKg ? 'kg' : 'lbs'}
                   value={row.weight}
                   onChange={e => updateItem(row.id, 'weight', e.target.value)}
-                  className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                  className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
                 />
                 <input
                   type="number"
@@ -266,14 +266,14 @@ export default function WeightBalanceTool() {
                   placeholder="inches"
                   value={row.arm}
                   onChange={e => updateItem(row.id, 'arm', e.target.value)}
-                  className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                  className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
                 />
                 <div className="bg-[#0f172a] border border-slate-700 rounded px-3 py-2 text-sm text-slate-300 font-mono">
                   {row.moment !== null ? row.moment.toFixed(1) : '--'}
                 </div>
                 <button
                   onClick={() => removeItem(row.id)}
-                  className="no-print text-slate-600 hover:text-red-400 transition-colors text-lg flex items-center justify-center"
+                  className="no-print text-slate-400 hover:text-red-400 transition-colors text-lg flex items-center justify-center"
                   aria-label="Remove item"
                 >
                   ✕
@@ -292,16 +292,16 @@ export default function WeightBalanceTool() {
           {/* Totals */}
           <div className="mt-6 border-t border-slate-700 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-[#0f172a] rounded-lg p-3">
-              <p className="text-xs text-slate-500 mb-1">Total Weight</p>
+              <p className="text-xs text-slate-400 mb-1">Total Weight</p>
               <p className="text-xl font-bold text-white">{displayWeight(totalWeight)}</p>
-              {showKg && <p className="text-xs text-slate-500">{displayWeightBoth(totalWeight)}</p>}
+              {showKg && <p className="text-xs text-slate-400">{displayWeightBoth(totalWeight)}</p>}
             </div>
             <div className="bg-[#0f172a] rounded-lg p-3">
-              <p className="text-xs text-slate-500 mb-1">Total Moment</p>
+              <p className="text-xs text-slate-400 mb-1">Total Moment</p>
               <p className="text-xl font-bold text-white">{totalMoment.toFixed(1)} <span className="text-sm text-slate-400">in-lbs</span></p>
             </div>
             <div className="bg-[#0f172a] rounded-lg p-3 border border-[#38bdf8]/30">
-              <p className="text-xs text-slate-500 mb-1">CG Location</p>
+              <p className="text-xs text-slate-400 mb-1">CG Location</p>
               <p className="text-3xl font-bold text-[#38bdf8]">
                 {cg !== null ? cg.toFixed(2) : '--'}
               </p>

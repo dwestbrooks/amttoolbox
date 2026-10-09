@@ -7,3 +7,54 @@ html, body {
   color: white;
   min-height: 100vh;
 }
+
+/* Skip link. Plain CSS rather than sr-only + focus:not-sr-only: those two
+   utilities both set `position` at equal specificity and the winner depends on
+   Tailwind's internal ordering. This is boring and always works. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  /* Must beat the nav, which is `sticky z-50` and comes AFTER this element in the
+     DOM - at equal z-index the later element paints on top and the focused link is
+     completely hidden behind the header (verified: elementFromPoint returned the
+     logo, not the link). 60 clears it. */
+  z-index: 60;
+  background: #38bdf8;
+  color: #0f172a;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+}
+
+/* Keyboard focus. The UA default is a 1px blue ring that is close to invisible
+   on this dark navy. 48 elements already set `focus:outline-none` and replace it
+   with a border/ring colour, so this is the safety net for every element that
+   DOESN'T - the nav links, the logo, and anything added later. */
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Touch: nav and footer text links render 20px tall, under the 24px floor of
+   WCAG 2.2 SC 2.5.8 and well under Apple's 28px minimum. Padding lifts the hit
+   region without moving any text. :where() keeps the rule at zero specificity so
+   an explicit utility still wins, and the whole thing only applies on a coarse
+   pointer - desktop layout is untouched. */
+@media (hover: none) and (pointer: coarse) {
+  :where(nav a, footer a) {
+    display: inline-block;
+    padding-block: 0.5rem;
+  }
+}
+
+/* The two loading skeletons on /study/progress use animate-pulse. Reduced-motion
+   users get the same boxes without the throb. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+  }
+}

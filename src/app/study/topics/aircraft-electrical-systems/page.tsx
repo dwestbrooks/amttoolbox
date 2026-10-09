@@ -41,7 +41,7 @@ export default function AircraftElectricalSystemsPage() {
 
       <div className="flex items-center gap-3 mb-2">
         <Zap className="w-6 h-6 text-violet-400" />
-        <p className="text-xs text-slate-500 uppercase tracking-widest">Airframe Study Guide</p>
+        <p className="text-xs text-slate-400 uppercase tracking-widest">Airframe Study Guide</p>
       </div>
       <h1 className="text-3xl font-bold text-white mb-3">Aircraft Electrical Systems</h1>
       <p className="text-slate-400 text-sm mb-10">

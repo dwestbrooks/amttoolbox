@@ -286,15 +286,15 @@ export default function MSHardwareTool() {
           placeholder="e.g. MS20470AD4-6"
           value={input}
           onChange={e => setInput(e.target.value)}
-          className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors font-mono text-lg tracking-widest uppercase"
+          className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors font-mono text-lg tracking-widest uppercase"
           spellCheck={false}
           autoCapitalize="characters"
         />
-        <p className="text-xs text-slate-500 mt-2">Type or paste a part number. It decodes live as you type.</p>
+        <p className="text-xs text-slate-400 mt-2">Type or paste a part number. It decodes live as you type.</p>
 
         {/* Quick examples */}
         <div className="mt-4">
-          <p className="text-xs text-slate-500 mb-2">Quick examples:</p>
+          <p className="text-xs text-slate-400 mb-2">Quick examples:</p>
           <div className="flex flex-wrap gap-2">
             {EXAMPLES.map(ex => (
               <button
@@ -325,7 +325,7 @@ export default function MSHardwareTool() {
                   <span className={`font-mono font-bold text-lg px-3 py-1.5 rounded-lg border ${seg.color}`}>
                     {seg.text}
                   </span>
-                  <span className="text-xs text-slate-500 mt-1 text-center max-w-[90px]">{seg.label}</span>
+                  <span className="text-xs text-slate-400 mt-1 text-center max-w-[90px]">{seg.label}</span>
                 </div>
               ))}
             </div>

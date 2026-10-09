@@ -209,7 +209,7 @@ export default function ExamPageClient({ exam }: ExamPageClientProps) {
                 <p className="font-medium text-white text-sm group-hover:text-[#38bdf8] transition-colors">
                   {topicLabel(topic)}
                 </p>
-                <p className="text-xs text-slate-500 mt-0.5">{count} question{count !== 1 ? 's' : ''}</p>
+                <p className="text-xs text-slate-400 mt-0.5">{count} question{count !== 1 ? 's' : ''}</p>
               </button>
             )
           })}

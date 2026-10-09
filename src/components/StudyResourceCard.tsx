@@ -49,7 +49,7 @@ export default function StudyResourceCard({
   return (
     <div className="mt-12 border-t border-slate-800 pt-10">
       <div className="max-w-3xl">
-        <p className="text-xs text-slate-500 uppercase tracking-widest mb-1">Recommended Resources</p>
+        <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">Recommended Resources</p>
         <h2 className="text-xl font-semibold text-white mb-1">
           For Comprehensive {examLabel} Exam Prep
         </h2>
@@ -75,7 +75,7 @@ export default function StudyResourceCard({
                 {r.name}
               </p>
               <p className="text-xs text-slate-400 mb-3">{r.tagline}</p>
-              <p className="text-xs text-slate-500 mb-4 leading-relaxed">{r.description}</p>
+              <p className="text-xs text-slate-400 mb-4 leading-relaxed">{r.description}</p>
               <span className="inline-flex items-center gap-1 text-xs text-[#38bdf8] font-medium">
                 Visit Site <ExternalLink className="w-3 h-3" />
               </span>

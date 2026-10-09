@@ -16,10 +16,10 @@ export default function Footer() {
             </div>
           </div>
           <div className="max-w-md">
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               Always verify calculations against approved maintenance manuals and aircraft documentation.
             </p>
-            <p className="text-xs text-slate-600 mt-2">© 2025 AMT Toolbox. Free tools for aviation professionals.</p>
+            <p className="text-xs text-slate-400 mt-2">© 2025 AMT Toolbox. Free tools for aviation professionals.</p>
           </div>
         </div>
       </div>

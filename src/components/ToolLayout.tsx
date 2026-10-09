@@ -38,7 +38,7 @@ export default function ToolLayout({ title, description, children, relatedTools 
                     className="block p-3 rounded-md border border-slate-700 hover:border-[#38bdf8]/50 hover:bg-slate-800 transition-all group"
                   >
                     <p className="text-sm font-medium text-white group-hover:text-[#38bdf8] transition-colors">{tool.name}</p>
-                    <p className="text-xs text-slate-500 mt-1">{tool.description}</p>
+                    <p className="text-xs text-slate-400 mt-1">{tool.description}</p>
                   </Link>
                 ))}
               </div>

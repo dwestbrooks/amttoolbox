@@ -107,7 +107,7 @@ export default function Home() {
                   {'soon' in cat && cat.soon ? (
                     <span className="text-xs bg-amber-900/40 text-amber-400 px-2 py-1 rounded-full border border-amber-700/30">Coming Soon</span>
                   ) : (
-                    <span className="text-xs text-slate-500">{cat.count} tool{cat.count !== 1 ? 's' : ''}</span>
+                    <span className="text-xs text-slate-400">{cat.count} tool{cat.count !== 1 ? 's' : ''}</span>
                   )}
                 </>
               )

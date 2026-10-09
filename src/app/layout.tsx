@@ -87,8 +87,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} bg-[#0f172a] text-white min-h-screen flex flex-col`}>
+        <a href="#main" className="skip-link">Skip to content</a>
         <Nav />
-        <main className="flex-1">
+        <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />

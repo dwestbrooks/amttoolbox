@@ -113,7 +113,7 @@ export default function MinBendRadiusClient() {
               placeholder="e.g. 0.063"
               value={calcThickness}
               onChange={e => setCalcThickness(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -138,13 +138,13 @@ export default function MinBendRadiusClient() {
             <p className="text-4xl font-bold text-[#38bdf8]">
               {calcActual.toFixed(4)}&quot;
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-400 mt-1">
               = {calcRow.ranges[calcRangeIdx!].toFixed(1)}T × {calcT}&quot; thickness 
               &nbsp;(range: {RANGE_LABELS[calcRangeIdx!]})
             </p>
           </div>
         ) : (
-          <div className="bg-[#0f172a] rounded-lg p-4 text-center text-slate-500 text-sm">
+          <div className="bg-[#0f172a] rounded-lg p-4 text-center text-slate-400 text-sm">
             Enter a thickness value to calculate the actual minimum radius.
           </div>
         )}
@@ -163,7 +163,7 @@ export default function MinBendRadiusClient() {
           className="block p-3 rounded-md border border-slate-700 hover:border-[#38bdf8]/50 hover:bg-slate-800 transition-all group"
         >
           <p className="text-sm font-medium text-white group-hover:text-[#38bdf8] transition-colors">Bend Allowance Calculator</p>
-          <p className="text-xs text-slate-500 mt-1">Calculate bend allowance and flat blank lengths for sheet metal work.</p>
+          <p className="text-xs text-slate-400 mt-1">Calculate bend allowance and flat blank lengths for sheet metal work.</p>
         </Link>
       </div>
     </div>

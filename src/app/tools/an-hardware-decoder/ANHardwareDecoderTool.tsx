@@ -256,11 +256,11 @@ export default function ANHardwareDecoderTool() {
           value={input}
           onChange={e => setInput(e.target.value)}
           placeholder="e.g. AN4-10A, AN365-428, AN960-416"
-          className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-lg placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors font-mono"
+          className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-lg placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors font-mono"
           autoCapitalize="characters"
           spellCheck={false}
         />
-        <p className="text-xs text-slate-500 mt-2">Case-insensitive. Try: AN4-10A, AN310-428, AN380-2-2, AN960-416</p>
+        <p className="text-xs text-slate-400 mt-2">Case-insensitive. Try: AN4-10A, AN310-428, AN380-2-2, AN960-416</p>
       </div>
 
       {input && (
@@ -275,7 +275,7 @@ export default function ANHardwareDecoderTool() {
                     <div className={`px-4 py-2 rounded-lg font-mono font-bold text-lg ${seg.color}`}>
                       {seg.text}
                     </div>
-                    <p className="text-xs text-slate-500 mt-1 max-w-[100px] leading-tight">{seg.label}</p>
+                    <p className="text-xs text-slate-400 mt-1 max-w-[100px] leading-tight">{seg.label}</p>
                   </div>
                 ))}
               </div>
@@ -327,7 +327,7 @@ export default function ANHardwareDecoderTool() {
       {/* Reference table */}
       <div className="bg-[#1e293b] border border-slate-700 rounded-xl p-6">
         <h2 className="text-lg font-semibold text-white mb-1">Common AN Hardware Reference</h2>
-        <p className="text-xs text-slate-500 mb-4">Quick reference for AN series part number prefixes</p>
+        <p className="text-xs text-slate-400 mb-4">Quick reference for AN series part number prefixes</p>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

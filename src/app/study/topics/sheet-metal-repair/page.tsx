@@ -41,7 +41,7 @@ export default function SheetMetalRepairPage() {
 
       <div className="flex items-center gap-3 mb-2">
         <Wrench className="w-6 h-6 text-violet-400" />
-        <p className="text-xs text-slate-500 uppercase tracking-widest">Airframe Study Guide</p>
+        <p className="text-xs text-slate-400 uppercase tracking-widest">Airframe Study Guide</p>
       </div>
       <h1 className="text-3xl font-bold text-white mb-3">Sheet Metal Repair</h1>
       <p className="text-slate-400 text-sm mb-10">

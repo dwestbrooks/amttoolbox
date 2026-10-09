@@ -151,7 +151,7 @@ export default function SnapOnSepGuide() {
                       <span className="text-sm text-[#38bdf8] font-medium">{set.price}</span>
                     </div>
                     <p className="text-sm text-slate-400 mt-1">{set.note}</p>
-                    <p className="text-xs text-slate-500 mt-1">SKU: {set.sku}</p>
+                    <p className="text-xs text-slate-400 mt-1">SKU: {set.sku}</p>
                   </div>
                 </div>
               </div>
@@ -256,7 +256,7 @@ export default function SnapOnSepGuide() {
       </section>
 
       <div className="border-t border-slate-700 pt-6">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-400">
           Program details, eligibility, and prices are from Snap-on&apos;s official SEP pages and
           were verified at the time of writing. Snap-on may change program terms — confirm current
           details with your Education Account Manager before ordering.

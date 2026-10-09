@@ -44,7 +44,7 @@ export default function DisclosurePage() {
         </p>
 
         <div className="border-t border-slate-700 pt-6 mt-8">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-400">
             AMT Toolbox is a participant in the Amazon Services LLC Associates Program, an affiliate
             advertising program designed to provide a means for sites to earn advertising fees by
             advertising and linking to Amazon.com. As an Amazon Associate, AMT Toolbox earns from

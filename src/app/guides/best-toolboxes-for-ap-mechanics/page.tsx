@@ -139,7 +139,7 @@ function ProductCard({ product }: { product: Product }) {
       <div className="flex items-start justify-between gap-4 mb-3">
         <div>
           <h3 className="text-lg text-white font-semibold">{product.name}</h3>
-          <p className="text-sm text-slate-500">{product.model}</p>
+          <p className="text-sm text-slate-400">{product.model}</p>
         </div>
         <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full shrink-0 ${tier.badge}`}>
           {tier.label}
@@ -149,7 +149,7 @@ function ProductCard({ product }: { product: Product }) {
       <p className="text-sm font-medium text-[#38bdf8] mb-4">{product.bestFor}</p>
 
       <div className="mb-4">
-        <h4 className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-2">Good</h4>
+        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-2">Good</h4>
         <ul className="space-y-1.5">
           {product.pros.map((p, i) => (
             <li key={i} className="flex gap-2 text-sm text-slate-300">
@@ -161,18 +161,18 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="mb-5">
-        <h4 className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-2">Trade-offs</h4>
+        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-medium mb-2">Trade-offs</h4>
         <ul className="space-y-1.5">
           {product.cons.map((c, i) => (
             <li key={i} className="flex gap-2 text-sm text-slate-400">
-              <span className="text-slate-600 shrink-0 mt-0.5">•</span>
+              <span className="text-slate-400 shrink-0 mt-0.5">•</span>
               {c}
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="text-xs text-slate-500 mb-4">Price: {product.priceNote}</p>
+      <p className="text-xs text-slate-400 mb-4">Price: {product.priceNote}</p>
 
       <a
         href={productUrl(product.url)}
@@ -183,7 +183,7 @@ function ProductCard({ product }: { product: Product }) {
         Check the current price
         <ExternalLink className="w-4 h-4" />
       </a>
-      <p className="text-xs text-slate-600 mt-3">
+      <p className="text-xs text-slate-400 mt-3">
         Affiliate link: AMT Toolbox may earn a commission at no extra cost to you.
       </p>
     </article>
@@ -356,7 +356,7 @@ export default function ToolboxesGuide() {
       </section>
 
       <div className="border-t border-slate-700 pt-6">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-400">
           Prices checked at the time of writing and can change. Some links are affiliate links: if
           you buy through them, AMT Toolbox may earn a commission at no extra cost to you. We
           recommend the boxes we would use ourselves.

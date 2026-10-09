@@ -199,7 +199,7 @@ function StudyMode({
       </div>
 
       {skipped.size > 0 && (
-        <p className="text-xs text-slate-500 text-center mt-3">{skipped.size} question(s) skipped</p>
+        <p className="text-xs text-slate-400 text-center mt-3">{skipped.size} question(s) skipped</p>
       )}
     </div>
   )
@@ -292,7 +292,7 @@ function TestMode({
       <div className="flex items-center justify-between mb-4">
         <div className="text-sm text-slate-400">
           <span className="font-semibold text-white">{title || 'Practice Test'}</span>
-          <span className="mx-2 text-slate-600">|</span>
+          <span className="mx-2 text-slate-400">|</span>
           {answeredCount}/{questions.length} answered
         </div>
         <div
@@ -334,7 +334,7 @@ function TestMode({
             className={`shrink-0 p-1.5 rounded transition-colors ${
               flagged.has(currentIndex)
                 ? 'text-amber-400 hover:text-amber-300'
-                : 'text-slate-500 hover:text-amber-400'
+                : 'text-slate-400 hover:text-amber-400'
             }`}
           >
             {flagged.has(currentIndex) ? (
@@ -391,7 +391,7 @@ function TestMode({
 
       {/* Question grid */}
       <div className="bg-[#1e293b] border border-slate-700 rounded-xl p-4 mb-4">
-        <p className="text-xs text-slate-500 uppercase tracking-widest mb-3">Question Navigator</p>
+        <p className="text-xs text-slate-400 uppercase tracking-widest mb-3">Question Navigator</p>
         <div className="flex flex-wrap gap-1.5">
           {questions.map((_, i) => (
             <button key={i} onClick={() => setCurrentIndex(i)} className={questionDotClass(i)}>
@@ -399,7 +399,7 @@ function TestMode({
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-4 mt-3 text-xs text-slate-500">
+        <div className="flex items-center gap-4 mt-3 text-xs text-slate-400">
           <span className="flex items-center gap-1">
             <span className="w-3 h-3 rounded bg-slate-600 inline-block" /> Answered
           </span>
@@ -509,7 +509,7 @@ function ResultsScreen({
           {results.correct} of {results.total} correct
           {results.timeTaken != null && ` · Time: ${formatTime(results.timeTaken)}`}
         </p>
-        <p className="text-xs text-slate-500 mt-1">Passing score: 70%</p>
+        <p className="text-xs text-slate-400 mt-1">Passing score: 70%</p>
       </div>
 
       {/* Topic breakdown */}
@@ -562,13 +562,13 @@ function ResultsScreen({
                   >
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                       <XCircle className="w-4 h-4 text-red-400 shrink-0" />
-                      <span className="text-xs font-mono text-slate-500 shrink-0">{q.id}</span>
+                      <span className="text-xs font-mono text-slate-400 shrink-0">{q.id}</span>
                       <span className="text-sm text-slate-300 truncate">{q.question}</span>
                     </div>
                     {expanded ? (
-                      <ChevronUp className="w-4 h-4 text-slate-500 shrink-0 ml-2" />
+                      <ChevronUp className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-500 shrink-0 ml-2" />
+                      <ChevronDown className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
                     )}
                   </button>
                   {expanded && (
@@ -583,7 +583,7 @@ function ResultsScreen({
                                 ? 'bg-green-900/40 text-green-200'
                                 : key === a.selected
                                 ? 'bg-red-900/30 text-red-300'
-                                : 'text-slate-500'
+                                : 'text-slate-400'
                             }`}
                           >
                             <span className="font-semibold mr-2">{key}.</span>
@@ -600,7 +600,7 @@ function ResultsScreen({
                       <div className="bg-slate-800 rounded-lg p-3 text-sm text-slate-300 leading-relaxed">
                         {q.explanation}
                         {q.reference && (
-                          <p className="mt-2 text-xs text-slate-500">Reference: {q.reference}</p>
+                          <p className="mt-2 text-xs text-slate-400">Reference: {q.reference}</p>
                         )}
                       </div>
                     </div>

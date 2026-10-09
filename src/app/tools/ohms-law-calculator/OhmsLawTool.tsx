@@ -99,7 +99,7 @@ export default function OhmsLawTool() {
               </button>
             ))}
           </div>
-          <p className="text-xs text-slate-500 mt-2">{inputsNeeded[solveFor]}</p>
+          <p className="text-xs text-slate-400 mt-2">{inputsNeeded[solveFor]}</p>
         </div>
 
         {/* Inputs grid */}
@@ -127,7 +127,7 @@ export default function OhmsLawTool() {
                   disabled={isSolving}
                   value={field.val}
                   onChange={e => field.set(e.target.value)}
-                  className={`w-full border rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors ${
+                  className={`w-full border rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors ${
                     isSolving
                       ? 'bg-[#38bdf8]/5 border-[#38bdf8]/20 text-[#38bdf8] cursor-not-allowed'
                       : 'bg-[#0f172a] border-slate-600'
@@ -151,11 +151,11 @@ export default function OhmsLawTool() {
               <div key={item.sym} className={`rounded-lg px-3 py-3 border ${
                 item.val !== null && anyResult ? 'border-[#38bdf8]/30 bg-[#38bdf8]/5' : 'border-slate-700'
               }`}>
-                <p className="text-xs text-slate-500 mb-1">{item.label}</p>
-                <p className={`text-2xl font-bold ${item.val !== null && anyResult ? 'text-[#38bdf8]' : 'text-slate-600'}`}>
+                <p className="text-xs text-slate-400 mb-1">{item.label}</p>
+                <p className={`text-2xl font-bold ${item.val !== null && anyResult ? 'text-[#38bdf8]' : 'text-slate-400'}`}>
                   {fmt(item.val)}
                 </p>
-                <p className="text-xs text-slate-500">{item.unit}</p>
+                <p className="text-xs text-slate-400">{item.unit}</p>
               </div>
             ))}
           </div>
@@ -195,7 +195,7 @@ export default function OhmsLawTool() {
             <text x="68" y="150" textAnchor="middle" fill="#64748b" fontSize="10">= I²R = V²/R</text>
           </svg>
         </div>
-        <p className="text-center text-xs text-slate-500">Each quadrant shows all formulas to solve for that variable</p>
+        <p className="text-center text-xs text-slate-400">Each quadrant shows all formulas to solve for that variable</p>
       </div>
 
       {/* Wire Heating Note */}
@@ -229,7 +229,7 @@ export default function OhmsLawTool() {
                 <tr key={i} className="border-b border-slate-800">
                   <td className="py-2.5 pr-4 text-slate-300">{row.system}</td>
                   <td className="py-2.5 pr-4 font-mono text-[#38bdf8]">{row.voltage}</td>
-                  <td className="py-2.5 text-slate-500 text-xs">{row.typical}</td>
+                  <td className="py-2.5 text-slate-400 text-xs">{row.typical}</td>
                 </tr>
               ))}
             </tbody>

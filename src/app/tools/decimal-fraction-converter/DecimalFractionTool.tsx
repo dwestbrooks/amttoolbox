@@ -286,9 +286,9 @@ export default function DecimalFractionTool() {
               type="number" min="0" step="1" value={numerator}
               onChange={e => handleNumeratorChange(e.target.value)}
               placeholder="e.g. 3"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
-            <p className="text-xs text-slate-500 mt-1">Fraction top</p>
+            <p className="text-xs text-slate-400 mt-1">Fraction top</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-400 mb-1">Denominator</label>
@@ -296,9 +296,9 @@ export default function DecimalFractionTool() {
               type="number" min="1" step="1" value={denominator}
               onChange={e => handleDenominatorChange(e.target.value)}
               placeholder="e.g. 16"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
-            <p className="text-xs text-slate-500 mt-1">Fraction bottom</p>
+            <p className="text-xs text-slate-400 mt-1">Fraction bottom</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-400 mb-1">Decimal (inches)</label>
@@ -306,15 +306,15 @@ export default function DecimalFractionTool() {
               type="number" step="any" value={decimalIn}
               onChange={e => handleDecimalChange(e.target.value)}
               placeholder="0.0000"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
-            <p className="text-xs text-slate-500 mt-1">Decimal inches</p>
+            <p className="text-xs text-slate-400 mt-1">Decimal inches</p>
             {/* Nearest at-or-smaller drill note */}
             {nearestAtOrSmaller && currentDecimal !== null && (
               <p className="text-xs text-slate-400 mt-1.5">
-                <span className="text-slate-500">Snug fit drill:</span>{' '}
+                <span className="text-slate-400">Snug fit drill:</span>{' '}
                 <span className="text-[#38bdf8] font-mono">{nearestAtOrSmaller.name}</span>{' '}
-                <span className="text-slate-500">({nearestAtOrSmaller.decimal.toFixed(4)}&quot;)</span>
+                <span className="text-slate-400">({nearestAtOrSmaller.decimal.toFixed(4)}&quot;)</span>
               </p>
             )}
           </div>
@@ -324,9 +324,9 @@ export default function DecimalFractionTool() {
               type="number" step="any" value={mm}
               onChange={e => handleMmChange(e.target.value)}
               placeholder="0.000"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
-            <p className="text-xs text-slate-500 mt-1">mm</p>
+            <p className="text-xs text-slate-400 mt-1">mm</p>
           </div>
         </div>
       </div>
@@ -336,7 +336,7 @@ export default function DecimalFractionTool() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
           <div>
             <h2 className="text-lg font-semibold text-white">Drill Size Chart</h2>
-            <p className="text-xs text-slate-500">Wire gauge, letter, and fractional sizes — sorted by decimal size</p>
+            <p className="text-xs text-slate-400">Wire gauge, letter, and fractional sizes — sorted by decimal size</p>
           </div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -345,7 +345,7 @@ export default function DecimalFractionTool() {
               placeholder="Search size..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="bg-slate-800 border border-slate-600 rounded-lg pl-9 pr-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm w-48"
+              className="bg-slate-800 border border-slate-600 rounded-lg pl-9 pr-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm w-48"
             />
           </div>
         </div>
@@ -388,10 +388,10 @@ export default function DecimalFractionTool() {
             </tbody>
           </table>
           {filtered.length === 0 && (
-            <div className="text-center py-8 text-slate-500">No drill sizes found matching your search.</div>
+            <div className="text-center py-8 text-slate-400">No drill sizes found matching your search.</div>
           )}
         </div>
-        <p className="text-xs text-slate-500 mt-3">{filtered.length} of {ALL_DRILL_SIZES.length} sizes shown</p>
+        <p className="text-xs text-slate-400 mt-3">{filtered.length} of {ALL_DRILL_SIZES.length} sizes shown</p>
       </div>
     </ToolLayout>
   )

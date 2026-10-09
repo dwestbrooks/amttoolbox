@@ -179,7 +179,7 @@ export default function FuelBurnTool() {
               placeholder={mode === 'fuel' ? 'e.g. 3.5' : 'e.g. 40'}
               value={fuelQty}
               onChange={e => setFuelQty(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -189,7 +189,7 @@ export default function FuelBurnTool() {
               placeholder="e.g. 8"
               value={burnRate}
               onChange={e => setBurnRate(e.target.value)}
-              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           {labels.c && (
@@ -200,7 +200,7 @@ export default function FuelBurnTool() {
                 placeholder="e.g. 122"
                 value={tas}
                 onChange={e => setTas(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
               />
             </div>
           )}
@@ -212,13 +212,13 @@ export default function FuelBurnTool() {
             <p className="text-xs text-slate-400 mb-2 font-medium">Wind Component (optional)</p>
             <div className="flex gap-3 items-end flex-wrap">
               <div className="flex-1 min-w-[140px]">
-                <label className="block text-xs text-slate-500 mb-1">Wind Speed ({speedUnit})</label>
+                <label className="block text-xs text-slate-400 mb-1">Wind Speed ({speedUnit})</label>
                 <input
                   type="number" step="any"
                   placeholder="e.g. 15"
                   value={windSpeed}
                   onChange={e => setWindSpeed(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
+                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
                 />
               </div>
               <div className="flex gap-2">
@@ -292,7 +292,7 @@ export default function FuelBurnTool() {
         </button>
         {showRef && (
           <div className="mt-4">
-            <p className="text-xs text-slate-500 mb-3">Click a row to load burn rate and TAS into the calculator.</p>
+            <p className="text-xs text-slate-400 mb-3">Click a row to load burn rate and TAS into the calculator.</p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>

@@ -144,13 +144,13 @@ export default function TorqueExtensionTool() {
                 value={inputA}
                 onChange={e => setInputA(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-16"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors pr-16"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
                 {unit}
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-400 mt-1">
               {mode === 'normal' ? 'At the fastener' : 'What wrench is set to'}
             </p>
           </div>
@@ -166,13 +166,13 @@ export default function TorqueExtensionTool() {
                 value={L}
                 onChange={e => setL(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-10"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors pr-10"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
                 in
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1">Handle center to drive center</p>
+            <p className="text-xs text-slate-400 mt-1">Handle center to drive center</p>
             {/* Wrench length presets */}
             <div className="flex gap-1 mt-2 flex-wrap">
               {WRENCH_PRESETS.map(p => (
@@ -202,13 +202,13 @@ export default function TorqueExtensionTool() {
                 value={E}
                 onChange={e => setE(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors pr-10"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors pr-10"
               />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none">
                 in
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1">Drive center to fastener center</p>
+            <p className="text-xs text-slate-400 mt-1">Drive center to fastener center</p>
           </div>
         </div>
 
@@ -254,14 +254,14 @@ export default function TorqueExtensionTool() {
             </div>
           </div>
         ) : (
-          <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-6 mb-6 text-center text-slate-500">
+          <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-6 mb-6 text-center text-slate-400">
             Enter values above to calculate
           </div>
         )}
 
         {/* SVG Diagram — dynamic with L and E */}
         <div className="mt-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wider mb-3">Geometry Diagram</p>
+          <p className="text-xs text-slate-400 uppercase tracking-wider mb-3">Geometry Diagram</p>
           {(() => {
             // Map real-world lengths to pixels, scaling so the whole assembly fits.
             const totalLen = (lNum > 0 ? lNum : 8) + (eNum >= 0 ? eNum : 4)

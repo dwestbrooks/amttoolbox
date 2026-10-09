@@ -555,7 +555,7 @@ export default function ToolListGuide() {
                           className="flex items-center justify-between gap-2 bg-[#0f172a] border border-slate-700 rounded-lg px-3 py-2.5 hover:border-[#38bdf8] transition-colors group"
                         >
                           <div>
-                            <div className="text-xs text-slate-500 uppercase tracking-wide">Budget</div>
+                            <div className="text-xs text-slate-400 uppercase tracking-wide">Budget</div>
                             <div className="text-sm text-slate-200">{tool.budget.label}</div>
                           </div>
                           <ExternalLink className="w-4 h-4 text-[#38bdf8] shrink-0" />
@@ -567,7 +567,7 @@ export default function ToolListGuide() {
                           className="flex items-center justify-between gap-2 bg-[#0f172a] border border-slate-700 rounded-lg px-3 py-2.5 hover:border-[#38bdf8] transition-colors group"
                         >
                           <div>
-                            <div className="text-xs text-slate-500 uppercase tracking-wide">Premium</div>
+                            <div className="text-xs text-slate-400 uppercase tracking-wide">Premium</div>
                             <div className="text-sm text-slate-200">{tool.premium.label}</div>
                           </div>
                           <ExternalLink className="w-4 h-4 text-[#38bdf8] shrink-0" />
@@ -606,7 +606,7 @@ export default function ToolListGuide() {
       </section>
 
       <div className="border-t border-slate-700 pt-6">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-400">
           Some links are affiliate links: if you buy through them, AMT Toolbox may earn a commission
           at no extra cost to you. We recommend the tools the field actually uses.
         </p>

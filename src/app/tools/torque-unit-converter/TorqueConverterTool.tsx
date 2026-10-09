@@ -91,7 +91,7 @@ export default function TorqueConverterTool() {
                 value={values[unit]}
                 onChange={e => handleChange(unit, e.target.value)}
                 placeholder="0.0000"
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-lg placeholder-slate-600 focus:outline-none focus:border-[#38bdf8] transition-colors"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white text-lg placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
               />
             </div>
           ))}
@@ -159,7 +159,7 @@ export default function TorqueConverterTool() {
               </svg>
             )
           })()}
-          <p className="text-xs text-slate-500 mt-1 text-center">
+          <p className="text-xs text-slate-400 mt-1 text-center">
             Gauge scales logarithmically (1 to ~2500 in-lb). Edit any field above to move the needle.
           </p>
         </div>
@@ -178,7 +178,7 @@ export default function TorqueConverterTool() {
                 placeholder="Enter torque to identify bolt range"
                 value={findValue}
                 onChange={e => setFindValue(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
+                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
               />
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function TorqueConverterTool() {
         <div className="flex items-center justify-between mb-1 flex-wrap gap-3">
           <div>
             <h2 className="text-lg font-semibold text-white">AN Bolt Torque Reference</h2>
-            <p className="text-xs text-slate-500">Cadmium-plated steel AN bolts, dry conditions</p>
+            <p className="text-xs text-slate-400">Cadmium-plated steel AN bolts, dry conditions</p>
           </div>
           <button
             onClick={() => setLubricated(!lubricated)}

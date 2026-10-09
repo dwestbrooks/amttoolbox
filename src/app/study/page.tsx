@@ -116,7 +116,7 @@ export default function StudyIndexPage() {
                 {exam.label} Exam
               </h2>
               <p className="text-xs text-slate-400 mb-2">{exam.description}</p>
-              <p className="text-xs text-slate-500 leading-relaxed">{exam.topics}</p>
+              <p className="text-xs text-slate-400 leading-relaxed">{exam.topics}</p>
               <div className="flex items-center gap-1 text-[#38bdf8] text-xs font-medium mt-4">
                 Start practicing <ChevronRight className="w-3 h-3" />
               </div>

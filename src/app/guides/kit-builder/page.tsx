@@ -339,11 +339,11 @@ export default function KitBuilder() {
               }`}
             >
               <span className="block text-lg font-bold">{b.label}</span>
-              <span className="text-xs text-slate-500">budget</span>
+              <span className="text-xs text-slate-400">budget</span>
             </button>
           ))}
         </div>
-        <p className="text-xs text-slate-500 mt-3">
+        <p className="text-xs text-slate-400 mt-3">
           Cost ranges are planning estimates for the budget-tier pick, not live prices. Use the
           &quot;Check price&quot; links for the current price.
         </p>
@@ -351,15 +351,15 @@ export default function KitBuilder() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-[#1e293b]/50 border border-slate-800 rounded-xl p-5">
-          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Estimated total</div>
+          <div className="text-xs text-slate-400 uppercase tracking-wide mb-1">Estimated total</div>
           <div className="text-2xl font-bold text-white">${total}</div>
         </div>
         <div className="bg-[#1e293b]/50 border border-slate-800 rounded-xl p-5">
-          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Budget</div>
+          <div className="text-xs text-slate-400 uppercase tracking-wide mb-1">Budget</div>
           <div className="text-2xl font-bold text-white">${budget}</div>
         </div>
         <div className="bg-[#1e293b]/50 border border-slate-800 rounded-xl p-5">
-          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Room to grow</div>
+          <div className="text-xs text-slate-400 uppercase tracking-wide mb-1">Room to grow</div>
           <div className="text-2xl font-bold text-white">${remaining}</div>
         </div>
       </div>
@@ -379,7 +379,7 @@ export default function KitBuilder() {
                 </div>
                 <p className="text-sm text-slate-400 mt-1">{item.note}</p>
                 <div className="flex items-center justify-between gap-3 mt-3 flex-wrap">
-                  <span className="text-sm text-slate-500">est. ${item.low}&ndash;${item.high}</span>
+                  <span className="text-sm text-slate-400">est. ${item.low}&ndash;${item.high}</span>
                   <a
                     href={link(item.url)}
                     target="_blank"

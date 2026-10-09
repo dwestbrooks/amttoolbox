@@ -169,7 +169,7 @@ export default function AviationAbbreviationsClient() {
           placeholder="Search abbreviations, names, or descriptions..."
           value={search}
           onChange={e => { setSearch(e.target.value); setActiveLetter(null) }}
-          className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+          className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
         />
       </div>
 
@@ -193,7 +193,7 @@ export default function AviationAbbreviationsClient() {
       </div>
 
       {/* Count */}
-      <p className="text-sm text-slate-500 mb-4">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</p>
+      <p className="text-sm text-slate-400 mb-4">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</p>
 
       {/* Table */}
       <div className="bg-[#1e293b] border border-slate-700 rounded-lg overflow-hidden">
@@ -220,7 +220,7 @@ export default function AviationAbbreviationsClient() {
           </table>
         </div>
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-slate-500">No abbreviations match your search.</div>
+          <div className="text-center py-12 text-slate-400">No abbreviations match your search.</div>
         )}
       </div>
     </div>

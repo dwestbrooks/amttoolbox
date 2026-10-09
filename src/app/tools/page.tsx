@@ -122,7 +122,7 @@ export default function ToolsPage() {
             placeholder="Search tools..."
             value={query}
             onChange={e => setQuery(e.target.value)}
-            className="w-full bg-[#1e293b] border border-slate-700 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+            className="w-full bg-[#1e293b] border border-slate-700 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
           />
         </div>
         <div className="flex gap-2 flex-wrap">
@@ -168,7 +168,7 @@ export default function ToolsPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-16 text-slate-500">
+        <div className="text-center py-16 text-slate-400">
           No tools found matching your search.
         </div>
       )}

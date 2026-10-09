@@ -147,7 +147,7 @@ export default function BendAllowanceTool() {
             <input
               type="number" min="0" max="180" step="any" value={angle}
               onChange={e => setAngle(e.target.value)} placeholder="90"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -157,7 +157,7 @@ export default function BendAllowanceTool() {
             <input
               type="number" min="0" step="any" value={radius}
               onChange={e => setRadius(e.target.value)} placeholder="0.125"
-              className={`w-full bg-slate-800 border rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none transition-colors ${radiusTooSmall ? 'border-amber-500' : 'border-slate-600 focus:border-[#38bdf8]'}`}
+              className={`w-full bg-slate-800 border rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none transition-colors ${radiusTooSmall ? 'border-amber-500' : 'border-slate-600 focus:border-[#38bdf8]'}`}
             />
             {radiusTooSmall && minRadius !== null && (
               <p className="text-xs text-amber-400 mt-1">⚠ Below min bend radius ({minRadius.toFixed(4)}&quot; for {PRESETS[preset].label})</p>
@@ -168,7 +168,7 @@ export default function BendAllowanceTool() {
             <input
               type="number" min="0" step="any" value={thickness}
               onChange={e => setThickness(e.target.value)} placeholder="0.040"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
@@ -177,7 +177,7 @@ export default function BendAllowanceTool() {
               <button
                 onMouseEnter={() => setShowKTooltip(true)}
                 onMouseLeave={() => setShowKTooltip(false)}
-                className="text-slate-500 hover:text-slate-300 relative"
+                className="text-slate-400 hover:text-slate-300 relative"
               >
                 <HelpCircle className="w-4 h-4" />
                 {showKTooltip && (
@@ -190,27 +190,27 @@ export default function BendAllowanceTool() {
             <input
               type="number" min="0" max="1" step="0.01" value={kFactor}
               onChange={e => setKFactor(e.target.value)} placeholder="0.33"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">
-              Leg 1 Length (in) <span className="text-slate-500">optional</span>
+              Leg 1 Length (in) <span className="text-slate-400">optional</span>
             </label>
             <input
               type="number" min="0" step="any" value={leg1}
               onChange={e => setLeg1(e.target.value)} placeholder="2.000"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">
-              Leg 2 Length (in) <span className="text-slate-500">optional</span>
+              Leg 2 Length (in) <span className="text-slate-400">optional</span>
             </label>
             <input
               type="number" min="0" step="any" value={leg2}
               onChange={e => setLeg2(e.target.value)} placeholder="2.000"
-              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors"
+              className="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
             />
           </div>
         </div>
@@ -236,9 +236,9 @@ export default function BendAllowanceTool() {
                 { label: 'Flat Blank Length', value: FL !== null ? displayVal(FL) : '—', unit: FL !== null ? unitLabel : 'Enter legs' },
               ].map(({ label, value, unit: u }) => (
                 <div key={label} className="bg-[#0f172a] border border-slate-700 rounded-lg p-4">
-                  <p className="text-xs text-slate-500 mb-1">{label}</p>
+                  <p className="text-xs text-slate-400 mb-1">{label}</p>
                   <p className="text-2xl font-bold text-[#38bdf8]">{value}</p>
-                  <p className="text-xs text-slate-500">{u}</p>
+                  <p className="text-xs text-slate-400">{u}</p>
                 </div>
               ))}
             </div>
@@ -267,13 +267,13 @@ export default function BendAllowanceTool() {
 
             {/* Developed length visual note */}
             <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-4">
-              <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Flat Blank Layout</p>
+              <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">Flat Blank Layout</p>
               <pre className="font-mono text-xs text-slate-400 leading-relaxed whitespace-pre">{`|← L1 →|← BA →|← L2 →|\n        Total Flat Blank`}</pre>
             </div>
 
             {/* Live bend cross-section */}
             <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-4">
-              <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">Bend Cross-Section</p>
+              <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">Bend Cross-Section</p>
               <div className="flex justify-center">
                 <svg viewBox="0 0 340 260" className="w-full max-w-md" aria-label="Bend cross-section">
                   {(() => {
@@ -316,13 +316,13 @@ export default function BendAllowanceTool() {
                   })()}
                 </svg>
               </div>
-              <p className="text-xs text-slate-500 mt-1 text-center">
+              <p className="text-xs text-slate-400 mt-1 text-center">
                 Dashed line = neutral axis. Bend Allowance follows this arc length.
               </p>
             </div>
           </div>
         ) : (
-          <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-6 text-center text-slate-500">
+          <div className="bg-[#0f172a] border border-slate-700 rounded-lg p-6 text-center text-slate-400">
             Enter bend angle, radius, and thickness to calculate
           </div>
         )}

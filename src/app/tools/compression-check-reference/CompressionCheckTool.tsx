@@ -171,7 +171,7 @@ export default function CompressionCheckTool() {
               return (
                 <div key={row.id} className="flex items-center gap-2 flex-wrap">
                   <div className="w-20">
-                    <label className="block text-xs text-slate-500 mb-1">Cyl #</label>
+                    <label className="block text-xs text-slate-400 mb-1">Cyl #</label>
                     <input
                       type="text"
                       value={row.num}
@@ -181,7 +181,7 @@ export default function CompressionCheckTool() {
                   </div>
                   {cylCount === 6 && (
                     <div className="w-20">
-                      <label className="block text-xs text-slate-500 mb-1">Label</label>
+                      <label className="block text-xs text-slate-400 mb-1">Label</label>
                       <input
                         type="text"
                         value={row.label}
@@ -192,7 +192,7 @@ export default function CompressionCheckTool() {
                     </div>
                   )}
                   <div className="flex-1">
-                    <label className="block text-xs text-slate-500 mb-1">Reading (0–80)</label>
+                    <label className="block text-xs text-slate-400 mb-1">Reading (0–80)</label>
                     <div className="flex items-center gap-2">
                       <input
                         type="number"
@@ -203,7 +203,7 @@ export default function CompressionCheckTool() {
                         onChange={e => updateRow(row.id, 'reading', e.target.value)}
                         className="w-32 bg-[#0f172a] border border-slate-600 rounded px-2 py-1.5 text-white text-sm focus:outline-none focus:border-[#38bdf8]"
                       />
-                      <span className="text-slate-500 text-sm">/ 80</span>
+                      <span className="text-slate-400 text-sm">/ 80</span>
                       {status && (
                         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${status.bg} ${status.color} ${status.border}`}>
                           {status.label}
@@ -213,7 +213,7 @@ export default function CompressionCheckTool() {
                   </div>
                   <button
                     onClick={() => removeRow(row.id)}
-                    className="no-print mt-4 text-slate-600 hover:text-red-400 transition-colors text-lg"
+                    className="no-print mt-4 text-slate-400 hover:text-red-400 transition-colors text-lg"
                     aria-label="Remove row"
                   >
                     ✕
@@ -236,17 +236,17 @@ export default function CompressionCheckTool() {
             <h3 className="text-white font-semibold mb-4">Results Summary</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               <div className="bg-[#0f172a] rounded-lg p-3">
-                <p className="text-xs text-slate-500">Lowest Reading</p>
+                <p className="text-xs text-slate-400">Lowest Reading</p>
                 <p className="text-2xl font-bold text-white">{minReading}/80</p>
                 {minReading !== null && <span className={`text-xs font-semibold ${getStatus(minReading).color}`}>{getStatus(minReading).label}</span>}
               </div>
               <div className="bg-[#0f172a] rounded-lg p-3">
-                <p className="text-xs text-slate-500">Highest Reading</p>
+                <p className="text-xs text-slate-400">Highest Reading</p>
                 <p className="text-2xl font-bold text-white">{maxReading}/80</p>
                 {maxReading !== null && <span className={`text-xs font-semibold ${getStatus(maxReading).color}`}>{getStatus(maxReading).label}</span>}
               </div>
               <div className={`rounded-lg p-3 ${spreadWarning ? 'bg-red-900/30 border border-red-700/30' : 'bg-[#0f172a]'}`}>
-                <p className={`text-xs ${spreadWarning ? 'text-red-400' : 'text-slate-500'}`}>Spread (high − low)</p>
+                <p className={`text-xs ${spreadWarning ? 'text-red-400' : 'text-slate-400'}`}>Spread (high − low)</p>
                 <p className={`text-2xl font-bold ${spreadWarning ? 'text-red-400' : 'text-white'}`}>{spread ?? '--'} pts</p>
                 {spreadWarning && <p className="text-xs text-red-400">⚠️ Spread &gt;15 — investigate</p>}
               </div>

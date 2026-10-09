@@ -16,7 +16,7 @@ export default function AboutPage() {
           is required, and nothing is logged. The site will remain free. Period.
         </p>
         <div className="border-t border-slate-700 pt-6 mt-8">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-400">
             <strong className="text-slate-400">Disclaimer:</strong> AMT Toolbox is provided for educational
             and reference purposes only. Always verify calculations against FAA-approved maintenance manuals,
             aircraft documentation, and applicable regulations. This site does not replace the judgment of

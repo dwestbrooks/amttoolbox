@@ -91,11 +91,11 @@ function ValBox({
 }) {
   return (
     <div className="bg-[#0f172a] rounded-md p-2 text-center">
-      <p className="text-[10px] text-slate-500 mb-0.5">{label}</p>
+      <p className="text-[10px] text-slate-400 mb-0.5">{label}</p>
       <p className={`text-sm font-semibold ${highlight ? 'text-[#38bdf8]' : 'text-white'}`}>
         {toFraction(value)}
       </p>
-      <p className={`text-[10px] ${highlight ? 'text-[#38bdf8]/70' : 'text-slate-500'}`}>
+      <p className={`text-[10px] ${highlight ? 'text-[#38bdf8]/70' : 'text-slate-400'}`}>
         {fmt4(value)}&quot;
       </p>
     </div>
@@ -261,7 +261,7 @@ export default function RivetSizeTool() {
                 placeholder="e.g. 0.040"
                 value={topSheet}
                 onChange={e => setTopSheet(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
+                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
               />
             </div>
 
@@ -277,14 +277,14 @@ export default function RivetSizeTool() {
                 placeholder="e.g. 0.040"
                 value={botSheet}
                 onChange={e => setBotSheet(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
+                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
               />
             </div>
 
             {/* Repair length */}
             <div className="mb-3">
               <label className="block text-sm text-slate-400 mb-1">
-                Repair / Crack Length (in) <span className="text-slate-600">— optional</span>
+                Repair / Crack Length (in) <span className="text-slate-400">— optional</span>
               </label>
               <input
                 type="number"
@@ -293,7 +293,7 @@ export default function RivetSizeTool() {
                 placeholder="e.g. 3.0"
                 value={repairLen}
                 onChange={e => setRepairLen(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
+                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
               />
             </div>
 
@@ -397,28 +397,28 @@ export default function RivetSizeTool() {
                   </button>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     <div className="bg-[#0f172a] rounded-lg p-3">
-                      <p className="text-[10px] text-slate-500 mb-1">Diameter</p>
+                      <p className="text-[10px] text-slate-400 mb-1">Diameter</p>
                       <p className="text-white font-semibold text-sm">
                         {toFraction(calc.actualDiameter)}
                       </p>
                       <p className="text-slate-400 text-xs">{fmt4(calc.actualDiameter)}&quot;</p>
                     </div>
                     <div className="bg-[#0f172a] rounded-lg p-3">
-                      <p className="text-[10px] text-slate-500 mb-1">Total Length</p>
+                      <p className="text-[10px] text-slate-400 mb-1">Total Length</p>
                       <p className="text-white font-semibold text-sm">
                         {toFraction(calc.lengthIn16ths / 16)}
                       </p>
                       <p className="text-slate-400 text-xs">{calc.lengthIn16ths}/16&quot;</p>
                     </div>
                     <div className="bg-[#0f172a] rounded-lg p-3">
-                      <p className="text-[10px] text-slate-500 mb-1">Grip Thickness</p>
+                      <p className="text-[10px] text-slate-400 mb-1">Grip Thickness</p>
                       <p className="text-white font-semibold text-sm">
                         {toFraction(calc.totalThickness)}
                       </p>
                       <p className="text-slate-400 text-xs">{fmt4(calc.totalThickness)}&quot;</p>
                     </div>
                     <div className="bg-[#0f172a] rounded-lg p-3">
-                      <p className="text-[10px] text-slate-500 mb-1">Rivets / Row</p>
+                      <p className="text-[10px] text-slate-400 mb-1">Rivets / Row</p>
                       <p className="text-white font-semibold text-sm">
                         {calc.estimatedRivets > 0 ? calc.estimatedRivets : '—'}
                       </p>
@@ -493,7 +493,7 @@ export default function RivetSizeTool() {
                         </div>
                         <div>
                           <p className="text-white text-sm font-semibold">{fmt4(calc.tooling.drillDecimal)}&quot;</p>
-                          <p className="text-slate-500 text-xs">decimal equivalent</p>
+                          <p className="text-slate-400 text-xs">decimal equivalent</p>
                         </div>
                       </div>
                     </div>
@@ -536,7 +536,7 @@ export default function RivetSizeTool() {
                   </p>
                 </div>
                 <div className="border-t border-slate-700 pt-3">
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  <p className="text-slate-400 text-xs leading-relaxed">
                     <span className="text-slate-300 font-medium">Alloy note:</span>{' '}
                     AD (2117-T3) is the standard alloy for most repairs. D and DD rivets require
                     refrigeration (icebox rivets) and must be driven within minutes of removal from
@@ -546,7 +546,7 @@ export default function RivetSizeTool() {
               </div>
             </>
           ) : (
-            <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-16 text-center text-slate-500">
+            <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-16 text-center text-slate-400">
               Enter top and bottom sheet thicknesses to calculate rivet specifications.
             </div>
           )}

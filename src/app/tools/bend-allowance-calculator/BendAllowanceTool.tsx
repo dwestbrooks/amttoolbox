@@ -119,7 +119,7 @@ export default function BendAllowanceTool() {
 
         {/* OML Toggle */}
         <div className="mb-4">
-          <label className="flex items-center gap-2 cursor-pointer select-none w-fit">
+          <label className="flex items-center gap-2 cursor-pointer select-none w-fit py-0.5">
             <input
               type="checkbox"
               checked={useOML}
@@ -177,7 +177,7 @@ export default function BendAllowanceTool() {
               <button
                 onMouseEnter={() => setShowKTooltip(true)}
                 onMouseLeave={() => setShowKTooltip(false)}
-                className="text-slate-400 hover:text-slate-300 relative"
+                className="text-slate-400 hover:text-slate-300 relative p-2 -m-2"
               >
                 <HelpCircle className="w-4 h-4" />
                 {showKTooltip && (

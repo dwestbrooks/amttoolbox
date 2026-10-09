@@ -237,7 +237,7 @@ export default function ToolboxesGuide() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="mb-8">
-        <Link href="/guides" className="inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300 mb-4">
+        <Link href="/guides" className="inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300 py-2 mb-4">
           <ArrowRight className="w-4 h-4 rotate-180" />
           All gear guides
         </Link>

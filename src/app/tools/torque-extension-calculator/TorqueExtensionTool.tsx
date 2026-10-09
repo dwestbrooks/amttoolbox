@@ -179,7 +179,7 @@ export default function TorqueExtensionTool() {
                 <button
                   key={p}
                   onClick={() => setL(String(p))}
-                  className={`px-2 py-0.5 rounded text-xs font-medium transition-colors border ${
+                  className={`px-2 min-h-6 rounded text-xs font-medium transition-colors border ${
                     L === String(p)
                       ? 'bg-[#38bdf8]/20 text-[#38bdf8] border-[#38bdf8]/50'
                       : 'bg-slate-800 text-slate-400 border-slate-600 hover:border-slate-400'

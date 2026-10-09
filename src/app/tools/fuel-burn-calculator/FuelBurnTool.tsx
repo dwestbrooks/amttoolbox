@@ -285,7 +285,7 @@ export default function FuelBurnTool() {
       <div className="bg-[#1e293b] border border-slate-700 rounded-lg p-6">
         <button
           onClick={() => setShowRef(!showRef)}
-          className="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors w-full text-left"
+          className="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white py-2 transition-colors w-full text-left"
         >
           {showRef ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           Common GA Aircraft Reference

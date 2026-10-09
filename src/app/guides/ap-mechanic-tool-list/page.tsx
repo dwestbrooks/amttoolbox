@@ -505,7 +505,7 @@ export default function ToolListGuide() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-8">
-        <Link href="/guides" className="inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300 mb-4">
+        <Link href="/guides" className="inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300 py-2 mb-4">
           <ArrowRight className="w-4 h-4 rotate-180" />
           All gear guides
         </Link>

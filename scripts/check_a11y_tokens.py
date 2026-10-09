@@ -195,6 +195,48 @@ def main():
             fails.append(f"{path.name}: toggle switch is h-5 (20px tall), below the 24px "
                          f"floor of WCAG 2.2 SC 2.5.8 - use h-6 w-11")
 
+    # Full-width collapsible toggle: the text glyph is only 20px tall.
+    for path in SRC.rglob("*.tsx"):
+        s2 = path.read_text(encoding="utf-8")
+        if ('flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white '
+            'transition-colors w-full text-left') in s2:
+            fails.append(f"{path.name}: a full-width collapsible toggle is 20px tall "
+                         f"(WCAG 2.2 SC 2.5.8) - needs py-2")
+
+    # Icon-only row-remove buttons: the glyph alone is 14px wide.
+    for path in SRC.rglob("*.tsx"):
+        s2 = path.read_text(encoding="utf-8")
+        if 'className="no-print mt-4 text-slate-400 hover:text-red-400 transition-colors text-lg"' in s2:
+            fails.append(f"{path.name}: the row-remove button is ~14px wide (WCAG 2.2 SC 2.5.8) "
+                         f"- needs min-w-6 min-h-6")
+
+    # Segmented "socket size" buttons: py-0.5 leaves them ~22px WIDE, under the 24px
+    # floor. px-2 min-h-6 fixes it. Measured live at 22x32 before.
+    for path in SRC.rglob("*.tsx"):
+        s = path.read_text(encoding="utf-8")
+        if "px-2 py-0.5 rounded text-xs font-medium" in s:
+            fails.append(f"{path.name}: segmented size button uses py-0.5 and renders ~22px "
+                         f"wide (WCAG 2.2 SC 2.5.8) - use px-2 min-h-6")
+
+    # The gear-guide "All gear guides" and "Check current price" links are standalone,
+    # not inline text, so 20px tall fails. Measured live on 5 guide pages before.
+    for path in SRC.rglob("*.tsx"):
+        s = path.read_text(encoding="utf-8")
+        frag = "inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300"
+        for m in re.finditer(re.escape(frag) + r'([^"`\']*)', s):
+            if not re.search(r"\b(p-|py-)", m.group(1)):
+                fails.append(f"{path.name}: a gear-guide link (All gear guides / Check "
+                             f"current price) lost its vertical padding - renders under "
+                             f"24px tall (WCAG 2.2 SC 2.5.8)")
+
+    # icon-only buttons must carry their own padding too. The K-Factor tooltip button
+    # was a bare 16x16 target - the icon is the only thing to click.
+    for path in SRC.rglob("*.tsx"):
+        s = path.read_text(encoding="utf-8")
+        if 'className="text-slate-400 hover:text-slate-300 relative"' in s:
+            fails.append(f"{path.name}: the K-Factor tooltip button is a bare 16x16 target "
+                         f"(WCAG 2.2 SC 2.5.8) - needs p-2")
+
     # --- 5. optional live check --------------------------------------------
     if args.url:
         try:

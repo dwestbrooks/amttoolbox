@@ -213,7 +213,7 @@ export default function CompressionCheckTool() {
                   </div>
                   <button
                     onClick={() => removeRow(row.id)}
-                    className="no-print mt-4 text-slate-400 hover:text-red-400 transition-colors text-lg"
+                    className="no-print mt-4 text-slate-400 hover:text-red-400 transition-colors text-lg min-w-6 min-h-6 flex items-center justify-center"
                     aria-label="Remove row"
                   >
                     ✕

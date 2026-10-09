@@ -48,7 +48,7 @@ export default function SnapOnSepGuide() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Link
         href="/guides"
-        className="inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300 mb-6 transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm text-[#38bdf8] hover:text-sky-300 py-2 mb-6 transition-colors"
       >
         <ArrowRight className="w-4 h-4 rotate-180" />
         All gear guides

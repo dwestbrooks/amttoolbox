@@ -110,15 +110,17 @@ function decodeMS(raw: string): DecodeResult {
   const cotterMatch = input.match(/^MS24665-(\d+)$/)
   if (cotterMatch) {
     const dashNum = parseInt(cotterMatch[1])
-    // Verified against McFarlane Aviation and Military Fasteners catalog pages.
+    // Verified against Huyett, Spencer Aircraft, Military Fasteners, McFarlane, MW Components.
     // MS24665 dash codes are NOT a simple arithmetic series; the mapping is a table.
-    const COTTER_SIZES: Record<number, { dia: string; len: string }> = {
-      132: { dia: '1/16"', len: '1/2"' },
-      156: { dia: '1/16"', len: '5/8"' },
-      208: { dia: '1/16"', len: '1"' },
-      283: { dia: '3/32"', len: '3/4"' },
-      354: { dia: '1/8"', len: '1"' },
-      428: { dia: '5/32"', len: '2-1/2"' },
+    // NOTE: 156 and 354 could not be confirmed against a catalog page - they are marked
+    // unverified below rather than guessed.
+    const COTTER_SIZES: Record<number, { dia: string; len: string; verified: boolean }> = {
+      132: { dia: '1/16"', len: '1/2"', verified: true },
+      156: { dia: '1/16"', len: '5/8"', verified: false },
+      208: { dia: '5/64"', len: '1/2"', verified: true },
+      283: { dia: '3/32"', len: '3/4"', verified: true },
+      354: { dia: '1/8"', len: '1"', verified: false },
+      428: { dia: '5/32"', len: '2-1/2"', verified: true },
     }
     const sizeInfo = COTTER_SIZES[dashNum]
 
@@ -137,6 +139,9 @@ function decodeMS(raw: string): DecodeResult {
         ...(sizeInfo ? [
           { property: 'Diameter', value: sizeInfo.dia },
           { property: 'Length', value: sizeInfo.len },
+          ...(sizeInfo.verified ? [] : [
+            { property: 'Note', value: 'Size not confirmed against a current catalog page — verify before use.' },
+          ]),
         ] : [{ property: 'Size', value: `Refer to MS24665 dash ${dashNum} table` }]),
         { property: 'Material', value: 'Low-carbon steel or corrosion-resistant steel' },
       ],
@@ -379,7 +384,7 @@ export default function MSHardwareTool() {
                 ['MS21043', 'Self-locking nut, standard, all-metal'],
                 ['MS24665', 'Cotter pin (safety pin)'],
                 ['MS35206', 'Phillips pan head machine screw'],
-                ['MS35207', 'Phillips flat head machine screw'],
+                ['MS35207', 'Phillips pan head machine screw'],
                 ['MS35333', 'Flat washer'],
                 ['MS35335', 'Lock washer (split)'],
                 ['MS51957', 'Tinnerman / speed nut'],

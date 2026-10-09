@@ -316,7 +316,7 @@ function decodePartNumber(input: string): DecodeResult {
 }
 
 const AN_REFERENCE = [
-  { code: 'AN3–AN20', type: 'Hex Head Bolt', notes: 'Diameter code = bolt dash size. Length in 1/8" increments.' },
+  { code: 'AN3–AN20', type: 'Hex Head Bolt', notes: 'Diameter code = bolt dash size. Length is NOT the dash in eighths — read it from the AN bolt grip chart.' },
   { code: 'AN310', type: 'Castle Nut', notes: 'For use with cotter pin (AN380). Castellated hex nut.' },
   { code: 'AN315', type: 'Plain Hex Nut (RH)', notes: 'Standard right-hand thread plain nut.' },
   { code: 'AN316', type: 'Plain Hex Nut (LH)', notes: 'Left-hand thread. Used on rotating shafts.' },

@@ -37,21 +37,6 @@ const NUT_THREADS: Record<number, string> = {
   10: '5/8-18',
 }
 
-// MS35206 / MS35207 screw dash codes → thread size
-const SCREW_THREADS: Record<number, string> = {
-  1: '#0-80',
-  2: '#1-72',
-  3: '#2-56',
-  4: '#3-48',
-  5: '#4-40',
-  6: '#6-32',
-  7: '#8-32',
-  8: '#10-24',
-  9: '#10-32',
-  10: '1/4-20',
-  11: '1/4-28',
-}
-
 function decodeMS(raw: string): DecodeResult {
   if (!raw) return { segments: [], description: '', details: [], error: 'Enter an MS part number above.' }
 
@@ -115,7 +100,7 @@ function decodeMS(raw: string): DecodeResult {
         { property: 'Type', value: nutType },
         { property: 'Thread Size', value: thread },
         { property: 'Locking Method', value: 'All-metal deformed thread (no nylon insert)' },
-        { property: 'Temp Rating', value: pn === '21042' ? 'Up to 450°F (232°C)' : 'Up to 450°F (232°C)' },
+        { property: 'Temp Rating', value: pn === '21042' ? 'Up to 450°F (232°C)' : 'Up to 800°F (427°C)' },
       ],
       tip: 'All-metal self-locking nuts may be reused provided locking torque is still within spec. Replace if prevailing torque drops below minimum.',
     }
@@ -125,14 +110,15 @@ function decodeMS(raw: string): DecodeResult {
   const cotterMatch = input.match(/^MS24665-(\d+)$/)
   if (cotterMatch) {
     const dashNum = parseInt(cotterMatch[1])
-    // Approximate size mapping (partial, common sizes)
+    // Verified against McFarlane Aviation and Military Fasteners catalog pages.
+    // MS24665 dash codes are NOT a simple arithmetic series; the mapping is a table.
     const COTTER_SIZES: Record<number, { dia: string; len: string }> = {
-      132: { dia: '1/32"', len: '1/2"' },
+      132: { dia: '1/16"', len: '1/2"' },
       156: { dia: '1/16"', len: '5/8"' },
       208: { dia: '1/16"', len: '1"' },
-      283: { dia: '3/32"', len: '1"' },
+      283: { dia: '3/32"', len: '3/4"' },
       354: { dia: '1/8"', len: '1"' },
-      428: { dia: '1/8"', len: '1-1/2"' },
+      428: { dia: '5/32"', len: '2-1/2"' },
     }
     const sizeInfo = COTTER_SIZES[dashNum]
 
@@ -159,36 +145,54 @@ function decodeMS(raw: string): DecodeResult {
   }
 
   // ---- MS35206 / MS35207 Machine Screws ----
-  const screwMatch = input.match(/^MS(35206|35207)-(\d+)(\d{3})$/)
-  // Try alternate format: MS35206-7XX
-  const screwMatch2 = input.match(/^MS(35206|35207)-(\d{1,2})(\d{2,3})$/)
-  const sm = screwMatch || screwMatch2
-  if (sm) {
-    const pn = sm[1]
-    const threadCode = parseInt(sm[2])
-    const lengthCode = parseInt(sm[3])
-    const headStyle = pn === '35206' ? 'Phillips Pan Head' : 'Phillips Flat Head (100°)'
-    const thread = SCREW_THREADS[threadCode] || `Thread code ${threadCode}`
-    const lengthIn = (lengthCode / 100).toFixed(2)
+  // The dash number is a SEQUENTIAL TABLE ENTRY, not an arithmetic code: it cannot be
+  // split into "thread code + length/100". Verified counterexamples:
+  //   MS35206-228 = 6-32 x 3/8"      (not thread 2 / 0.28")
+  //   MS35206-246 = 8-32 x 5/8"      (not thread 2 / 0.46")
+  //   MS35206-268 = 10-24 x 1-1/4"   (not thread 2 / 0.68")
+  //   MS35206-320 = 2-56 x 9/16"     (not thread 3 / 0.20")
+  //   MS35207-247 = 8-36 x 3/4"      (not thread 2 / 0.47")
+  // The MS35206 specification's own "dash numbers and dimensions" table is the authority,
+  // so unknown dashes must defer to it rather than guess.
+  const screwMatch = input.match(/^MS(35206|35207)-(\d+)$/)
+  if (screwMatch) {
+    const pn = screwMatch[1]
+    const dash = screwMatch[2]
+    // MS35206 (coarse/UNC) and MS35207 (fine/UNF) are BOTH Phillips pan head,
+    // non-structural. Verified: Aircraft Spruce "MS35206 Pan Head Phillips",
+    // "MS35207 Machine Screws Cross Recessed"; Military Fasteners lists both as
+    // "philips, pan head".
+    const headStyle = pn === '35206' ? 'Phillips Pan Head (coarse thread, UNC)' : 'Phillips Pan Head (fine thread, UNF)'
+
+    // A few catalog-verified entries, shown as examples only - NOT a decode.
+    const KNOWN: Record<string, { thread: string; length: string }> = {
+      '228': { thread: '6-32', length: '3/8"' },
+      '246': { thread: '8-32', length: '5/8"' },
+      '320': { thread: '2-56', length: '9/16"' },
+    }
 
     const segments: Segment[] = [
       { text: 'MS', label: 'Military Standard', color: 'bg-blue-900/60 text-blue-200 border border-blue-700/50' },
       { text: pn, label: headStyle, color: 'bg-sky-900/60 text-sky-200 border border-sky-700/50' },
-      { text: `-${sm[2]}`, label: 'Thread Size Code', color: 'bg-violet-900/60 text-violet-200 border border-violet-700/50' },
-      { text: sm[3], label: 'Length (hundredths inch)', color: 'bg-emerald-900/60 text-emerald-200 border border-emerald-700/50' },
+      { text: `-${dash}`, label: 'Dash Number', color: 'bg-violet-900/60 text-violet-200 border border-violet-700/50' },
     ]
 
+    const known = KNOWN[dash]
     return {
       segments,
       description: `${headStyle} machine screw. Stainless steel or cadmium-plated steel.`,
       details: [
         { property: 'Head Style', value: headStyle },
         { property: 'Drive', value: 'Phillips (No. 2)' },
-        { property: 'Thread', value: thread },
-        { property: 'Length', value: `${lengthIn}" (${lengthCode}/100)` },
+        ...(known ? [
+          { property: 'Thread', value: `${known.thread} (from catalog data for this dash)` },
+          { property: 'Length', value: `${known.length} (from catalog data for this dash)` },
+        ] : [
+          { property: 'Thread / Length', value: `Refer to the MS${pn} dash-number table - the dash is a sequential table entry, not an arithmetic code` },
+        ]),
         { property: 'Material', value: 'CRES or cadmium-plated alloy steel' },
       ],
-      tip: 'MS35206/35207 screws are commonly used with MS35333 flat washers and MS21042/MS21043 self-locking nuts in non-structural airframe applications.',
+      tip: 'MS35206/35207 screws are commonly used with MS35333 flat washers and MS21042/MS21043 self-locking nuts in non-structural airframe applications. The dash number can only be resolved against the MS35206/35207 dash table.',
     }
   }
 

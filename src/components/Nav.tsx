@@ -146,7 +146,7 @@ export default function Nav() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden text-slate-300 hover:text-white"
+            className="md:hidden p-2 -m-2 text-slate-300 hover:text-white"
             onClick={() => setOpen(!open)}
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

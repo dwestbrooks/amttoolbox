@@ -247,7 +247,7 @@ export default function WireGaugeTool() {
                 ⚠️ Ampacity requirement is larger than voltage drop requirement — using ampacity-driven size.
               </div>
             )}
-            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5 py-2">
               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               {copied ? 'Copied!' : 'Copy result'}
             </button>

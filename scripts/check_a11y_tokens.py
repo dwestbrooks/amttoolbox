@@ -133,8 +133,67 @@ def main():
         if ":where(" not in css:
             fails.append("the coarse-pointer tap-target rule must be wrapped in :where() "
                          "or it will outrank utilities")
+        # It must cover nav BUTTONS as well as links. The Study dropdown is a <button>,
+        # not an <a>. A `nav a`-only rule silently misses it - measured live at 20px tall.
+        if "nav button" not in css:
+            fails.append("the tap-target rule must cover nav button as well as nav a "
+                         "(the Study dropdown is a button, and was left at 20px)")
     else:
         fails.append("globals.css lost the coarse-pointer tap-target rule")
+
+    # --- 4b. standalone controls must carry their own padding ---------------
+    # WCAG 2.2 SC 2.5.8 (Target Size Minimum, AA) = 24x24, and the inline-text
+    # exception does NOT cover buttons with no padding, icon-only buttons, or
+    # toggle switches. All of these measured under 24px live before the fix.
+    #
+    # Anchor on the className itself rather than on the button's text: "Skip" also
+    # matches "Skip to content", so a text-anchored pattern silently passes the
+    # broken case (it failed its own test once).
+    STANDALONE_CLASSES = [
+        # (file, exact class string, human label)
+        ("QuizEngine.tsx",
+         "text-sm text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed",
+         "the Skip button"),
+        ("HydraulicTool.tsx",
+         "flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors",
+         "the Common Examples toggle"),
+        ("WeightBalanceTool.tsx",
+         "no-print text-slate-400 hover:text-red-400 transition-colors text-lg flex items-center justify-center",
+         "the row delete button"),
+    ]
+    for fname, base_classes, label in STANDALONE_CLASSES:
+        path = next((p for p in SRC.rglob(fname)), None)
+        if not path:
+            continue
+        src = path.read_text(encoding="utf-8")
+        # Find the className that STARTS with these classes and check it carries padding.
+        for m in re.finditer(r'className=\{?[`"\']' + re.escape(base_classes) + r'([^`"\']*)', src):
+            if not re.search(r"\b(p-|py-)", m.group(1)):
+                fails.append(f"{fname} {label} lost its vertical padding - it renders under "
+                             f"24px tall (WCAG 2.2 SC 2.5.8)")
+
+    # Class fragments that must always be followed by vertical padding. These don't
+    # share a common prefix (mt-3 vs mb-4 vs nothing), so anchor on the middle instead.
+    MUST_PAD = [
+        ("text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5",
+         "the 'Copy result' button"),
+        ("inline-flex items-center gap-1 text-sm text-slate-400 hover:text-white",
+         "the 'Back to ...' link"),
+    ]
+    for fragment, label in MUST_PAD:
+        for path in SRC.rglob("*.tsx"):
+            src = path.read_text(encoding="utf-8")
+            for m in re.finditer(re.escape(fragment) + r'([^`"\']*)', src):
+                if not re.search(r"\b(p-|py-)", m.group(1)):
+                    fails.append(f"{path.name}: {label} lost its vertical padding - it renders "
+                                 f"under 24px tall (WCAG 2.2 SC 2.5.8)")
+
+    # toggle switches: h-5 is 20px, under the 24px floor
+    for path in SRC.rglob("*.tsx"):
+        s = path.read_text(encoding="utf-8")
+        if "h-5 w-10 items-center rounded-full" in s:
+            fails.append(f"{path.name}: toggle switch is h-5 (20px tall), below the 24px "
+                         f"floor of WCAG 2.2 SC 2.5.8 - use h-6 w-11")
 
     # --- 5. optional live check --------------------------------------------
     if args.url:

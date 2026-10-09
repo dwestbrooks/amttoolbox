@@ -391,7 +391,7 @@ export default function RivetSizeTool() {
                   <p className="text-4xl font-black text-[#38bdf8] font-mono tracking-tight mb-4">
                     {calc.partNumber}
                   </p>
-                  <button onClick={copyResult} className="mb-4 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+                  <button onClick={copyResult} className="mb-4 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5 py-2">
                     {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     {copied ? 'Copied!' : 'Copy result'}
                   </button>

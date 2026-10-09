@@ -253,7 +253,7 @@ export default function HydraulicTool() {
             </div>
           )}
           {result !== null && (
-            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5">
+            <button onClick={copyResult} className="mt-3 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors flex items-center gap-1.5 py-2">
               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               {copied ? 'Copied!' : 'Copy result'}
             </button>
@@ -317,7 +317,7 @@ export default function HydraulicTool() {
         <div className="mt-4 border-t border-slate-700 pt-4">
           <button
             onClick={() => setShowExamples(!showExamples)}
-            className="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white py-2 transition-colors"
           >
             {showExamples ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             Common Examples

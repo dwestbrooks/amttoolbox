@@ -184,7 +184,7 @@ function StudyMode({
           <button
             onClick={handleSkip}
             disabled={isAnswered}
-            className="text-sm text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-sm text-slate-400 hover:text-white py-2 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Skip
           </button>

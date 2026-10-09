@@ -45,7 +45,7 @@ html, body {
    an explicit utility still wins, and the whole thing only applies on a coarse
    pointer - desktop layout is untouched. */
 @media (hover: none) and (pointer: coarse) {
-  :where(nav a, footer a) {
+  :where(nav a, nav button, footer a) {
     display: inline-block;
     padding-block: 0.5rem;
   }

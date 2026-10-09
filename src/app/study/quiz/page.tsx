@@ -22,7 +22,7 @@ export default function MixedQuizPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <Link
         href="/study"
-        className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-white mb-8 transition-colors"
+        className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-white py-2 mb-8 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" /> Back to Study Hub
       </Link>

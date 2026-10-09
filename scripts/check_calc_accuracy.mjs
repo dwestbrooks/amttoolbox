@@ -71,5 +71,33 @@ for (const [k, v] of Object.entries(AC_TABLE_7_1)) {
 chk(AC_TABLE_7_1.AN12[0] === 2300, 'AN12 3/4in is 2300-2500 in-lb (code had 1100-1900, ~half)')
 chk(AC_TABLE_7_1.AN10[0] === 1100, 'AN10 5/8in is 1100-1300 in-lb (code had 960-1380)')
 
+// ── AN bolt grip: dash/8 is WRONG; use the Pegasus AN Bolt Grip Length Chart ──
+// The dash ladder skips numbers (-8, -9, -18, -19, -28, -29 ...), so dash/8 overstates length.
+const AN_THREAD_LEN = { 3: 0.406, 4: 0.469, 5: 0.531, 6: 0.641, 7: 0.656, 8: 0.680 }
+const AN_IDX = { 3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 8: 5 }
+const AN_GRIP = {
+  4: [0.125, 0.0625, 0.0625, null, null, null],
+  6: [0.375, 0.3125, 0.3125, 0.1875, 0.1875, 0.0625],
+  11: [0.75, 0.6875, 0.6875, 0.5625, 0.5625, 0.4375],
+  15: [1.25, 1.1875, 1.1875, 1.0625, 1.0625, 0.9375],
+}
+const anDecode = (s, d) => {
+  const i = AN_IDX[s], row = AN_GRIP[d]
+  if (i === undefined || !row || row[i] == null) return null
+  return { grip: +row[i].toFixed(4), total: +(row[i] + AN_THREAD_LEN[s]).toFixed(4) }
+}
+console.log('-- AN bolt grip vs catalog --')
+{
+  const a = anDecode(4, 11)
+  chk(Math.abs(a.grip - 0.6875) < 0.001 && Math.abs(a.total - 1.15625) < 0.001,
+    `AN4-11 grip ${a.grip}" total ${a.total}" (Military Fasteners: grip 11/16, length 1-5/32) - old code said 1.3750"`)
+  const b = anDecode(6, 15)
+  chk(Math.abs(b.grip - 1.0625) < 0.001 && Math.abs(b.total - 1.703125) < 0.001,
+    `AN6-15 grip ${b.grip}" total ${b.total}" (Univair: grip 1-1/16, length 1-45/64) - old code said 1.8750"`)
+  const c = anDecode(3, 4)
+  chk(Math.abs(c.total - 0.531) < 0.001, `AN3-4 total ${c.total}" (Military Fasteners 0.531) - old code said 0.500"`)
+  chk(anDecode(9, 20) === null, 'AN9-20 (series not tabulated) fabricates nothing')
+}
+
 console.log(bad ? `\n  ${bad} FAILURE(S)` : '\n  ALL PASS')
 process.exit(bad ? 1 : 0)

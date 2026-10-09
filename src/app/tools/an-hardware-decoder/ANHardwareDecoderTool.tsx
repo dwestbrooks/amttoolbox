@@ -32,6 +32,68 @@ const AN_BOLT_DIAMETERS: Record<number, { diameter: string; threads: string }> =
   20: { diameter: '1-1/4"', threads: '1-1/4-12' },
 }
 
+// AN bolt GRIP length (inches), from the Pegasus Auto Racing AN Bolt Grip Length Chart.
+// Column index = series: 0=AN3, 1=AN4, 2=AN5, 3=AN6, 4=AN7, 5=AN8. null = not made in that dash.
+// NOTE: the dash number is NOT the length in eighths. The grip grows 1/8" per dash STEP, but
+// the ladder skips numbers (-8, -9, -18, -19, -28, -29 ...), so dash/8 gives the wrong answer.
+const AN_BOLT_GRIP: Record<number, (number | null)[]> = {
+  3: [0.0625, 0.0625, null, null, null, null],
+  4: [0.125, 0.0625, 0.0625, null, null, null],
+  5: [0.25, 0.1875, 0.1875, 0.0625, 0.0625, null],
+  6: [0.375, 0.3125, 0.3125, 0.1875, 0.1875, 0.0625],
+  7: [0.5, 0.4375, 0.4375, 0.3125, 0.3125, 0.1875],
+  10: [0.625, 0.5625, 0.5625, 0.4375, 0.4375, 0.3125],
+  11: [0.75, 0.6875, 0.6875, 0.5625, 0.5625, 0.4375],
+  12: [0.875, 0.8125, 0.8125, 0.6875, 0.6875, 0.5625],
+  13: [1.0, 0.9375, 0.9375, 0.8125, 0.8125, 0.6875],
+  14: [1.125, 1.0625, 1.0625, 0.9375, 0.9375, 0.8125],
+  15: [1.25, 1.1875, 1.1875, 1.0625, 1.0625, 0.9375],
+  16: [1.375, 1.3125, 1.3125, 1.1875, 1.1875, 1.0625],
+  17: [1.5, 1.4375, 1.4375, 1.3125, 1.3125, 1.1875],
+  20: [1.625, 1.5625, 1.5625, 1.4375, 1.4375, 1.3125],
+  21: [1.75, 1.6875, 1.6875, 1.5625, 1.5625, 1.4375],
+  22: [1.875, 1.8125, 1.8125, 1.6875, 1.6875, 1.5625],
+  23: [2.0, 1.9375, 1.9375, 1.8125, 1.8125, 1.6875],
+  24: [2.125, 2.0625, 2.0625, 1.9375, 1.9375, 1.8125],
+  25: [2.25, 2.1875, 2.1875, 2.0625, 2.0625, 1.9375],
+  26: [2.375, 2.3125, 2.3125, 2.1875, 2.1875, 2.0625],
+  27: [2.5, 2.4375, 2.4375, 2.3125, 2.3125, 2.1875],
+  30: [2.625, 2.5625, 2.5625, 2.4375, 2.4375, 2.3125],
+  31: [2.75, 2.6875, 2.6875, 2.5625, 2.5625, 2.4375],
+  32: [2.875, 2.8125, 2.8125, 2.6875, 2.6875, 2.5625],
+  33: [3.0, 2.9375, 2.9375, 2.8125, 2.8125, 2.6875],
+  34: [3.125, 3.0625, 3.0625, 2.9375, 2.9375, 2.8125],
+  35: [3.25, 3.1875, 3.1875, 3.0625, 3.0625, 2.9375],
+  36: [3.375, 3.3125, 3.3125, 3.1875, 3.1875, 3.0625],
+  37: [3.5, 3.4375, 3.4375, 3.3125, 3.3125, 3.1875],
+  40: [3.625, 3.5625, 3.5625, 3.4375, 3.4375, 3.3125],
+  41: [3.75, 3.6875, 3.6875, 3.5625, 3.5625, 3.4375],
+  42: [3.875, 3.8125, 3.8125, 3.6875, 3.6875, 3.5625],
+  43: [4.0, 3.9375, 3.9375, 3.8125, 3.8125, 3.6875],
+  44: [4.125, 4.0625, 4.0625, 3.9375, 3.9375, 3.8125],
+  45: [4.25, 4.1875, 4.1875, 4.0625, 4.0625, 3.9375],
+  46: [4.375, 4.3125, 4.3125, 4.1875, 4.1875, 4.0625],
+  47: [4.5, 4.4375, 4.4375, 4.3125, 4.3125, 4.1875],
+}
+
+// Nominal thread length per series (Pegasus chart header). Total bolt length = grip + thread length.
+const AN_THREAD_LEN: Record<number, number> = { 3: 0.406, 4: 0.469, 5: 0.531, 6: 0.641, 7: 0.656, 8: 0.680 }
+
+const AN_SERIES_INDEX: Record<number, number> = { 3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 8: 5 }
+
+/** Inches -> nearest-1/32 fraction string, e.g. 1.15625 -> '1 5/32"'. */
+function toFraction32(inches: number): string {
+  const n = Math.round(inches * 32)
+  let num = n
+  let den = 32
+  while (num % 2 === 0 && den % 2 === 0) { num /= 2; den /= 2 }
+  const whole = Math.floor(num / den)
+  const rem = num % den
+  if (rem === 0) return `${whole}"`
+  if (whole === 0) return `${rem}/${den}"`
+  return `${whole} ${rem}/${den}"`
+}
+
 const AN_NUT_TYPES: Record<number, { type: string; description: string; tip: string }> = {
   310: { type: 'Castle Nut', description: 'Hex castle nut (castellated) for use with cotter pin safety. Standard AN bolt and stud applications.', tip: 'Used with AN380 cotter pins for safety wiring on critical fasteners.' },
   315: { type: 'Plain Hex Nut (Right Hand)', description: 'Standard plain hex nut, right-hand thread. Used where self-locking is not required.', tip: 'Always safety with cotter pin or wire when used in vibration-prone areas.' },
@@ -64,15 +126,32 @@ function decodePartNumber(input: string): DecodeResult {
     const noHoleFlag = boltMatch[3] === 'A'
     const boltInfo = AN_BOLT_DIAMETERS[diamCode]
 
-    const lengthInches = lengthCode !== null ? (lengthCode / 8).toFixed(4) : null
-    const lengthFraction = lengthCode !== null ? `${lengthCode}/8"` : null
+    // Grip is looked up from the chart, NOT computed as dash/8. The dash ladder skips
+    // numbers, so dash/8 overstates length (e.g. AN4-11 is 1-5/32" long, not 1-3/8").
+    // Only AN3-AN8 have published grip charts; larger series are not tabulated here.
+    const seriesIdx = AN_SERIES_INDEX[diamCode]
+    let gripIn: number | null = null
+    let totalIn: number | null = null
+    let lengthKnown = false
+    if (lengthCode !== null && seriesIdx !== undefined) {
+      const row = AN_BOLT_GRIP[lengthCode]
+      const g = row ? row[seriesIdx] : null
+      if (g !== null && g !== undefined) {
+        gripIn = g
+        totalIn = g + AN_THREAD_LEN[diamCode]
+        lengthKnown = true
+      }
+    }
+
+    const gripFraction = gripIn !== null ? toFraction32(gripIn) : null
+    const totalFraction = totalIn !== null ? toFraction32(totalIn) : null
 
     const segments: Segment[] = [
       { text: 'AN', label: 'Series', color: 'bg-blue-900/60 text-blue-200 border border-blue-700/50' },
       { text: boltMatch[1], label: 'Diameter Code', color: 'bg-sky-900/60 text-sky-200 border border-sky-700/50' },
     ]
     if (boltMatch[2]) {
-      segments.push({ text: boltMatch[2], label: 'Length (1/8" units)', color: 'bg-violet-900/60 text-violet-200 border border-violet-700/50' })
+      segments.push({ text: boltMatch[2], label: 'Dash Number (length step)', color: 'bg-violet-900/60 text-violet-200 border border-violet-700/50' })
     }
     if (noHoleFlag) {
       segments.push({ text: 'A', label: 'No Drilled Head', color: 'bg-orange-900/60 text-orange-200 border border-orange-700/50' })
@@ -85,19 +164,32 @@ function decodePartNumber(input: string): DecodeResult {
       { property: 'Thread', value: boltInfo?.threads ?? 'Unknown' },
     ]
 
-    if (lengthInches !== null) {
-      details.push({ property: 'Length Code', value: lengthCode!.toString() })
-      details.push({ property: 'Length', value: `${lengthFraction} (${parseFloat(lengthInches).toFixed(3)}")` })
+    if (lengthCode !== null) {
+      details.push({ property: 'Dash Number', value: lengthCode.toString() })
+      if (lengthKnown && gripIn !== null && totalIn !== null) {
+        details.push({ property: 'Grip Length', value: `${gripFraction} (${gripIn.toFixed(4)}")` })
+        details.push({ property: 'Total Length', value: `${totalFraction} (${totalIn.toFixed(4)}")` })
+      } else {
+        details.push({
+          property: 'Grip / Length',
+          value: seriesIdx === undefined
+            ? 'Not tabulated here - consult the AN bolt grip chart for this series'
+            : `Dash ${lengthCode} is not a standard ${'AN' + diamCode} size - consult the AN bolt grip chart`,
+        })
+      }
     }
     details.push({ property: 'Drilled Head', value: noHoleFlag ? 'No (smooth head)' : 'Yes (for safety wire)' })
 
-    const desc = `AN${diamCode} hex head bolt${boltInfo ? `, ${boltInfo.diameter} diameter, ${boltInfo.threads} thread` : ''}${lengthInches ? `, ${lengthFraction} long` : ''}${noHoleFlag ? ', no drilled head' : ', drilled head for safety wire'}.`
+    const lenDesc = lengthKnown && gripIn !== null && totalIn !== null
+      ? `, grip ${gripFraction}, ${totalFraction} long`
+      : ''
+    const desc = `AN${diamCode} hex head bolt${boltInfo ? `, ${boltInfo.diameter} diameter, ${boltInfo.threads} thread` : ''}${lenDesc}${noHoleFlag ? ', no drilled head' : ', drilled head for safety wire'}.`
 
     return {
       segments,
       description: desc,
       details,
-      tip: `AN bolts are specified by diameter code (dash number = size in 16ths of an inch for diameter, length in 1/8" increments). Always verify grip length matches the material stack thickness.`,
+      tip: 'AN bolt lengths are NOT the dash number in eighths - the dash ladder skips numbers, so use the published AN bolt grip chart. Grip is the unthreaded shank length; total length = grip + the series thread length.',
     }
   }
 

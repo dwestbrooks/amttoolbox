@@ -166,8 +166,10 @@ export default function AircraftElectricalSystemsPage() {
             <li>
               <strong className="text-white">Constraint 2 — Voltage Drop:</strong> The wire resistance
               must be low enough that the voltage drop along the circuit does not exceed the allowable
-              limit. Typical limits: 1–2% for avionics and sensitive equipment, up to 5% for lighting
-              and motors. The formula for required circular mils (CM):{' '}
+              limit. AC 43.13-1B sets the main power wires (source or battery to bus) at no more than
+              2% of regulated voltage, and Table 11-6 defines the maximum acceptable drop in load
+              circuits by system voltage — 0.5 V continuous / 1 V intermittent at 14 V, 1 V / 2 V at
+              28 V, 4 V / 8 V at 115 V, and 7 V / 14 V at 200 V. The formula for required circular mils (CM):{' '}
               <code className="bg-slate-800 px-1 rounded text-[#38bdf8]">
                 CM = (K × I × 2L) / ΔV
               </code>

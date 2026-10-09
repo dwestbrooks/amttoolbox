@@ -14,11 +14,13 @@ interface CylinderRow {
 }
 
 function getStatus(reading: number): { label: string; color: string; bg: string; border: string } {
-  if (reading >= 75) return { label: 'Excellent', color: 'text-emerald-400', bg: 'bg-emerald-900/30', border: 'border-emerald-700/40' }
-  if (reading >= 70) return { label: 'Good', color: 'text-green-400', bg: 'bg-green-900/30', border: 'border-green-700/40' }
-  if (reading >= 60) return { label: 'Marginal', color: 'text-yellow-400', bg: 'bg-yellow-900/30', border: 'border-yellow-700/40' }
-  if (reading >= 50) return { label: 'Poor', color: 'text-orange-400', bg: 'bg-orange-900/30', border: 'border-orange-700/40' }
-  return { label: 'Failed', color: 'text-red-400', bg: 'bg-red-900/30', border: 'border-red-700/40' }
+  // Bands follow Lycoming SI 1191A (70 satisfactory / below 65 wear / below 60 consider removal),
+  // which is the most explicit published ladder. AC 43.13-1B sets a single 60/80 removal
+  // threshold on a HOT engine; Continental SB03-3 sets its limit from the master orifice reading.
+  if (reading >= 70) return { label: 'Satisfactory', color: 'text-emerald-400', bg: 'bg-emerald-900/30', border: 'border-emerald-700/40' }
+  if (reading >= 65) return { label: 'Monitor', color: 'text-yellow-400', bg: 'bg-yellow-900/30', border: 'border-yellow-700/40' }
+  if (reading >= 60) return { label: 'Wear — recheck at 100 hr', color: 'text-orange-400', bg: 'bg-orange-900/30', border: 'border-orange-700/40' }
+  return { label: 'Consider removal', color: 'text-red-400', bg: 'bg-red-900/30', border: 'border-red-700/40' }
 }
 
 let nextId = 4
@@ -63,7 +65,10 @@ export default function CompressionCheckTool() {
   const minReading = allReadings.length > 0 ? Math.min(...allReadings) : null
   const maxReading = allReadings.length > 0 ? Math.max(...allReadings) : null
   const spread = minReading !== null && maxReading !== null ? maxReading - minReading : null
-  const spreadWarning = spread !== null && spread > 15
+  // Lycoming SI 1191A: a difference of 5 psi between cylinders is satisfactory;
+  // 10-15 psi indicates an investigation should be made. Above 15 the SI notes it
+  // "should not necessarily mean removal of the cylinder".
+  const spreadWarning = spread !== null && spread >= 10
 
   function handlePrint() {
     window.print()
@@ -155,7 +160,7 @@ export default function CompressionCheckTool() {
             </div>
             {testCondition === 'cold' && (
               <div className="mt-2 bg-amber-900/20 border border-amber-700/30 rounded-lg px-4 py-2.5 text-xs text-amber-300">
-                Cold compression checks may read 5–10 points lower than warm checks. Warm is the standard for airworthiness determination per most manufacturer guidelines.
+                Cold readings are not comparable to published limits: AC 43.13-1B ties its 60/80 removal threshold to a HOT engine, and Lycoming SI 1191A requires running the engine to normal operating temperatures before checking. Warm is the standard for airworthiness determination.
               </div>
             )}
           </div>
@@ -248,7 +253,7 @@ export default function CompressionCheckTool() {
               <div className={`rounded-lg p-3 ${spreadWarning ? 'bg-red-900/30 border border-red-700/30' : 'bg-[#0f172a]'}`}>
                 <p className={`text-xs ${spreadWarning ? 'text-red-400' : 'text-slate-400'}`}>Spread (high − low)</p>
                 <p className={`text-2xl font-bold ${spreadWarning ? 'text-red-400' : 'text-white'}`}>{spread ?? '--'} pts</p>
-                {spreadWarning && <p className="text-xs text-red-400">⚠️ Spread &gt;15 — investigate</p>}
+                {spreadWarning && <p className="text-xs text-red-400">⚠️ Spread ≥10 — investigate</p>}
               </div>
             </div>
 
@@ -256,10 +261,10 @@ export default function CompressionCheckTool() {
             {spreadWarning && spread !== null && (
               <div className="mb-4 bg-amber-900/30 border border-amber-600/50 rounded-lg px-5 py-4">
                 <p className="text-amber-300 font-semibold text-base mb-1">
-                  ⚠ Cylinder spread exceeds 15 points (spread: {spread} points)
+                  ⚠ Cylinder spread is 10 points or more (spread: {spread} points)
                 </p>
                 <p className="text-amber-200/80 text-sm">
-                  This suggests uneven wear or a developing issue. Document findings and consult engine manufacturer&apos;s service limits.
+                  Per Lycoming SI 1191A, a 10–15 psi difference between cylinders indicates an investigation should be made. Note the SI adds that a difference exceeding 15 psi should not necessarily mean removal — a valve often reseats, so recheck within the next 10 hours of operation. Document findings and consult your engine manufacturer&apos;s service limits.
                 </p>
               </div>
             )}
@@ -287,8 +292,8 @@ export default function CompressionCheckTool() {
           <h3 className="text-white font-semibold mb-2">{manufacturer} Service Standard</h3>
           <p className="text-slate-300 text-sm">
             {manufacturer === 'Continental'
-              ? 'Continental specifies minimum 60/80 for continued service. Investigate any cylinder below 75/80.'
-              : 'Lycoming specifies minimum 60/80. However, readings below 70/80 warrant further investigation per Lycoming SI 1191.'}
+              ? 'Continental SB03-3 sets no fixed gauge number. The acceptable limit is established by the Master Orifice reading for your tester and the atmospheric conditions on the day of the test, and the decision table keys off above/below that limit plus borescope and oil-consumption findings.'
+              : 'Lycoming SI 1191A (superseding SI 1191): readings above 70/80 are satisfactory; below 65/80 indicates wear and subsequent checks should be made at 100-hour intervals; below 60/80, removal and overhaul of the cylinders should be considered.'}
           </p>
         </div>
 
@@ -319,11 +324,10 @@ export default function CompressionCheckTool() {
           <h3 className="text-white font-semibold mb-4">Interpretation Scale</h3>
           <div className="space-y-2">
             {[
-              { range: '75–80/80', label: 'Excellent', action: 'No action required', color: 'text-emerald-400', bg: 'bg-emerald-900/20 border-emerald-700/30' },
-              { range: '70–74/80', label: 'Good', action: 'Monitor at next inspection', color: 'text-green-400', bg: 'bg-green-900/20 border-green-700/30' },
-              { range: '60–69/80', label: 'Marginal', action: 'Investigate further; listen for leakage location', color: 'text-yellow-400', bg: 'bg-yellow-900/20 border-yellow-700/30' },
-              { range: '50–59/80', label: 'Poor', action: 'Immediate investigation required; likely airworthiness concern', color: 'text-orange-400', bg: 'bg-orange-900/20 border-orange-700/30' },
-              { range: 'Below 50/80', label: 'Failed', action: 'Remove from service pending inspection', color: 'text-red-400', bg: 'bg-red-900/20 border-red-700/30' },
+              { range: '70–80/80', label: 'Satisfactory', action: 'Engine satisfactory per Lycoming SI 1191A', color: 'text-emerald-400', bg: 'bg-emerald-900/20 border-emerald-700/30' },
+              { range: '65–69/80', label: 'Monitor', action: 'Below the SI satisfactory threshold — monitor', color: 'text-yellow-400', bg: 'bg-yellow-900/20 border-yellow-700/30' },
+              { range: '60–64/80', label: 'Wear', action: 'SI: wear has occurred; subsequent checks at 100-hour intervals', color: 'text-orange-400', bg: 'bg-orange-900/20 border-orange-700/30' },
+              { range: 'Below 60/80', label: 'Consider removal', action: 'SI: removal and overhaul of cylinders should be considered. AC 43.13-1B: on a hot engine, remove and inspect if procedures fail to raise the reading', color: 'text-red-400', bg: 'bg-red-900/20 border-red-700/30' },
             ].map((item, i) => (
               <div key={i} className={`flex gap-4 items-start rounded-lg p-3 border ${item.bg}`}>
                 <span className={`font-mono font-bold text-sm w-24 flex-shrink-0 ${item.color}`}>{item.range}</span>

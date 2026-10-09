@@ -55,14 +55,21 @@ export default function WeightBalanceTool() {
     return { ...item, wNum: isNaN(w) ? null : w, aNum: isNaN(a) ? null : a, moment }
   })
 
-  const totalWeight = rows.reduce((sum, r) => sum + (r.wNum ?? 0), 0)
-  const totalMoment = rows.reduce((sum, r) => sum + (r.moment ?? 0), 0)
+  // Only rows with BOTH a weight and an arm contribute to the total. A weight with a
+  // blank arm previously added to totalWeight but not totalMoment, silently diluting the CG.
+  const usableRows = rows.filter(r => r.wNum !== null && r.aNum !== null)
+  const incompleteRows = rows.filter(r => (r.wNum !== null) !== (r.aNum !== null))
+
+  const totalWeight = usableRows.reduce((sum, r) => sum + r.wNum!, 0)
+  const totalMoment = usableRows.reduce((sum, r) => sum + r.wNum! * r.aNum!, 0)
   const cg = totalWeight > 0 ? totalMoment / totalWeight : null
 
   const fwdNum = parseFloat(fwdLimit)
   const aftNum = parseFloat(aftLimit)
   const hasCGLimits = !isNaN(fwdNum) && !isNaN(aftNum) && cg !== null
-  const cgInLimits = hasCGLimits && cg! >= fwdNum && cg! <= aftNum
+  // Compare against the same sorted bounds the gauge draws, so the verdict and the
+  // marker can never disagree when the limits are entered in reverse order.
+  const cgInLimits = hasCGLimits && cg! >= Math.min(fwdNum, aftNum) && cg! <= Math.max(fwdNum, aftNum)
 
   // SVG CG gauge
   function renderCGGauge() {
@@ -76,9 +83,11 @@ export default function WeightBalanceTool() {
     const fwd = Math.min(fwdNum, aftNum)
     const aft = Math.max(fwdNum, aftNum)
     const totalRange = aft - fwd
+    // Degenerate limits (fwd == aft) would make displayRange 0 and produce NaN SVG coords.
+    const safeRange = totalRange > 0 ? totalRange : 1
     // Expand slightly so limits aren't at very edge
-    const displayMin = fwd - totalRange * 0.2
-    const displayMax = aft + totalRange * 0.2
+    const displayMin = fwd - safeRange * 0.2
+    const displayMax = aft + safeRange * 0.2
     const displayRange = displayMax - displayMin
 
     function toX(val: number) {
@@ -236,7 +245,7 @@ export default function WeightBalanceTool() {
           {/* Header */}
           <div className="hidden sm:grid grid-cols-[1fr_130px_120px_120px_40px] gap-3 text-xs text-slate-400 uppercase tracking-wider mb-2 px-1">
             <span>Item Name</span>
-            <span>Weight ({showKg ? 'kg' : 'lbs'})</span>
+            <span>Weight (lbs)</span>
             <span>Arm (in)</span>
             <span>Moment (in-lbs)</span>
             <span></span>
@@ -255,7 +264,7 @@ export default function WeightBalanceTool() {
                 <input
                   type="number"
                   step="any"
-                  placeholder={showKg ? 'kg' : 'lbs'}
+                  placeholder="lbs"
                   value={row.weight}
                   onChange={e => updateItem(row.id, 'weight', e.target.value)}
                   className="bg-[#0f172a] border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-400 focus:outline-none focus:border-[#38bdf8] transition-colors"
@@ -295,6 +304,11 @@ export default function WeightBalanceTool() {
               <p className="text-xs text-slate-400 mb-1">Total Weight</p>
               <p className="text-xl font-bold text-white">{displayWeight(totalWeight)}</p>
               {showKg && <p className="text-xs text-slate-400">{displayWeightBoth(totalWeight)}</p>}
+              {incompleteRows.length > 0 && (
+                <p className="text-xs text-amber-400 mt-1">
+                  ⚠ {incompleteRows.length} row{incompleteRows.length > 1 ? 's' : ''} missing a weight or arm — excluded from the totals above.
+                </p>
+              )}
             </div>
             <div className="bg-[#0f172a] rounded-lg p-3">
               <p className="text-xs text-slate-400 mb-1">Total Moment</p>

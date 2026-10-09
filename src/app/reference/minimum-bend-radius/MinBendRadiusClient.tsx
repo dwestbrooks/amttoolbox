@@ -6,24 +6,30 @@ import Link from 'next/link'
 interface BendRow {
   material: string
   temper: string
-  ranges: [number, number, number, number, number] // multipliers for each thickness range
+  /** [min,max] multiplier bands per thickness column — AC 43.13-1B Table 4-6 gives ranges, not single values. */
+  ranges: [number, number][]
 }
 
-const RANGE_LABELS = ['Up to 0.032"', '0.033–0.064"', '0.065–0.125"', '0.126–0.187"', '0.188–0.250"']
-const RANGE_MAX = [0.032, 0.064, 0.125, 0.187, 0.250]
+const RANGE_LABELS = ['Up to 0.032"', '0.033–0.064"', '0.065–0.125"', '0.126–0.182"', '0.183–0.258"']
+const RANGE_MAX = [0.032, 0.064, 0.125, 0.182, 0.258]
 
+// AC 43.13-1B Table 4-6, "Recommended radii for 90-degree bends in aluminum alloys".
+// Columns map to sheet thicknesses 0.016 / 0.032 / 0.064 / 0.128 / 0.182 / 0.258.
+// The AC's 0.016 column is merged into the "Up to 0.032\"" band.
 const DATA: BendRow[] = [
-  { material: '2024 Aluminum', temper: 'T3',          ranges: [2.0, 2.5, 3.0, 4.0, 5.0] },
-  { material: '2024 Aluminum', temper: 'T4',          ranges: [1.5, 2.0, 2.5, 3.0, 4.0] },
-  { material: '2024 Aluminum', temper: 'O (annealed)', ranges: [0.0, 0.5, 1.0, 1.5, 2.0] },
-  { material: '6061 Aluminum', temper: 'T6',          ranges: [2.0, 2.5, 3.0, 3.5, 4.0] },
-  { material: '6061 Aluminum', temper: 'O (annealed)', ranges: [0.0, 0.0, 0.5, 1.0, 1.5] },
-  { material: '7075 Aluminum', temper: 'T6',          ranges: [3.0, 4.0, 5.0, 6.0, 7.0] },
-  { material: '7075 Aluminum', temper: 'O (annealed)', ranges: [1.0, 1.5, 2.0, 2.5, 3.0] },
-  { material: '4130 Steel',    temper: 'Normalized',  ranges: [1.5, 2.0, 2.5, 3.0, 4.0] },
-  { material: '4130 Steel',    temper: 'Annealed',    ranges: [1.0, 1.5, 2.0, 2.5, 3.0] },
-  { material: 'Titanium',      temper: '3AL-2.5V',    ranges: [3.0, 3.5, 4.0, 5.0, 6.0] },
-  { material: 'Titanium',      temper: 'Grade 2 (CP)', ranges: [2.5, 3.0, 3.5, 4.5, 5.5] },
+  { material: '2024 Aluminum', temper: 'O (annealed)', ranges: [[0, 1], [0, 1], [0, 1], [0, 1], [0, 1]] },
+  { material: '2024 Aluminum', temper: 'T3',           ranges: [[1.5, 3], [2, 4], [3, 5], [4, 6], [5, 7]] },
+  { material: '2024 Aluminum', temper: 'T61',          ranges: [[2, 4], [3, 5], [3, 5], [4, 6], [6, 10]] },
+  { material: '5052 Aluminum', temper: 'O (annealed)', ranges: [[0, 0], [0, 0], [0, 1], [0, 1], [0, 1]] },
+  { material: '5052 Aluminum', temper: 'H32',          ranges: [[0, 0], [0, 0], [0.5, 1], [0.5, 1.5], [0.5, 1.5]] },
+  { material: '5052 Aluminum', temper: 'H34',          ranges: [[0, 0], [0, 0], [0.5, 1.5], [1.5, 2.5], [2, 3]] },
+  { material: '5052 Aluminum', temper: 'H36',          ranges: [[0, 1], [0.5, 1.5], [1, 2], [1.5, 3], [2, 4]] },
+  { material: '5052 Aluminum', temper: 'H38',          ranges: [[0.5, 1.5], [1, 2], [1.5, 3], [2, 4], [4, 6]] },
+  { material: '6061 Aluminum', temper: 'O (annealed)', ranges: [[0, 0], [0, 1], [0, 1], [0, 1], [0, 1]] },
+  { material: '6061 Aluminum', temper: 'T4',           ranges: [[0, 1], [0, 1], [0.5, 1.5], [1, 2], [2.5, 4]] },
+  { material: '6061 Aluminum', temper: 'T6',           ranges: [[0, 1], [0.5, 1.5], [1, 2], [1.5, 3], [3, 4]] },
+  { material: '7075 Aluminum', temper: 'O (annealed)', ranges: [[0, 0], [0, 1], [0, 1], [1, 2], [1.5, 3]] },
+  { material: '7075 Aluminum', temper: 'T6',           ranges: [[2, 4], [3, 5], [4, 6], [5, 7], [6, 10]] },
 ]
 
 const MATERIALS = Array.from(new Set(DATA.map(r => r.material)))
@@ -45,7 +51,9 @@ export default function MinBendRadiusClient() {
   const calcT = parseFloat(calcThickness)
   const calcRow = DATA[calcRowIndex]
   const calcRangeIdx = !isNaN(calcT) && calcT > 0 ? getRangeIndex(calcT) : null
-  const calcActual = calcRangeIdx !== null ? calcRow.ranges[calcRangeIdx] * calcT : null
+  // Minimum radius = upper bound of the band; range shown for context.
+  const calcBand = calcRangeIdx !== null ? calcRow.ranges[calcRangeIdx] : null
+  const calcActual = calcBand && !isNaN(calcT) ? calcBand[1] * calcT : null
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -91,8 +99,10 @@ export default function MinBendRadiusClient() {
                 <tr key={i} className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
                   <td className="py-3 px-4 text-white font-medium">{row.material}</td>
                   <td className="py-3 px-4 text-slate-300">{row.temper}</td>
-                  {row.ranges.map((val, j) => (
-                    <td key={j} className="py-3 px-3 text-center font-mono text-[#38bdf8]">{val.toFixed(1)}T</td>
+                  {row.ranges.map((band, j) => (
+                    <td key={j} className="py-3 px-3 text-center font-mono text-[#38bdf8]">
+                      {band[0] === band[1] ? `${band[0].toFixed(1)}T` : `${band[0].toFixed(1)}–${band[1].toFixed(1)}T`}
+                    </td>
                   ))}
                 </tr>
               ))}
@@ -139,8 +149,8 @@ export default function MinBendRadiusClient() {
               {calcActual.toFixed(4)}&quot;
             </p>
             <p className="text-xs text-slate-400 mt-1">
-              = {calcRow.ranges[calcRangeIdx!].toFixed(1)}T × {calcT}&quot; thickness 
-              &nbsp;(range: {RANGE_LABELS[calcRangeIdx!]})
+              = {calcBand![1].toFixed(1)}T × {calcT}&quot; thickness
+              &nbsp;(AC band {calcBand![0].toFixed(1)}–{calcBand![1].toFixed(1)}T for {RANGE_LABELS[calcRangeIdx!]})
             </p>
           </div>
         ) : (

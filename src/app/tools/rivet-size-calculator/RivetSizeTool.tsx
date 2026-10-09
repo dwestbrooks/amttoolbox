@@ -28,15 +28,20 @@ function fmt4(n: number): string {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const TOOLING: Record<number, { drill: string; drillDecimal: number; cleco: string; clecoColor: string }> = {
+const TOOLING: Record<number, { drill: string; drillDecimal: number; cleco: string | null; clecoColor: string }> = {
   3: { drill: '#40', drillDecimal: 0.098,  cleco: 'Silver',     clecoColor: 'silver' },
   4: { drill: '#30', drillDecimal: 0.1285, cleco: 'Copper',     clecoColor: 'copper' },
   5: { drill: '#21', drillDecimal: 0.159,  cleco: 'Black',      clecoColor: 'black'  },
   6: { drill: '#11', drillDecimal: 0.191,  cleco: 'Brass/Gold', clecoColor: 'gold'   },
+  // 7 (7/32") is a real AN470 size but has no standard cleco colour — left null rather than guessed.
+  7: { drill: '#3',  drillDecimal: 0.213,  cleco: null,         clecoColor: 'slate'  },
   8: { drill: 'F / 1/4"', drillDecimal: 0.257, cleco: 'Copper (large)', clecoColor: 'copper' },
 }
 
-const CS_DEPTH: Record<number, number> = {
+// Largest diameter the common AN470 solid-rivet ladder covers (1/4").
+const MAX_LADDER_DIA = 8
+
+const CS_DEPTH: Record<number, number | undefined> = {
   3: 0.036,
   4: 0.042,
   5: 0.055,
@@ -110,7 +115,6 @@ export default function RivetSizeTool() {
   const [repairLen, setRepairLen]     = useState('')
   const [headStyle, setHeadStyle]     = useState<'470' | '426'>('470')
   const [alloy, setAlloy]             = useState('AD')
-  const [material, setMaterial]       = useState('2024-T3 Al')
   const [copied, setCopied]           = useState(false)
 
   // ── Parse ──────────────────────────────────────────────────────────────────
@@ -147,12 +151,12 @@ export default function RivetSizeTool() {
     const thickestSheet = Math.max(topT, botT)
     const totalThickness = topT + botT
 
-    let diaIn32nds = Math.ceil(thickestSheet * 3 * 32)
-    if      (diaIn32nds <= 3) diaIn32nds = 3
-    else if (diaIn32nds === 4) diaIn32nds = 4
-    else if (diaIn32nds === 5) diaIn32nds = 5
-    else if (diaIn32nds === 6) diaIn32nds = 6
-    else                       diaIn32nds = 8
+    // AC 43.13-1B §4-58: rivet diameter = 3 × the THICKEST sheet. Then round UP to the
+    // next standard AN470 diameter. The old code collapsed every result >= 7 to 8 (1/4"),
+    // which silently under-sized thick stacks; 7 (7/32") is a real size and is now used.
+    let diaIn32nds = Math.max(3, Math.ceil(thickestSheet * 3 * 32))
+    const LADDER = [3, 4, 5, 6, 7, 8]
+    diaIn32nds = LADDER.find(d => d >= diaIn32nds) ?? 8
 
     const actualDiameter = diaIn32nds / 32
 
@@ -178,12 +182,34 @@ export default function RivetSizeTool() {
     const tooling = TOOLING[diaIn32nds]
 
     const warnings: string[] = []
+
+    // 3x rule cannot be satisfied by the standard solid-rivet ladder above 1/4".
+    // Better to send the user to the SRM than to silently recommend an under-sized rivet.
+    if (diaIn32nds >= MAX_LADDER_DIA && thickestSheet * 3 * 32 > MAX_LADDER_DIA + 1e-9) {
+      warnings.push(
+        `3× thickest sheet = ${fmt4(thickestSheet * 3)}" exceeds the largest standard solid rivet (1/4"). ` +
+        `A larger diameter or a different fastening method is required — consult the SRM.`
+      )
+    }
+
+    // The 3x rule can land exactly on a 32nd boundary: 0.0625" gives exactly 3/16", so it
+    // does NOT round up; a hair thicker (0.0630") gives 1/4". Either side can be unsafe.
+    if (Math.abs((thickestSheet * 3 * 32) % 1) < 0.02 && thickestSheet * 3 * 32 > 3) {
+      warnings.push(
+        `3× thickest sheet = ${fmt4(thickestSheet * 3)}" lands on an exact standard-rivet size. ` +
+        `A slight thickness change (e.g. 0.0625" vs 0.0630") changes the recommendation, and rounding ` +
+        `down to the exact size can be under-strength for the joint — verify against the SRM.`
+      )
+    }
+
     if (headStyle === '426') {
       const csDepth = CS_DEPTH[diaIn32nds]
-      if (topT < csDepth) {
+      if (csDepth !== undefined && topT < csDepth) {
         warnings.push(
           `Top sheet too thin to machine countersink (need ≥ ${fmt4(csDepth)}") — dimpling required`
         )
+      } else if (csDepth === undefined) {
+        warnings.push('No standard countersink depth on file for this diameter — verify against the SRM.')
       }
     }
     if (totalThickness > 3 * actualDiameter) {
@@ -297,21 +323,6 @@ export default function RivetSizeTool() {
               />
             </div>
 
-            {/* Material selector */}
-            <div className="mb-4">
-              <label className="block text-sm text-slate-400 mb-1">Material</label>
-              <select
-                value={material}
-                onChange={e => setMaterial(e.target.value)}
-                className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
-              >
-                <option>2024-T3 Al</option>
-                <option>6061-T6 Al</option>
-                <option>4130 Steel</option>
-                <option>Titanium</option>
-              </select>
-            </div>
-
             {/* Head style (radio) */}
             <div className="mb-4">
               <p className="text-sm text-slate-400 mb-2">Rivet Head Style</p>
@@ -351,7 +362,7 @@ export default function RivetSizeTool() {
                 className="w-full bg-[#0f172a] border border-slate-600 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-[#38bdf8] transition-colors text-sm"
               >
                 <option value="A">A — 1100 (Plain/Soft)</option>
-                <option value="AD">AD — 2117-T3 (Standard, most common)</option>
+                <option value="AD">AD — 2117-T4 (Standard, most common)</option>
                 <option value="D">D — 2017 (Icebox)</option>
                 <option value="DD">DD — 2024 (Icebox)</option>
               </select>
@@ -538,7 +549,7 @@ export default function RivetSizeTool() {
                 <div className="border-t border-slate-700 pt-3">
                   <p className="text-slate-400 text-xs leading-relaxed">
                     <span className="text-slate-300 font-medium">Alloy note:</span>{' '}
-                    AD (2117-T3) is the standard alloy for most repairs. D and DD rivets require
+                    AD (2117-T4) is the standard alloy for most repairs. D and DD rivets require
                     refrigeration (icebox rivets) and must be driven within minutes of removal from
                     freezer.
                   </p>

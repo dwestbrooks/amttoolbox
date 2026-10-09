@@ -8,6 +8,14 @@ type Mode = 'endurance' | 'range' | 'fuel'
 type Units = 'imperial' | 'metric'
 type WindType = 'headwind' | 'tailwind'
 
+/** Hours -> "Xh Ym". Rounds to minutes and carries 60m into the hour (1h = 60min, so a remainder of 60 is impossible). */
+function formatHoursMins(hrs: number): string {
+  let h = Math.floor(hrs)
+  let m = Math.round((hrs % 1) * 60)
+  if (m === 60) { h += 1; m = 0 }
+  return `${h}h ${m}m`
+}
+
 const GA_AIRCRAFT = [
   { name: 'Cessna 172 Skyhawk', burn: 8, tas: 122 },
   { name: 'Cessna 182 Skylane', burn: 12, tas: 145 },
@@ -66,7 +74,7 @@ export default function FuelBurnTool() {
         formulaLines: [
           `Endurance = Fuel Qty ÷ Burn Rate`,
           `Endurance = ${displayFuel} ${volUnit} ÷ ${displayBurn} ${flowUnit}`,
-          `Endurance = ${hrs.toFixed(2)} hr  (${Math.floor(hrs)}h ${Math.round((hrs % 1) * 60)}m)`,
+          `Endurance = ${hrs.toFixed(2)} hr  (${formatHoursMins(hrs)})`,
         ],
       }
     }
@@ -90,8 +98,8 @@ export default function FuelBurnTool() {
         ],
       }
     }
-    // fuel required
-    if (isNaN(burnGph) || burnGph <= 0 || isNaN(tasKt) || isNaN(fuelNum)) return null
+    // fuel required — TAS is not used in this branch, so don't require it
+    if (isNaN(burnGph) || burnGph <= 0 || isNaN(fuelNum)) return null
     // In "fuel" mode fuelQty field is used as flight time (hours)
     const timeHrs = fuelNum  // user enters time in hours
     const fuelReqGal = burnGph * timeHrs
@@ -252,7 +260,7 @@ export default function FuelBurnTool() {
             {result ? (
               <>
                 {mode === 'endurance'
-                  ? `${Math.floor(result.value)}h ${Math.round((result.value % 1) * 60)}m`
+                  ? formatHoursMins(result.value)
                   : result.value.toFixed(1)}{' '}
                 <span className="text-xl text-slate-400">{result.unit}</span>
               </>

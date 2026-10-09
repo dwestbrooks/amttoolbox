@@ -64,12 +64,17 @@ export default function TurbineEnginesPage() {
             </li>
             <li>
               <strong className="text-white">Turbofan (Low bypass)</strong> — A fan moves a small amount
-              of air around the core. Bypass ratio typically 1:1 to 4:1. Used in high-performance military
+              of air around the core. Bypass ratio less than 2:1. Used in high-performance military
               aircraft (F-16, F/A-18) where speed is prioritized over efficiency.
             </li>
             <li>
+              <strong className="text-white">Turbofan (Medium bypass)</strong> — Bypass ratio between
+              2:1 and 4:1. A middle ground used on some business jets and older transport designs.
+            </li>
+            <li>
               <strong className="text-white">Turbofan (High bypass)</strong> — A large fan moves a large
-              volume of air around the core (bypass ratio 5:1 to 12:1). Most thrust comes from bypass
+              volume of air around the core (bypass ratio 4:1 or greater; large turbofans such as the
+              GE90 run far higher). Most thrust comes from bypass
               air. The dominant engine type for commercial transport (CFM56, GE90, Trent). Best
               fuel efficiency at subsonic cruise speeds.
             </li>

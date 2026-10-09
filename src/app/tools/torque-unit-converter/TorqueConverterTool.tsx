@@ -17,8 +17,8 @@ const anBoltTorque = [
   { size: 'AN6', diameter: '3/8"', minInLb: 160, maxInLb: 190 },
   { size: 'AN7', diameter: '7/16"', minInLb: 450, maxInLb: 500 },
   { size: 'AN8', diameter: '1/2"', minInLb: 480, maxInLb: 690 },
-  { size: 'AN10', diameter: '5/8"', minInLb: 960, maxInLb: 1380 },
-  { size: 'AN12', diameter: '3/4"', minInLb: 1100, maxInLb: 1900 },
+  { size: 'AN10', diameter: '5/8"', minInLb: 1100, maxInLb: 1300 },
+  { size: 'AN12', diameter: '3/4"', minInLb: 2300, maxInLb: 2500 },
 ]
 
 function toNm(inLb: number) { return inLb / 8.8507 }

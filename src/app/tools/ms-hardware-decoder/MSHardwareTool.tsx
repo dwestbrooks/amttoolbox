@@ -19,9 +19,9 @@ interface DecodeResult {
 
 // Material codes for solid rivets
 const RIVET_MATERIALS: Record<string, { alloy: string; strength: string; color: string }> = {
-  AD: { alloy: '2117-T3', strength: '26,000 psi shear', color: 'Most common; soft, easy to drive. Default choice for skin repairs.' },
-  D:  { alloy: '2017-T3', strength: '34,000 psi shear', color: 'Must be driven within 1 hour of quench or refrigerated.' },
-  DD: { alloy: '2024-T3', strength: '41,000 psi shear', color: 'Hardest aluminum rivet; must be kept iced (ice box rivets).' },
+  AD: { alloy: '2117-T4', strength: '26,000 psi shear', color: 'Most common; soft, easy to drive. Default choice for skin repairs.' },
+  D:  { alloy: '2017-T4', strength: '34,000 psi shear', color: 'Must be driven within 1 hour of quench or refrigerated.' },
+  DD: { alloy: '2024-T4', strength: '41,000 psi shear', color: 'Hardest aluminum rivet; must be kept iced (ice box rivets).' },
   A:  { alloy: '1100',    strength: '~9,500 psi shear', color: 'Soft, pure aluminum. Used in non-structural applications.' },
   B:  { alloy: '5056',    strength: '28,000 psi shear', color: 'Used with magnesium structures to prevent galvanic corrosion.' },
 }

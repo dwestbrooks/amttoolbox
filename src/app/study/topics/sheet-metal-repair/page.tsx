@@ -107,7 +107,11 @@ export default function SheetMetalRepairPage() {
           the stress over a larger area.
         </p>
         <p>
-          The standard stop-drill size is <strong className="text-white">#30 drill (approximately 1/8 inch)</strong>.
+          The standard stop-drill size depends on the material. For <strong className="text-white">metal
+          structure</strong>, the airframe handbook specifies a <strong className="text-white">No. 40
+          drill</strong> (AC 43.13-1B&apos;s #30 / 1/8-inch reference is for acrylic plastics, not sheet
+          metal). Structural repair manuals govern the exact size for your airframe — always check the
+          applicable SRM.
           The hole must be centered precisely at the crack tip — not beyond it. After stop-drilling, the area
           must be evaluated to determine whether a patch or doubler repair is also required.
         </p>

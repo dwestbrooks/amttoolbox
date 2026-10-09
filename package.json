@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check:a11y": "python3 scripts/check_a11y_tokens.py"
+    "check:a11y": "python3 scripts/check_a11y_tokens.py",
+    "check:geometry": "python3 scripts/check_geometry.py",
+    "check:geometry:live": "python3 scripts/check_geometry.py --url https://www.amttoolbox.com",
+    "check:all": "npm run check:a11y && npm run build && npm run check:geometry",
+    "check:selftest": "python3 scripts/check_geometry.py --selftest"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.2.6",

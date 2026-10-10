@@ -1,0 +1,63 @@
+# AMT Toolbox
+
+> Free calculators, reference tables, and FAA A&P exam practice questions for aircraft maintenance technicians and A&P certification students.
+
+AMT Toolbox is a free, open-access utility site built specifically for Aircraft Maintenance Technicians and A&P certification students. The tools a mechanic needs day to day (torque calculations, bend allowance formulas, hardware lookups) are normally scattered across textbooks, manufacturer documentation, and decade-old desktop apps. AMT Toolbox collects them in one place, built for the way technicians actually work: fast lookup, mobile-friendly, and available anywhere there is a signal.
+
+Every tool is stateless and client-side. No data leaves your device, no account is required, and nothing is logged. All tools, reference tables, and study material are free.
+
+## Start Here
+
+- [Homepage](https://www.amttoolbox.com) — index of every tool and section
+- [All tools](https://www.amttoolbox.com/tools)
+- [Reference tables](https://www.amttoolbox.com/reference)
+- [A&P exam practice](https://www.amttoolbox.com/study)
+- [Guides](https://www.amttoolbox.com/guides)
+
+## Calculators
+
+- [Bend allowance calculator](https://www.amttoolbox.com/tools/bend-allowance-calculator) — bend allowance, setback, and flat blank length for sheet metal work
+- [Rivet size calculator](https://www.amttoolbox.com/tools/rivet-size-calculator) — rivet diameter, edge distance, pitch, and grip length for sheet metal repairs
+- [Torque extension calculator](https://www.amttoolbox.com/tools/torque-extension-calculator) — the correct torque wrench setting when using an extension tool
+- [Torque unit converter](https://www.amttoolbox.com/tools/torque-unit-converter) — in-lb, ft-lb, N·m, and kgf·cm, with an AN bolt reference table
+- [Weight and balance calculator](https://www.amttoolbox.com/tools/weight-balance-calculator) — weight, moment, and CG location
+- [Wire gauge calculator](https://www.amttoolbox.com/tools/wire-gauge-calculator)
+- [Hydraulic calculator](https://www.amttoolbox.com/tools/hydraulic-calculator)
+- [Ohm's law calculator](https://www.amttoolbox.com/tools/ohms-law-calculator)
+- [Fuel burn calculator](https://www.amttoolbox.com/tools/fuel-burn-calculator)
+- [Decimal to fraction converter](https://www.amttoolbox.com/tools/decimal-fraction-converter)
+- [AN hardware decoder](https://www.amttoolbox.com/tools/an-hardware-decoder) — decode AN aircraft hardware part numbers
+- [MS hardware decoder](https://www.amttoolbox.com/tools/ms-hardware-decoder) — decode MS aircraft hardware part numbers
+- [Compression check reference](https://www.amttoolbox.com/tools/compression-check-reference)
+
+## Reference Tables
+
+- [Aviation abbreviations](https://www.amttoolbox.com/reference/aviation-abbreviations)
+- [Minimum bend radius](https://www.amttoolbox.com/reference/minimum-bend-radius)
+
+## A&P Exam Practice
+
+- [Study home](https://www.amttoolbox.com/study) — free A&P exam practice questions
+- [General exam](https://www.amttoolbox.com/study/general)
+- [Airframe exam](https://www.amttoolbox.com/study/airframe)
+- [Powerplant exam](https://www.amttoolbox.com/study/powerplant)
+- [Quiz](https://www.amttoolbox.com/study/quiz)
+- Topic sets: [sheet metal repair](https://www.amttoolbox.com/study/topics/sheet-metal-repair), [turbine engines](https://www.amttoolbox.com/study/topics/turbine-engines), [aircraft electrical systems](https://www.amttoolbox.com/study/topics/aircraft-electrical-systems)
+
+## Guides
+
+- [A&P mechanic tool list: what you actually need](https://www.amttoolbox.com/guides/ap-mechanic-tool-list)
+- [Best toolboxes for A&P mechanics](https://www.amttoolbox.com/guides/best-toolboxes-for-ap-mechanics)
+- [A&P tool kit builder](https://www.amttoolbox.com/guides/kit-builder)
+- [Snap-on Student Excellence Program (SEP) for A&P students](https://www.amttoolbox.com/guides/snap-on-student-excellence-program)
+
+## Editorial Standards
+
+- [About](https://www.amttoolbox.com/about) — what the site is and how it is funded
+- [Disclosure](https://www.amttoolbox.com/disclosure) — affiliate and monetization disclosure
+
+## Notes for Agents
+
+- Everything is free and open access. No account or signup is required for any tool or study section.
+- **Accuracy disclaimer (quoted from the About page):** AMT Toolbox is provided for educational and reference purposes only. Always verify calculations against FAA-approved maintenance manuals, aircraft documentation, and applicable regulations. This site does not replace the judgment of a certificated aviation maintenance technician.
+- Calculators return a result without server round-trips, so content is identical for crawlers and users, and the same tool output is reachable directly by URL.

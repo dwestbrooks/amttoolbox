@@ -13,7 +13,7 @@ sep.snapon.com answers with ~4.6 KB behind a student login. A 200 with no produc
 verification, so both would silently read as "could not check". Playwright is already this repo's
 proven fetch path (see scripts/check_geometry.py).
 
-Exit codes: 0 = nothing to review, 1 = at least one NOT FOUND or OUT OF BAND, 2 = setup error.
+Exit codes: 0 = nothing to review, 1 = at least one NOT FOUND or DRIFTED, 2 = setup error.
 
 Usage:
     /usr/local/bin/python3 scripts/check_prices.py            # every guide
@@ -41,8 +41,8 @@ DOLLAR = re.compile(r"\$\s?(\d[\d,]*(?:\.\d\d)?)")
 PRICE_FIELD = re.compile(r'"price"\s*:\s*"?([\d.,]+)"?', re.I)
 
 # The three shapes actually in this repo. Each yields (guide, name, claim, url).
-# kit-builder: a planning ESTIMATE range, not a quoted price: { low, high, url }
-BAND = re.compile(r"id:\s*'([^']*)'.*?name:\s*'([^']*)'.*?low:\s*(\d+(?:\.\d+)?)\s*,\s*high:\s*(\d+(?:\.\d+)?)\s*,\s*url:\s*'(https?://[^']*)'", re.S)
+# kit-builder: the verified price of the linked budget pick, a planning figure: { price, url }
+KIT = re.compile(r"id:\s*'([^']*)'.*?name:\s*'([^']*)'.*?priority:\s*\d+,\s*price:\s*(\d+(?:\.\d+)?)\s*,\s*url:\s*'(https?://[^']*)'", re.S)
 # best-toolboxes: a prose price note that sometimes carries a number: { priceNote, url }
 NOTE = re.compile(r"name:\s*'([^']*)'.*?priceNote:\s*'([^']*)'.*?url:\s*'(https?://[^']*)'", re.S)
 # snap-on: a quoted catalog price with no per-item URL on the page: { sku, name, price }
@@ -95,7 +95,7 @@ def live_values(html):
 def parse_guides():
     """[(guide, name, kind, claim, url)] for every structured price in the guides.
 
-    kind: 'band' (planning low/high) | 'price' (a quoted figure)
+    kind: 'planning' (a kit planning figure) | 'price' (a quoted figure) | 'approx' (prose)
     """
     out = []
     if not os.path.isdir(GUIDES):
@@ -105,8 +105,8 @@ def parse_guides():
         if not os.path.isfile(page):
             continue
         src = open(page, encoding="utf-8", errors="ignore").read()
-        for _id, name, low, high, url in BAND.findall(src):
-            out.append((slug, name, "band", (num(low), num(high)), url))
+        for _id, name, price, url in KIT.findall(src):
+            out.append((slug, name, "planning", [num(price)], url))
         for name, price_note, url in NOTE.findall(src):
             vals = claimed_values(price_note)
             if vals:                      # "Check current price on Amazon" claims nothing
@@ -251,7 +251,7 @@ def fetch_html(urls):
 
 
 def judge(kind, claim, vals):
-    """OK / IN BAND / OUT OF BAND / NOT FOUND / UNVERIFIED.
+    """OK / DRIFTED / NOT FOUND / UNVERIFIED.
 
     'About $120' is an approximate claim about a page whose price moves with the seller, so it gets a
     tolerance; a quoted catalog figure ('$3,060') has to be there exactly. Judging an approximate note
@@ -259,9 +259,10 @@ def judge(kind, claim, vals):
     """
     if not vals:
         return "UNVERIFIED"
-    if kind == "band":
-        low, high = claim
-        return "IN BAND" if any(low <= v <= high for v in vals) else "OUT OF BAND"
+    if kind == "planning":
+        # a planning figure on an Amazon pick: flag a real move, not a five-dollar wobble
+        c = claim[0]
+        return "OK" if any(abs(v - c) <= c * Decimal("0.25") for v in vals) else "DRIFTED"
     if any(v in vals for v in claim):
         return "OK"
     if kind == "approx":
@@ -291,7 +292,7 @@ def run(as_json=False):
             if precise:                # the buy box beats a page-wide scan
                 vals, source = precise, "own price"
         verdict = judge(kind, claim, vals)
-        if verdict in ("NOT FOUND", "OUT OF BAND"):
+        if verdict in ("NOT FOUND", "DRIFTED"):
             bad += 1
         results.append({"guide": slug, "name": name, "kind": kind,
                         "claim": [str(c) for c in (claim if isinstance(claim, tuple) else claim)],
@@ -302,11 +303,11 @@ def run(as_json=False):
     if as_json:
         print(json.dumps(results, indent=2))
     else:
-        for v in ("NOT FOUND", "OUT OF BAND", "UNVERIFIED"):
+        for v in ("NOT FOUND", "DRIFTED", "UNVERIFIED"):
             hits = [r for r in results if r["verdict"] == v]
             if not hits:
                 continue
-            label = {"NOT FOUND": "NOT FOUND (the signal)", "OUT OF BAND": "OUT OF BAND (the signal)",
+            label = {"NOT FOUND": "NOT FOUND (the signal)", "DRIFTED": "DRIFTED (the signal)",
                      "UNVERIFIED": "UNVERIFIED - could not confirm, not proof of drift"}[v]
             print(f"\n{label} ({len(hits)}):")
             for r in hits:
@@ -314,7 +315,7 @@ def run(as_json=False):
                     f"blocked: {r['why']}" if r.get("why") else "no page reached")
                 print(f"  {r['name'][:52]:<52} [{r['guide'][:26]}] claim={r['claim']} live={why}"
                       f" ({r.get('source','page')})")
-        ok = sum(1 for r in results if r["verdict"] in ("OK", "IN BAND"))
+        ok = sum(1 for r in results if r["verdict"] == "OK")
         print(f"\nOK: {ok}/{len(results)}")
     return 1 if bad else 0
 
@@ -335,9 +336,9 @@ def selftest():
     assert judge("price", [Decimal("290")], {Decimal("290"), Decimal("1")}) == "OK"
     assert judge("price", [Decimal("290")], {Decimal("310")}) == "NOT FOUND"
     assert judge("price", [Decimal("290")], set()) == "UNVERIFIED"
-    assert judge("band", (Decimal("25"), Decimal("55")), {Decimal("40")}) == "IN BAND"
-    assert judge("band", (Decimal("25"), Decimal("55")), {Decimal("19")}) == "OUT OF BAND"
-    assert judge("band", (Decimal("25"), Decimal("55")), set()) == "UNVERIFIED"
+    assert judge("planning", [Decimal("100")], {Decimal("110")}) == "OK"        # a normal wobble
+    assert judge("planning", [Decimal("100")], {Decimal("131")}) == "DRIFTED"   # the wrench-set case
+    assert judge("planning", [Decimal("100")], set()) == "UNVERIFIED"
     # an approximate note tolerates a moved price; a quoted figure does not
     assert judge("approx", [Decimal("120")], {Decimal("120.99")}) == "OK"
     assert judge("approx", [Decimal("120")], {Decimal("160")}) == "NOT FOUND"
@@ -355,13 +356,13 @@ def selftest():
     rows = parse_guides()
     assert rows, "parser found no price claims in the guides"
     kinds = {r[2] for r in rows}
-    assert kinds <= {"band", "price", "approx"}, kinds
+    assert kinds <= {"planning", "price", "approx"}, kinds
     assert any(r[2] == "approx" for r in rows), "the 'About $290' prose claims should be marked approx"
-    band = [r for r in rows if r[2] == "band"]
-    assert band and all(isinstance(r[3], tuple) and len(r[3]) == 2 for r in band)
+    kit = [r for r in rows if r[2] == "planning"]
+    assert len(kit) == 25, f"expected the 25 kit items, found {len(kit)}"
     assert all(r[3] for r in rows), [r for r in rows if not r[3]]   # never a claimless claim
     print(f"selftest: parsing, price extraction and the verdict ladder behave "
-          f"({len(rows)} real claims found: {sum(1 for r in rows if r[2]=='band')} bands, "
+          f"({len(rows)} real claims found: {sum(1 for r in rows if r[2]=='planning')} kit figures, "
           f"{sum(1 for r in rows if r[2]=='price')} quoted prices)")
     return 0
 

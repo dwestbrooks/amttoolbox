@@ -16,9 +16,9 @@ function link(url: string) {
 /**
  * The A&P starter kit, as a priority-ordered list of line items.
  *
- * Each item has a priority tier (1 = buy first, 5 = nice to have), an estimated
- * budget-tier cost range (planning estimate only, NOT a live price), and a link
- * to the verified budget pick from the tool list guide.
+ * Each item has a priority tier (1 = buy first, 5 = nice to have), the price its linked
+ * budget pick carried when last verified, and a link to that pick. scripts/check_prices.py
+ * re-reads every one of these and flags anything that moved more than 25 percent.
  *
  * The priority ordering reflects what an A&P actually needs on day one: lockwire,
  * sockets, wrenches, and torque come before specialty and measurement tools.
@@ -28,9 +28,8 @@ type KitItem = {
   name: string
   note: string
   priority: 1 | 2 | 3 | 4 | 5
-  /** Planning-estimate low and high of the budget-tier pick, in USD. */
-  low: number
-  high: number
+  /** Verified price of the linked pick in USD, read from the product page 2026-10-15. */
+  price: number
   url: string
 }
 
@@ -40,8 +39,7 @@ const kit: KitItem[] = [
     name: 'Safety wire pliers',
     note: 'The non-negotiable aviation tool. Learn the double-twist method.',
     priority: 1,
-    low: 25,
-    high: 55,
+    price: 27,
     url: 'https://www.amazon.com/dp/B089SVBN4V',
   },
   {
@@ -49,8 +47,7 @@ const kit: KitItem[] = [
     name: '3/8" drive socket set',
     note: 'The backbone of aircraft work. Deep and shallow, SAE and metric.',
     priority: 1,
-    low: 50,
-    high: 80,
+    price: 44,
     url: 'https://www.amazon.com/Craftsman-Piece-Drive-Socket-Metric/dp/B09S2PFYVG',
   },
   {
@@ -58,8 +55,7 @@ const kit: KitItem[] = [
     name: 'Combination wrench set',
     note: 'Covers most general aviation fasteners.',
     priority: 1,
-    low: 60,
-    high: 100,
+    price: 131,
     url: 'https://www.amazon.com/CRAFTSMAN-WRENCH-SET-COMBINATION-METRIC/dp/B078NDYCSK',
   },
   {
@@ -67,8 +63,7 @@ const kit: KitItem[] = [
     name: 'Flat-head and Phillips screwdriver set',
     note: 'Precision-ground tips prevent cam-out.',
     priority: 1,
-    low: 15,
-    high: 30,
+    price: 25,
     url: 'https://www.amazon.com/CRAFTSMAN-SCREWDRIVER-BI-MATERIAL-8PC-CMHT65075N/dp/B0B39PHCVZ',
   },
   {
@@ -76,8 +71,7 @@ const kit: KitItem[] = [
     name: 'Flashlight / inspection light',
     note: 'Half of the job is seeing clearly.',
     priority: 1,
-    low: 15,
-    high: 25,
+    price: 14,
     url: 'https://www.amazon.com/Energizer-Flashlight-Inspection-Batteries-Included/dp/B0FM2YNN4G',
   },
   {
@@ -85,8 +79,7 @@ const kit: KitItem[] = [
     name: 'Torque wrench (foot-pounds)',
     note: 'Never guess, always torque.',
     priority: 1,
-    low: 40,
-    high: 80,
+    price: 60,
     url: 'https://www.amazon.com/CRAFTSMAN-Torque-Wrench-8-Inch-CMMT99433/dp/B07VZZDFL9',
   },
   {
@@ -94,8 +87,7 @@ const kit: KitItem[] = [
     name: '1/4" drive socket set',
     note: 'For small hardware, fairings, and panels.',
     priority: 2,
-    low: 30,
-    high: 50,
+    price: 44,
     url: 'https://www.amazon.com/Craftsman-Piece-Drive-Socket-Metric/dp/B09S2PFYVG',
   },
   {
@@ -103,8 +95,7 @@ const kit: KitItem[] = [
     name: 'Needle-nose pliers',
     note: 'Gripping and reaching in tight spots.',
     priority: 2,
-    low: 12,
-    high: 20,
+    price: 13,
     url: 'https://www.amazon.com/CRAFTSMAN-CMHT81645-Long-Nose-Pliers/dp/B08PFK8YWQ',
   },
   {
@@ -112,8 +103,7 @@ const kit: KitItem[] = [
     name: 'Diagonal cutters (dykes)',
     note: 'For safety wire and cotter pins.',
     priority: 2,
-    low: 15,
-    high: 25,
+    price: 20,
     url: 'https://www.amazon.com/CRAFTSMAN-Diagonal-Cutting-Compound-CMHT81718/dp/B07RC8NGFX',
   },
   {
@@ -121,8 +111,7 @@ const kit: KitItem[] = [
     name: 'Duck bill pliers',
     note: 'A daily aviation tool for lockwire and cotter pins.',
     priority: 2,
-    low: 15,
-    high: 25,
+    price: 26,
     url: 'https://www.amazon.com/Williams-PL-149C-8-Inch-Duck-Bill-Pliers/dp/B005VN3MD8',
   },
   {
@@ -130,8 +119,7 @@ const kit: KitItem[] = [
     name: 'Gear / ratcheting box-end wrenches',
     note: 'Speed up work where a full swing is impossible.',
     priority: 3,
-    low: 40,
-    high: 70,
+    price: 109,
     url: 'https://www.amazon.com/CRAFTSMAN-Ratcheting-Combination-Wrench-CMMT87220/dp/B0DPGJVJZV',
   },
   {
@@ -139,8 +127,7 @@ const kit: KitItem[] = [
     name: 'Torque screwdriver',
     note: 'For small fasteners where over-torqueing is a real risk.',
     priority: 3,
-    low: 25,
-    high: 160,
+    price: 25,
     url: 'https://www.amazon.com/dp/B0CSK2XV25',
   },
   {
@@ -148,8 +135,7 @@ const kit: KitItem[] = [
     name: 'Nut drivers / hex drivers',
     note: 'For fasteners a screwdriver does not fit.',
     priority: 3,
-    low: 20,
-    high: 35,
+    price: 40,
     url: 'https://www.amazon.com/CRAFTSMAN-Driver-Magnetic-Comfort-CMHT65146/dp/B0GQJX98SL',
   },
   {
@@ -157,8 +143,7 @@ const kit: KitItem[] = [
     name: 'Digital caliper',
     note: 'For measuring wear and clearances to spec.',
     priority: 3,
-    low: 15,
-    high: 30,
+    price: 11,
     url: 'https://www.amazon.com/NEIKO-Digital-Caliper-Electronic-Measuring/dp/B0CN3T1372',
   },
   {
@@ -166,8 +151,7 @@ const kit: KitItem[] = [
     name: 'Feeler gauges',
     note: 'For setting and checking gaps and clearances.',
     priority: 3,
-    low: 10,
-    high: 20,
+    price: 6,
     url: 'https://www.amazon.com/Feeler-Gauges-Stainless-Standard-Thickness/dp/B0CF9C1W4V',
   },
   {
@@ -175,8 +159,7 @@ const kit: KitItem[] = [
     name: 'Inch-pound torque wrench',
     note: 'Dedicated low range so you do not snap small fasteners.',
     priority: 4,
-    low: 35,
-    high: 60,
+    price: 38,
     url: 'https://www.amazon.com/dp/B07M68FY3X',
   },
   {
@@ -184,8 +167,7 @@ const kit: KitItem[] = [
     name: 'Deburring tool',
     note: 'Cleans drilled holes in aluminum before they become stress cracks.',
     priority: 4,
-    low: 10,
-    high: 20,
+    price: 10,
     url: 'https://www.amazon.com/dp/B01L2XR4P2',
   },
   {
@@ -193,8 +175,7 @@ const kit: KitItem[] = [
     name: 'Micrometer, 0-1"',
     note: 'For wear limits and tolerances on engine and landing gear parts.',
     priority: 4,
-    low: 40,
-    high: 80,
+    price: 57,
     url: 'https://www.amazon.com/dp/B00B5HES1O',
   },
   {
@@ -202,8 +183,7 @@ const kit: KitItem[] = [
     name: 'LED headlamp',
     note: 'Hands-free light for cowling and fuselage work.',
     priority: 4,
-    low: 15,
-    high: 30,
+    price: 16,
     url: 'https://www.amazon.com/dp/B08D66HCXW',
   },
   {
@@ -211,8 +191,7 @@ const kit: KitItem[] = [
     name: 'Dial indicator with magnetic base',
     note: 'For run-out and gear-play checks.',
     priority: 4,
-    low: 40,
-    high: 70,
+    price: 40,
     url: 'https://www.amazon.com/dp/B08DFKCWX4',
   },
   {
@@ -220,8 +199,7 @@ const kit: KitItem[] = [
     name: 'Cleco pliers and a set of Clecos',
     note: 'For any sheet metal and airframe work.',
     priority: 5,
-    low: 40,
-    high: 70,
+    price: 143,
     url: 'https://www.amazon.com/dp/B06VV91F43',
   },
   {
@@ -229,8 +207,7 @@ const kit: KitItem[] = [
     name: 'Micrometer, 1-2"',
     note: 'For larger engine and landing gear components.',
     priority: 5,
-    low: 40,
-    high: 80,
+    price: 62,
     url: 'https://www.amazon.com/dp/B00B5HESQ4',
   },
   {
@@ -238,8 +215,7 @@ const kit: KitItem[] = [
     name: 'Digital multimeter',
     note: 'Baseline tool for troubleshooting electrical faults.',
     priority: 5,
-    low: 45,
-    high: 60,
+    price: 79,
     url: 'https://www.amazon.com/dp/B00HE6MIJY',
   },
   {
@@ -247,8 +223,7 @@ const kit: KitItem[] = [
     name: 'Precision wire strippers',
     note: 'Mil-spec aircraft wire without nicking the conductor.',
     priority: 5,
-    low: 15,
-    high: 30,
+    price: 31,
     url: 'https://www.amazon.com/dp/B00BC39YFQ',
   },
   {
@@ -256,8 +231,7 @@ const kit: KitItem[] = [
     name: 'Crimping tool',
     note: 'Ratcheting crimper for aviation-grade terminals.',
     priority: 5,
-    low: 25,
-    high: 45,
+    price: 25,
     url: 'https://www.amazon.com/dp/B0873Y19T7',
   },
 ]
@@ -287,7 +261,7 @@ export default function KitBuilder() {
     const picked: KitItem[] = []
     let spent = 0
     for (const item of sorted) {
-      const cost = item.low
+      const cost = item.price
       if (spent + cost <= budget) {
         picked.push(item)
         spent += cost
@@ -344,8 +318,8 @@ export default function KitBuilder() {
           ))}
         </div>
         <p className="text-xs text-slate-400 mt-3">
-          Cost ranges are planning estimates for the budget-tier pick, not live prices. Use the
-          &quot;Check price&quot; links for the current price.
+          Prices are what the linked budget pick cost on October 15, 2026, rounded to the dollar.
+          Retail prices move, so use the &quot;Check price&quot; links for today&apos;s number.
         </p>
       </div>
 
@@ -379,7 +353,7 @@ export default function KitBuilder() {
                 </div>
                 <p className="text-sm text-slate-400 mt-1">{item.note}</p>
                 <div className="flex items-center justify-between gap-3 mt-3 flex-wrap">
-                  <span className="text-sm text-slate-400">est. ${item.low}&ndash;${item.high}</span>
+                  <span className="text-sm text-slate-400">about ${item.price} at the link below</span>
                   <a
                     href={link(item.url)}
                     target="_blank"
@@ -426,7 +400,7 @@ export default function KitBuilder() {
                 Close to the next priority item: {stretch.name}
               </div>
               <p className="text-sm text-slate-400">
-                Add about <span className="text-white font-medium">${stretch.low}</span> more to
+                Add about <span className="text-white font-medium">${stretch.price}</span> more to
                 include it in your kit.
               </p>
             </div>

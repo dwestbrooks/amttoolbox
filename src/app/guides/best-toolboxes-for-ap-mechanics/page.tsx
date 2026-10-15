@@ -48,7 +48,7 @@ const products: Product[] = [
     name: 'DeWalt TSTAK Mobile Storage Deep Box on Wheels',
     model: 'DWST17820',
     tier: 'mid',
-    priceNote: 'About $120 at major retailers',
+    priceNote: 'About $70 on Amazon, and it moves with sales',
     bestFor: 'Best lightweight mobile box for walking the line',
     pros: [
       'Light enough to haul up stands and into tight spots',

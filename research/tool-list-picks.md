@@ -41,7 +41,7 @@
 - feeler gauge budget: 16-blade stainless B0CF9C1W4V ✓
 - feeler gauge premium: Starrett 66 (use Starrett caliper brand) - TBD
 - light budget: Energizer LED pen light B0FM2YNN4G ✓
-- light premium: Streamlight Knucklehead B0089UZBBG ✓
+- light premium: Streamlight Stinger Switchblade 76800 B077HX6T6W ✓ ($103.15, In Stock 2026-10-16; replaced the Knucklehead B0089UZBBG, whose ASIN now 404s and whose line is no longer in Streamlight's current series list)
 
 ## Aviation specialty / electrical additions (Gemma review, 2026-08-17)
 - in-lb torque budget: LEXIVON 1/4" 20-200 in-lb B07M68FY3X ✓

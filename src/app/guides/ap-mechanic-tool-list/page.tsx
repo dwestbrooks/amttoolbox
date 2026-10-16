@@ -457,8 +457,8 @@ const groups: ToolGroup[] = [
           url: 'https://www.amazon.com/Energizer-Flashlight-Inspection-Batteries-Included/dp/B0FM2YNN4G',
         },
         premium: {
-          label: 'Streamlight Knucklehead',
-          url: 'https://www.amazon.com/Streamlight-90761-Knucklehead-120-Volt-Charger/dp/B0089UZBBG',
+          label: 'Streamlight Stinger Switchblade 76800',
+          url: 'https://www.amazon.com/Streamlight-76800-Stinger-Switchblade-Flashlight/dp/B077HX6T6W',
         },
       },
       {
